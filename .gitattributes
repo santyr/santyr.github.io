@@ -1,2 +1,2 @@
-encrypt/test filter=git-crypt diff=git-crypt
+encrypt/conf filter=git-crypt diff=git-crypt
 .gitattributes !filter !diff
