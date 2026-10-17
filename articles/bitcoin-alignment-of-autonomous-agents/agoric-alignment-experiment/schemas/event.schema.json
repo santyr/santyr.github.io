@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "logical_tick": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "actor_did": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event_type": {
+      "enum": [
+        "offer",
+        "accept",
+        "fund",
+        "start",
+        "deliver",
+        "attest",
+        "contest",
+        "adjudicate",
+        "settle",
+        "expire",
+        "reset_identity",
+        "task_outcome",
+        "resource_charge",
+        "wallet_transfer"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "previous_event_digest": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "event_digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "event_id",
+    "logical_tick",
+    "sequence",
+    "actor_did",
+    "event_type",
+    "payload",
+    "previous_event_digest",
+    "event_digest"
+  ]
+}

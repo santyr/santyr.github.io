@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "agoric-mini-smoke",
+  "mode": "offline",
+  "scenario_id": "mini-smoke-v1",
+  "base_seed": 42,
+  "independent_runs": 1,
+  "agents_per_run": 2,
+  "max_contract_opportunities": 1,
+  "logical_ticks": 10,
+  "currency_unit": "simulated_sat",
+  "initial_monetary_supply": 1000,
+  "arms": [
+    "A"
+  ],
+  "strategies": {
+    "cooperative": 1,
+    "opportunistic": 1
+  },
+  "tasks": {
+    "compute": 1
+  },
+  "allow_identity_resets": false,
+  "network_access": false,
+  "use_real_funds": false,
+  "confirmation_mode": "exploratory",
+  "notes": "S0 offline smoke configuration. CLI is yet to be implemented."
+}

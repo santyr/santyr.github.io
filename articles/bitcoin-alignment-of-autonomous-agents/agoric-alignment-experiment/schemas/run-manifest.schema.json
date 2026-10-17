@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "manifest_version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "software_git_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "config_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "schema_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "treatment": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "E_collateral"
+      ]
+    },
+    "rng_algorithm": {
+      "type": "string",
+      "minLength": 1
+    },
+    "clock_mode": {
+      "const": "logical"
+    },
+    "adapter_mode": {
+      "enum": [
+        "offline",
+        "integration-local",
+        "signet",
+        "lightning-isolated",
+        "llm-sandbox",
+        "human-study"
+      ]
+    },
+    "upstream_archon_sha": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "bitcoin_network": {
+      "enum": [
+        "none",
+        "regtest",
+        "signet"
+      ]
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "running",
+        "complete",
+        "invalid",
+        "failed"
+      ]
+    },
+    "artifact_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^sha256:[a-f0-9]{64}$"
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    }
+  },
+  "required": [
+    "manifest_version",
+    "run_id",
+    "software_git_sha",
+    "config_sha256",
+    "schema_sha256",
+    "scenario_id",
+    "seed",
+    "treatment",
+    "rng_algorithm",
+    "clock_mode",
+    "adapter_mode",
+    "upstream_archon_sha",
+    "bitcoin_network",
+    "status",
+    "artifact_sha256",
+    "resources"
+  ]
+}

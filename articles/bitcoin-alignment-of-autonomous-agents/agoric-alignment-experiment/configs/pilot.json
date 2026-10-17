@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "agoric-pseudonymous-trust-pilot",
+  "mode": "offline",
+  "scenario_id": "pilot-trust-v1",
+  "base_seed": 102017,
+  "independent_runs": 20,
+  "agents_per_run": 100,
+  "max_contract_opportunities": 1200,
+  "logical_ticks": 250,
+  "currency_unit": "simulated_sat",
+  "initial_monetary_supply": 1000000,
+  "arms": [
+    "A",
+    "B",
+    "E",
+    "E_collateral"
+  ],
+  "strategies": {
+    "cooperative": 60,
+    "opportunistic": 15,
+    "short_horizon": 10,
+    "exploratory": 10,
+    "incompetent_incumbent": 5
+  },
+  "tasks": {
+    "compute": 0.55,
+    "forecast": 0.45
+  },
+  "allow_identity_resets": true,
+  "network_access": false,
+  "use_real_funds": false,
+  "confirmation_mode": "pilot",
+  "notes": "Illustrative S1/S2 pilot parameters, not preregistered confirmatory values."
+}

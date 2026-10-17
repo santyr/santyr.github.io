@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "issuer_did": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject_did": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_id": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "claim_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "issued_tick": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "disclosure": {
+      "enum": [
+        "public",
+        "selective",
+        "private"
+      ]
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "suite",
+        "key_id",
+        "value"
+      ],
+      "properties": {
+        "suite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "anchor": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "registry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "txid": {
+          "type": "string",
+          "minLength": 1
+        },
+        "batch_cid": {
+          "type": "string",
+          "minLength": 1
+        },
+        "block_hash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmation_depth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reorged": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "evidence_id",
+    "issuer_did",
+    "subject_did",
+    "contract_id",
+    "claim_type",
+    "claim",
+    "evidence_refs",
+    "issued_tick",
+    "disclosure",
+    "signature",
+    "anchor"
+  ]
+}

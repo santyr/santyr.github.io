@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "status": "draft_not_frozen",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "metric": "discounted_income_established_minus_new"
+    },
+    {
+      "id": "H2",
+      "metric": "acceptance_and_terms_label_effect"
+    },
+    {
+      "id": "H3",
+      "metric": "exploitation_loss_and_surplus"
+    },
+    {
+      "id": "H4",
+      "metric": "reset_profitability_delta"
+    },
+    {
+      "id": "H5",
+      "metric": "heldout_brier_score"
+    },
+    {
+      "id": "H6",
+      "metric": "evaluator_hhi_and_calibration"
+    },
+    {
+      "id": "H7",
+      "metric": "privacy_harm_vs_misconduct_detection"
+    },
+    {
+      "id": "H8",
+      "metric": "independent_audit_reconstruction_under_attack"
+    }
+  ],
+  "primary_outcomes": [
+    "cooperative_surplus",
+    "exploitation_loss_rate",
+    "newcomer_access"
+  ],
+  "benchmark_not_assumption": {
+    "loss_reduction_target": 0.25,
+    "max_newcomer_access_reduction": 0.1
+  }
+}

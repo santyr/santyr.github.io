@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "predictor_did": {
+      "type": "string",
+      "minLength": 1
+    },
+    "predictor_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_did": {
+      "type": "string",
+      "minLength": 1
+    },
+    "service_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of_tick": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p_fulfill": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "confidence_interval": {
+      "anyOf": [
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidence_digests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[a-f0-9]{64}$"
+      },
+      "uniqueItems": true
+    },
+    "model_parameters_digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "predictor_did",
+    "predictor_version",
+    "target_did",
+    "service_class",
+    "as_of_tick",
+    "p_fulfill",
+    "confidence_interval",
+    "evidence_digests",
+    "model_parameters_digest"
+  ]
+}

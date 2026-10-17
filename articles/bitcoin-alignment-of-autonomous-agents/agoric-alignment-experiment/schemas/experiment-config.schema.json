@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "const": "offline"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "independent_runs": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "agents_per_run": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "max_contract_opportunities": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "logical_ticks": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "currency_unit": {
+      "const": "simulated_sat"
+    },
+    "initial_monetary_supply": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "arms": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "E_collateral"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "strategies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "allow_identity_resets": {
+      "type": "boolean"
+    },
+    "network_access": {
+      "const": false
+    },
+    "use_real_funds": {
+      "const": false
+    },
+    "confirmation_mode": {
+      "enum": [
+        "exploratory",
+        "pilot",
+        "confirmatory"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "mode",
+    "scenario_id",
+    "base_seed",
+    "independent_runs",
+    "agents_per_run",
+    "max_contract_opportunities",
+    "logical_ticks",
+    "currency_unit",
+    "initial_monetary_supply",
+    "arms",
+    "strategies",
+    "tasks",
+    "allow_identity_resets",
+    "network_access",
+    "use_real_funds",
+    "confirmation_mode"
+  ]
+}
