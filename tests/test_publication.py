@@ -53,6 +53,14 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(len(goats), 1)
         self.assertEqual(goats[0]['url'], 'https://lightning-goats.com')
 
+    def test_nsec_oracle_is_listed_with_lnbits_work(self):
+        groups = yaml.safe_load((ROOT / '_data/projects.yml').read_text())
+        lnbits = next(group for group in groups if group['title'] == 'LNbits-related work')
+        oracle = [item for item in lnbits['items'] if item['title'] == 'Nsec Oracle']
+        self.assertEqual(len(oracle), 1)
+        self.assertEqual(oracle[0]['url'], 'https://github.com/lightning-goats/nsec_oracle')
+        self.assertTrue(oracle[0]['description'].strip())
+
     def test_original_twenty_research_documents(self):
         path = ROOT / '_data/research.yml'
         self.assertTrue(path.is_file())

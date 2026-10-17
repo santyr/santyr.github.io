@@ -23,6 +23,9 @@
   - title: CyberHerd Messaging
     url: https://github.com/lightning-goats/cyberherd_messaging
     description: Messaging support for the CyberHerd ecosystem.
+  - title: Nsec Oracle
+    url: https://github.com/lightning-goats/nsec_oracle
+    description: Server-side Nostr signing and encrypted messaging for LNbits, with scoped permissions, rate limits, and audit logs.
   - title: Income Report
     url: https://github.com/lightning-goats/incomereport_extension
     description: The Income Report LNbits extension.
