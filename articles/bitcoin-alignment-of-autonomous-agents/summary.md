@@ -1,0 +1,5 @@
+# Bitcoin and the Alignment of Autonomous Agents
+
+**Summary**
+
+What if Bitcoin was conceived not only as peer-to-peer money, but as part of the infrastructure for a future populated by autonomous agents of every kind? Tracing ideas from Timothy Leary and the Extropians through agoric computing, Hal Finney, Len Sassaman, and Nick Szabo, this essay argues that alignment need not mean agreement on values—or the alignment of machines *to* humanity. It can mean common, substrate-independent rules for cooperation among humans, AI, institutions, and other agents. Bitcoin combines permissionless pseudonymous participation with a publicly verifiable, persistent economic history. Anonymity allows new agents to enter freely; reputation must be earned through verifiable commitments and conduct. That combination may provide a foundation for accountability and economic alignment without a central arbiter of morality. Bitcoin does not prove the intentions of its creators or solve every problem of agency, but its architecture may anticipate a world in which intelligence is no longer exclusively human.
