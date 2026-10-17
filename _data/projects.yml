@@ -1,7 +1,7 @@
 - title: Lightning Goats & infrastructure
   items:
   - title: Lightning Goats
-    url: https://github.com/lightning-goats/lightning-goats
+    url: https://lightning-goats.com
     description: Payment accounting, feeder automation, overlay events, and Nostr messaging.
   - title: Core Lightning revenue operations
     url: https://github.com/lightning-goats/cl_revenue_ops

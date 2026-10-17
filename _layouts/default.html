@@ -26,11 +26,6 @@
       </nav>
     </div>
   </header>
-  {% if page.section == 'home' or page.section == 'essay' %}
-  <div class="hero-band">
-    <img src="{{ '/articles/bitcoin-alignment-of-autonomous-agents/hero.svg' | relative_url }}" width="1536" height="360" alt="Extropian-inspired artwork: a starfield, Earth and a blue computational grid beneath the word Extropia.">
-  </div>
-  {% endif %}
   <div class="page-shell {% if page.section == 'experiment' %}with-guide{% endif %}">
     {% if page.section == 'experiment' %}<aside class="desktop-guide" aria-label="Experiment documents">{% include research-guide.html %}</aside>{% endif %}
     <main id="main-content" class="main-content" tabindex="-1">
