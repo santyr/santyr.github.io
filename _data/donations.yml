@@ -1,0 +1,9 @@
+# Public receiving details only. QR and wallet links resolve to the same address.
+address: sat@lightning-goats.com
+name: Sat Antyr
+endpoint: https://lightning-goats.com/.well-known/lnurlp/sat
+lnurl: LNURL1DP68GURN8GHJ7MRFVA58GMNFDENJ6EM0V968XTNRDAKJ7TNHV4KXCTTTDEHHWM30D3H82UNVWQHHXCT5S8X8XH
+qr_path: /assets/donation-qr.png
+qr_width: 270
+qr_height: 270
+qr_sha256: 1037a4f145932d2412d0d57be242e64c25409fb48d2c78823629bd4364e7d988

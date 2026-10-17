@@ -1,0 +1,22 @@
+{% assign donation = site.data.donations %}
+<section id="support" class="donations" aria-labelledby="donations-heading" data-lightning-address="{{ donation.address | escape }}">
+  <div class="donations-inner">
+    <div class="donations-copy">
+      <p class="eyebrow">VALUE FOR VALUE</p>
+      <h2 id="donations-heading">Support my work</h2>
+      <p>Your donations help support independent writing, the Agoric Alignment Experiment, and open-source work across Bitcoin, Lightning, and Nostr. Thank you for helping me keep building and sharing.</p>
+      <p class="donation-address"><a data-donation-link href="lightning:{{ donation.lnurl | escape }}">{{ donation.address | escape }}</a></p>
+      <div class="donation-actions">
+        <a class="button" data-donation-link href="lightning:{{ donation.lnurl | escape }}">Donate with Lightning <span aria-hidden="true">⚡</span></a>
+        <button type="button" class="donation-copy-button" id="copy-lightning-address" hidden>Copy address</button>
+      </div>
+      <p class="donation-help">Click the address, button, or QR code to use Alby or a compatible Lightning wallet. Choose the amount and review the payment in your wallet.</p>
+      <p class="donation-help"><a href="lightning:{{ donation.lnurl | escape }}">Open another wallet</a>, or scan the code with a Lightning wallet on another device.</p>
+      <p id="donation-status" class="donation-status" role="status" aria-live="polite" aria-atomic="true"></p>
+    </div>
+    <a class="donation-qr" data-donation-link href="lightning:{{ donation.lnurl | escape }}" aria-label="Donate to {{ donation.address | escape }} with a Lightning wallet">
+      <img src="{{ donation.qr_path | relative_url }}" width="{{ donation.qr_width }}" height="{{ donation.qr_height }}" loading="lazy" decoding="async" alt="Lightning payment QR code for {{ donation.address | escape }}">
+      <span>Scan or click to donate</span>
+    </a>
+  </div>
+</section>

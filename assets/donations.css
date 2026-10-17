@@ -1,0 +1,21 @@
+/* Donation section only; preserve the existing text-only header and reading layout. */
+.donations{background:var(--surface);border-top:1px solid var(--line)}
+.donations-inner{max-width:1120px;margin:auto;padding:3.5rem 2.5rem;display:grid;grid-template-columns:minmax(0,1fr) 246px;gap:3rem;align-items:center}
+.donations-copy{min-width:0;max-width:710px}
+.donations h2{font:500 2rem/1.25 var(--serif);margin:.4rem 0 1rem;color:var(--night)}
+.donations-copy p{margin:0 0 1rem}
+.donation-address{font-weight:650;font-size:1.12rem;overflow-wrap:anywhere}
+.donation-actions{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
+.donation-actions .button{margin:0;min-height:44px}
+.donation-copy-button{font:600 .9rem/1.5 var(--sans);padding:.65rem 1rem;min-height:44px;color:var(--blue);border:1px solid var(--blue);background:transparent;cursor:pointer}
+.donation-copy-button:hover{background:#edf0e9}
+.donation-copy-button:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.donation-copy-button[hidden]{display:none}
+.donation-help,.donation-status{font-size:.87rem;line-height:1.65;color:var(--muted)}
+.donation-status{min-height:2.9em}
+.donation-qr{display:block;text-align:center;text-decoration:none;max-width:246px;color:var(--muted)}
+.donation-qr img{display:block;background:white;width:246px;height:auto;max-width:100%;border:1px solid var(--line);image-rendering:pixelated}
+.donation-qr span{display:block;font-size:.8rem;margin-top:.6rem}
+.donation-qr:hover span{text-decoration:underline}
+@media(max-width:700px){.donations-inner{grid-template-columns:1fr;gap:1rem;padding:2.5rem 1.25rem}.donation-qr{justify-self:center}.donation-address{font-size:1.03rem}.donation-status{min-height:0}}
+@media print{.donations{display:none!important}}
