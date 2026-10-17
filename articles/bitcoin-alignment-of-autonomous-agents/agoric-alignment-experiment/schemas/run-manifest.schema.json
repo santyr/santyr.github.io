@@ -3,119 +3,49 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "manifest_version": {
-      "const": "1.0"
-    },
-    "run_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "software_git_sha": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{40}$"
-    },
-    "config_sha256": {
-      "type": "string",
-      "pattern": "^sha256:[a-f0-9]{64}$"
-    },
-    "schema_sha256": {
-      "type": "string",
-      "pattern": "^sha256:[a-f0-9]{64}$"
-    },
-    "scenario_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "seed": {
-      "type": "integer",
-      "minimum": 0
-    },
-    "treatment": {
-      "enum": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "E_collateral"
-      ]
-    },
-    "rng_algorithm": {
-      "type": "string",
-      "minLength": 1
-    },
-    "clock_mode": {
-      "const": "logical"
-    },
-    "adapter_mode": {
-      "enum": [
-        "offline",
-        "integration-local",
-        "signet",
-        "lightning-isolated",
-        "llm-sandbox",
-        "human-study"
-      ]
-    },
-    "upstream_archon_sha": {
-      "anyOf": [
-        {
-          "type": "string",
-          "pattern": "^[a-f0-9]{40}$"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "bitcoin_network": {
-      "enum": [
-        "none",
-        "regtest",
-        "signet"
-      ]
-    },
-    "status": {
-      "enum": [
-        "planned",
-        "running",
-        "complete",
-        "invalid",
-        "failed"
-      ]
-    },
-    "artifact_sha256": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "string",
-        "pattern": "^sha256:[a-f0-9]{64}$"
-      }
-    },
-    "resources": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "number",
-        "minimum": 0
-      }
+    "manifest_version": {"enum": ["1.0", "1.1"]},
+    "run_id": {"type": "string", "minLength": 1},
+    "software_git_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "config_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "schema_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "seed": {"type": "integer", "minimum": 0},
+    "treatment": {"enum": ["A", "B", "C", "D", "E", "F", "E_collateral"]},
+    "rng_algorithm": {"type": "string", "minLength": 1},
+    "clock_mode": {"const": "logical"},
+    "adapter_mode": {"enum": ["offline", "archon-remote", "integration-local", "signet", "lightning-isolated", "llm-sandbox", "human-study"]},
+    "upstream_archon_sha": {"anyOf": [{"type": "string", "pattern": "^[a-f0-9]{40}$"}, {"type": "null"}]},
+    "bitcoin_network": {"enum": ["none", "regtest", "signet"]},
+    "status": {"enum": ["planned", "running", "complete", "invalid", "failed"]},
+    "artifact_sha256": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"}},
+    "resources": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+    "archon_interface": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "node_url": {"type": "string", "pattern": "^https://[^/]+/?$"},
+        "client_distribution": {"const": "archon-keymaster"},
+        "client_version": {"type": "string", "minLength": 1},
+        "client_source_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "profile_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "observation_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "server_version": {"type": ["string", "null"], "description": "Observed server version only; null when unknown. Never infer from the client source pin."}
+      },
+      "required": ["node_url", "client_distribution", "client_version", "client_source_sha", "profile_sha256", "observation_sha256", "server_version"]
     }
   },
-  "required": [
-    "manifest_version",
-    "run_id",
-    "software_git_sha",
-    "config_sha256",
-    "schema_sha256",
-    "scenario_id",
-    "seed",
-    "treatment",
-    "rng_algorithm",
-    "clock_mode",
-    "adapter_mode",
-    "upstream_archon_sha",
-    "bitcoin_network",
-    "status",
-    "artifact_sha256",
-    "resources"
+  "required": ["manifest_version", "run_id", "software_git_sha", "config_sha256", "schema_sha256", "scenario_id", "seed", "treatment", "rng_algorithm", "clock_mode", "adapter_mode", "upstream_archon_sha", "bitcoin_network", "status", "artifact_sha256", "resources"],
+  "allOf": [
+    {
+      "if": {"properties": {"adapter_mode": {"const": "archon-remote"}}},
+      "then": {
+        "properties": {"manifest_version": {"const": "1.1"}, "archon_interface": {"type": "object"}, "artifact_sha256": {"required": ["archon-observations.json"]}},
+        "required": ["archon_interface"]
+      }
+    },
+    {
+      "if": {"properties": {"manifest_version": {"const": "1.0"}}},
+      "then": {"properties": {"archon_interface": false, "adapter_mode": {"enum": ["offline", "integration-local", "signet", "lightning-isolated", "llm-sandbox", "human-study"]}}}
+    }
   ]
 }

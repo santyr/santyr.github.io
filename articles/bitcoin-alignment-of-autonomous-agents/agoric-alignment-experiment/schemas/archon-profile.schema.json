@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agoric Alignment Experiment: 4tress identity-interface profile",
+  "description": "Configuration only, not execution permission. Initial conservative smoke limits require review before expansion. The runner must independently enforce owner approval, allowlisted egress and actual node capabilities.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "profile_schema_version": {"const": "1.0"},
+    "profile_type": {"const": "archon-interface"},
+    "adapter": {"const": "archon-keymaster"},
+    "enabled": {"type": "boolean"},
+    "network_access": {"type": "boolean"},
+    "allow_writes": {"type": "boolean"},
+    "allow_payments": {"const": false},
+    "node_url": {"const": "https://4tress.org"},
+    "requested_registry": {"enum": ["hyperswarm", "BTC:signet"]},
+    "python_requirement": {"const": ">=3.12"},
+    "client_distribution": {"const": "archon-keymaster"},
+    "client_source_version": {"const": "0.7.0"},
+    "client_source_revision": {"const": "0a6ecf574a6a35175471a3342e30936336f37df6"},
+    "client_source_subdirectory": {"const": "python/keymaster"},
+    "wallet_root": {"const": "runs/private/archon"},
+    "max_concurrent_requests": {"const": 1},
+    "max_requests_per_second": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.5},
+    "max_total_requests": {"type": "integer", "minimum": 1, "maximum": 25},
+    "max_synthetic_dids": {"type": "integer", "minimum": 0, "maximum": 2},
+    "max_public_claim_assets": {"type": "integer", "minimum": 0, "maximum": 6},
+    "operation_timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 45},
+    "max_read_retries": {"type": "integer", "minimum": 0, "maximum": 1},
+    "max_write_retries": {"const": 0},
+    "independent_node_url": {"anyOf": [{"type": "null"}, {"type": "string", "pattern": "^https://[^/]+/?$"}]},
+    "live_preflight_status": {"const": "not_verified", "description": "Static profile is not runtime evidence. Save actual preflight results separately."}
+  },
+  "required": ["profile_schema_version", "profile_type", "adapter", "enabled", "network_access", "allow_writes", "allow_payments", "node_url", "requested_registry", "python_requirement", "client_distribution", "client_source_version", "client_source_revision", "client_source_subdirectory", "wallet_root", "max_concurrent_requests", "max_requests_per_second", "max_total_requests", "max_synthetic_dids", "max_public_claim_assets", "operation_timeout_seconds", "max_read_retries", "max_write_retries", "independent_node_url", "live_preflight_status"],
+  "allOf": [
+    {"if": {"properties": {"enabled": {"const": false}}}, "then": {"properties": {"network_access": {"const": false}, "allow_writes": {"const": false}}}},
+    {"if": {"properties": {"allow_writes": {"const": true}}}, "then": {"properties": {"enabled": {"const": true}, "network_access": {"const": true}}}}
+  ]
+}

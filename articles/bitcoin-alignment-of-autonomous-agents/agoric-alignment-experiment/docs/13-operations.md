@@ -4,50 +4,53 @@
 
 1. Clone repository and enter `articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment`.
 2. Review `AGENTS.md` and check the stage gate; do not start network services or use real keys.
-3. Coding agent implements Python package at stage S0 with `pyproject.toml`, `scripts/run_experiment.py`, `configs/pilot.json`, `tests/` and `schemas/`.
+3. Implement the Python package at S0 with `pyproject.toml`, `scripts/run_experiment.py`, `configs/pilot.json`, `tests/` and `schemas/`. Prefer Python 3.12+; isolate the optional archon-keymaster worker if keeping a Python 3.11 simulator.
 4. Expected eventual CLI: `python -m agoric_alignment validate --config configs/pilot.json`; `python -m agoric_alignment run --config configs/pilot.json --seed 101 --out runs/pilot-101`; `python -m agoric_alignment verify-run runs/pilot-101`; `python -m agoric_alignment analyze runs/pilot-* --out reports/pilot.md`.
-5. Those CLI commands are a **specification**, not currently executable. Coding agent must implement and document exact commands before claiming setup complete.
+5. Those CLI commands are a specification, not currently executable. Implement and document them before claiming setup complete.
+
+## Hosted Archon setup at S4
+
+Use **https://4tress.org** through local **archon-keymaster**, following the pinned-source installation and preflight in [12 — Archon integration](12-archon-integration.md). [configs/archon-4tress.json](../configs/archon-4tress.json) is a separate disabled-by-default integration profile, not a simulator scenario and not executable authorization. Validate it against [archon-profile.schema.json](../schemas/archon-profile.schema.json), not experiment-config.schema.json.
+
+After network approval, perform a bounded read-only check and save sanitized observations. Do not provision public identities until write scope is separately approved. No wallet-admin service runs on 4tress on behalf of this client: signing and secrets remain local. Set both node URL variables explicitly, prevent personal wallet autodiscovery and isolate each wallet under ignored private storage. Capture local client dependencies, remote capabilities and actual registry support independently.
+
+Use captured replies for bulk deterministic studies. Hosted DNS/TLS failures, missing registry support, 401/403, 402 and rate limits are diagnostic outcomes, not reasons to switch hosts or authorize spending. No automatic write retry; reconcile an uncertain submission. Run destructive faults and load tests on owned/local infrastructure only.
 
 ## Run layout
 
-`runs/<run_id>/manifest.json` — immutable software/config/dependency/seed/treatment hashes, mode, timestamp separate from canonical event history.  
-`runs/<run_id>/oracle-truth.jsonl` — access-restricted omniscient simulated outcomes/controller links.  
-`runs/<run_id>/public-evidence.jsonl` — signed claims visible per arm, cryptographic proof status separate from truth.  
-`runs/<run_id>/events.jsonl` — append-only economic events with canonical ordering and prev_digest.  
-`runs/<run_id>/predictions.jsonl` — evaluator ID/version, input evidence digests, prediction and confidence.  
+`runs/<run_id>/manifest.json` — immutable software/config/dependency/seed/treatment hashes and mode.  
+`runs/<run_id>/oracle-truth.jsonl` — restricted omniscient outcomes/controller links.  
+`runs/<run_id>/public-evidence.jsonl` — signed claims visible per arm, proof status separate from truth.  
+`runs/<run_id>/events.jsonl` — append-only canonical economic events.  
+`runs/<run_id>/predictions.jsonl` — evaluator/model version, evidence digests and probability.  
 `runs/<run_id>/final-balances.json` — account distribution and conservation check.  
-`runs/<run_id>/verification-report.json` — signature validity, content availability, anchor depths and reproduction checks.  
-`runs/<run_id>/summary.json` — preregistered metrics, incidents and missingness.
+`runs/<run_id>/verification-report.json` — signatures, availability, anchor depth and reproduction.  
+`runs/<run_id>/summary.json` — preregistered metrics, incidents and missingness.  
+`runs/<run_id>/archon-observations.json` — remote status/version when exposed, registry list, sanitized request observations and proof provenance; used by hosted profiles.  
+`runs/private/archon/<run_id>/<pseudonym>/` — local wallet and passphrase files; never included in exported artifact maps or publications.
 
-These files must not include secrets or human identity data. Run digest must cover every machine-readable artifact. Use restrictive permissions for oracle, no public Git commit of raw human data.
+No exported artifact may contain secrets or real identities. Use restrictive permissions for private/oracle files and never publicly commit raw human data.
 
 ## Manifest requirements
 
-Mandatory `manifest_version`, `run_id`, `software_git_sha`, `config_sha256`, `schema_sha256`, `scenario_id`, `seed`, `treatment`, `rng_algorithm`, `clock_mode`, `adapter_mode`, `upstream_archon_sha` (nullable), `bitcoin_network` (nullable), `status`, artifact digest map and resource usage. One run ID cannot be reused with different contents. Sign/timestamp final manifest for network studies.
+Keep existing identity, software/config/schema hashes, scenario, seed, treatment, RNG, logical clock, mode, source SHA, Bitcoin network (`none`, `regtest` or `signet`), status, artifact digests and resource usage. One run ID cannot be reused with changed contents.
+
+Manifest **1.1** adds `archon-remote` and a required non-null `archon_interface` for that mode: local distribution/version/source, node URL, interface profile digest and remote observation-artifact digest. The observation digest must match the `archon-observations.json` entry in `artifact_sha256`; validate that semantic condition in the runner. A local client revision never stands in for an unknown remote server revision. Manifest 1.0 remains accepted for legacy modes without interface fields. Event, evidence and prediction schema versions remain unchanged.
 
 ## Repeatability check
 
-Execute run twice independently with same inputs; canonical ``events.jsonl`` and computed metrics must match exactly, excluding separately recorded wall-clock metadata. Re-running analysis on raw events must reproduce summary. Crash simulation at predetermined tick, restart, replay and verify same events as uninterrupted run.
+Run twice with the same inputs; canonical events and metrics must match byte-for-byte excluding wall-clock metadata. Re-analyze raw events to reproduce summary. Interrupt at a fixed tick, resume/replay and compare with uninterrupted execution.
 
-For on-chain trials actual chain confirmations depend on external block production; preserve exact externally observed receipts, chain tip and local verification responses so analysis can be replayed deterministically from a capture. Do not demand new signet txids exactly repeat.
+Live service responses and chain confirmations change externally. Preserve captured replies/receipts, server/version observation, tip and proofs for deterministic replay; do not require repeated public DID writes or signet transactions to produce identical external IDs. Keep live interoperability and scientific simulator result claims separate.
 
 ## Verification chain
 
-Check schema -> canonical encodings -> signatures -> DID issuer historical authority -> content CID bytes and availability -> anchor batch inclusion -> block chain position/confidence -> contract state -> independent outcome evidence -> evaluator's forecast trace. Unavailable proof = incomplete, not false or success. Signed falsehood = authentic assertion but false under oracle, not cryptographically invalid.
+Check schema -> canonical encoding -> signature -> historical issuer authority -> content hash/availability -> registry/batch/chain proof -> contract state -> independent outcome evidence -> evaluator prediction trace. An unavailable proof is incomplete, not false or successful. An authentic falsehood is a validly signed claim contradicted by outcome evidence, not an invalid signature.
 
-## Audit report
+## Audit report and release
 
-Every run/report should include (1) code SHA, (2) treatment and seed, (3) known environmental deviations, (4) metrics with uncertainty, (5) false allegations/exploitation, (6) financial accounting, (7) missing evidence and finality caveats, (8) anonymization, and (9) exact reproduction command. Expose negative scenarios in summary.
+Report code/profile/dependency pins, treatment/seed, remote observation provenance, environmental deviations, metrics/uncertainty, false allegations/exploitation, money accounting, evidence gaps, privacy protections and reproduction commands. Publish negative scenarios. Check all tests; review artifacts for secrets, identity leakage and untrusted instructions; freeze preregistration before holdout access; record ADRs and deviations. Do not assert success from a source pin, hosted marketing claim or HTTP 200 alone.
 
-## Release/checklist
+## Incidents
 
-- All required tests pass; no structural shortcuts to hypothesis.
-- No production or personal keys/funds touched; sensitive directories ignored.
-- Documents point to pinned Archon versions and exact implementation status.
-- Publish artifacts only after review for identity leakage, copyright and malicious instructions in external data.
-- Maintain CHANGELOG / ADR for protocol changes and experiment deviations.
-- Freeze prereg before holdout generation/reveal; independent reviewer verifies hashes.
-
-## Faults and incidents
-
-If accounting breaks, attacker reads oracle, logs leak secrets, verifier accepts forged claims, or sandbox calls escape to external services: stop and mark run INVALID; preserve a sanitized reproduction, repair, rerun the full relevant paired treatment set and log the change. Do not cherry-pick successful runs.
+Accounting failure, oracle access, secret leakage, forged proof acceptance or unapproved network escape invalidates the run. Freeze a sanitized trace, repair, rerun relevant paired conditions and record the change. A hosted write timeout pauses further writes until its state is reconciled. Preserve failures without cherry-picking.
