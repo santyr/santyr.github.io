@@ -1,0 +1,28 @@
+- title: Lightning Goats & infrastructure
+  items:
+  - title: Lightning Goats
+    url: https://github.com/lightning-goats/lightning-goats
+    description: Payment accounting, feeder automation, overlay events, and Nostr messaging.
+  - title: Core Lightning revenue operations
+    url: https://github.com/lightning-goats/cl_revenue_ops
+    description: Routing economics, fee management, rebalancing, and channel profitability.
+  - title: Nostr Stream
+    url: https://github.com/lightning-goats/nostr-stream
+    description: The Lightning Goats streaming project.
+- title: LNbits-related work
+  items:
+  - title: Lightning Goats extension catalogue
+    url: https://github.com/lightning-goats/lnbits-extensions
+    description: A shared installation source for the Lightning Goats LNbits extensions.
+  - title: Lightning Goats extension
+    url: https://github.com/lightning-goats/lightning_goats_extension
+    description: Lightning payments connected to automated feeding and OpenHAB.
+  - title: CyberHerd extension
+    url: https://github.com/lightning-goats/cyberherd_extension
+    description: The CyberHerd LNbits extension repository.
+  - title: CyberHerd Messaging
+    url: https://github.com/lightning-goats/cyberherd_messaging
+    description: Messaging support for the CyberHerd ecosystem.
+  - title: Income Report
+    url: https://github.com/lightning-goats/incomereport_extension
+    description: The Income Report LNbits extension.

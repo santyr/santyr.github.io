@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: site.title | escape }} · {{ site.title | escape }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <meta name="theme-color" content="#102b44">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="{% if page.section == 'essay' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+  <meta property="og:description" content="{{ page.description | default: site.description | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+</head>
+<body class="section-{{ page.section | default: 'publication' }}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="{{ '/' | relative_url }}">SAT ANTYR <span>open systems / open futures</span></a>
+      <nav aria-label="Main navigation">
+        <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}">Essay</a>
+        <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}">Experiment</a>
+        <a href="#related-work">Other work</a>
+        <a href="https://github.com/santyr">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+  {% if page.section == 'home' or page.section == 'essay' %}
+  <div class="hero-band">
+    <img src="{{ '/articles/bitcoin-alignment-of-autonomous-agents/hero.svg' | relative_url }}" width="1536" height="360" alt="Extropian-inspired artwork: a starfield, Earth and a blue computational grid beneath the word Extropia.">
+  </div>
+  {% endif %}
+  <div class="page-shell {% if page.section == 'experiment' %}with-guide{% endif %}">
+    {% if page.section == 'experiment' %}<aside class="desktop-guide" aria-label="Experiment documents">{% include research-guide.html %}</aside>{% endif %}
+    <main id="main-content" class="main-content" tabindex="-1">
+      {% if page.section == 'experiment' %}
+      <p class="eyebrow">THE AGORIC ALIGNMENT EXPERIMENT</p>
+      <p class="status-note">Research specification · Implementation and evaluation pending. No experimental findings are claimed.</p>
+      <details class="mobile-guide"><summary>Browse the research guide</summary>{% include research-guide.html %}</details>
+      {% elsif page.section == 'essay' %}<p class="eyebrow">ESSAY / SAT ANTYR</p>{% endif %}
+      <div class="prose">{{ content }}</div>
+      {% if page.path %}<p class="source-link"><a href="https://github.com/santyr/santyr.github.io/blob/main/{{ page.path }}">View the source on GitHub ↗</a></p>{% endif %}
+    </main>
+  </div>
+  {% include related-work.html %}
+  <footer class="site-footer"><p>Sat Antyr · Ideas to examine. Systems to test. Futures to build.</p><p><a href="https://github.com/santyr/santyr.github.io">Site source</a> · <a href="{{ '/' | relative_url }}">Back to home</a></p></footer>
+</body>
+</html>

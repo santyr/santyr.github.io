@@ -1,0 +1,40 @@
+- title: 00 / Charter
+  file: 00-charter.html
+- title: 01 / Intellectual lineage
+  file: 01-intellectual-lineage.html
+- title: 02 / Preregistration
+  file: 02-preregistration.html
+- title: 03 / Experimental design
+  file: 03-experimental-design.html
+- title: 04 / Economy & agents
+  file: 04-economy-and-agents.html
+- title: 05 / Architecture
+  file: 05-architecture.html
+- title: 06 / Evidence & identity
+  file: 06-evidence-and-identity.html
+- title: 07 / Reputation & incentives
+  file: 07-reputation-and-incentives.html
+- title: 08 / Adversarial suite
+  file: 08-adversarial-suite.html
+- title: 09 / Metrics & analysis
+  file: 09-metrics-and-analysis.html
+- title: 10 / Security & ethics
+  file: 10-security-and-ethics.html
+- title: 11 / Stage gates
+  file: 11-stage-gates.html
+- title: 12 / Archon integration
+  file: 12-archon-integration.html
+- title: 13 / Operations
+  file: 13-operations.html
+- title: 14 / References
+  file: 14-references.html
+- title: 15 / Open questions
+  file: 15-open-questions.html
+- title: 16 / Implementation backlog
+  file: 16-implementation-backlog.html
+- title: 17 / Data contracts
+  file: 17-data-contracts.html
+- title: 18 / Agent handoff
+  file: 18-agent-handoff.html
+- title: 19 / Scenarios
+  file: 19-scenarios.html

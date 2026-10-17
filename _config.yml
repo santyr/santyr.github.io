@@ -1,0 +1,49 @@
+title: Sat Antyr
+description: Essays and experiments in alignment, autonomy, Bitcoin, and open systems.
+url: https://santyr.github.io
+baseurl: ""
+lang: en
+repository: santyr/santyr.github.io
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-relative-links
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+  - jekyll-sitemap
+relative_links:
+  enabled: true
+readme_index:
+  enabled: true
+  remove_originals: false
+titles_from_headings:
+  enabled: true
+  strip_title: false
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      section: publication
+  - scope:
+      path: articles/bitcoin-alignment-of-autonomous-agents/article.md
+    values:
+      section: essay
+      description: Bitcoin, pseudonymous identity, and earned reputation as foundations for cooperation among autonomous agents of every substrate.
+  - scope:
+      path: articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment
+    values:
+      section: experiment
+      description: Research design, historical context, and implementation specifications for the Agoric Alignment Experiment.
+exclude:
+  - .git-crypt
+  - .config.key
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - tests
+  - PUBLISHING.md
+  - publication-requirements.txt

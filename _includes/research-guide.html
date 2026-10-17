@@ -1,0 +1,13 @@
+{% assign research_base = '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' %}
+<nav class="research-guide" aria-label="Research guide">
+  <p class="guide-title">RESEARCH GUIDE</p>
+  <a href="{{ research_base | relative_url }}">Overview & document map</a>
+  <a href="{{ research_base | append: 'AGENTS.html' | relative_url }}">Instructions for coding agents</a>
+  <ol>
+  {% for doc in site.data.research %}
+    {% assign doc_url = research_base | append: 'docs/' | append: doc.file %}
+    <li><a href="{{ doc_url | relative_url }}"{% if page.url == doc_url %} aria-current="page"{% endif %}>{{ doc.title }}</a></li>
+  {% endfor %}
+  </ol>
+  <a class="guide-source" href="https://github.com/santyr/santyr.github.io/tree/main/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment">Research source & templates ↗</a>
+</nav>
