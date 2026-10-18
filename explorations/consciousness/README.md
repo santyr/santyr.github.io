@@ -1,24 +1,28 @@
 ---
 layout: default
-title: Explorations of Consciousness
+title: Explorations in Consciousness
 section: publication
-description: Essays and research hypotheses examining perception, experience, cognition, and the nature of awareness.
+exploration: consciousness
+permalink: /explorations/consciousness/
+description: Essays on perception, awareness, and the distinction between an experience and the explanation we give it.
 ---
 
-# Explorations of Consciousness
+# Explorations in Consciousness
 
-*Phenomenology, cognitive science, contemplative inquiry, and the generative nature of perception.*
+*Phenomenology, cognitive science, and contemplative inquiry.*
 
-This collection brings together independent explorations of consciousness: first-person observations, falsifiable hypotheses, and relevant scientific research. The aim is neither to reduce unusual experiences to mere anomalies nor to mistake the explanations offered within them for verified external facts. Each essay distinguishes subjective observation from established evidence and speculative mechanisms.
+How does a mind construct an experienced world, recognize meaning, and distinguish its own models from the things those models represent? These essays begin with observations and questions, then bring them into conversation with scientific research and contemplative practice. The aim is to take unusual experiences seriously without treating the explanations offered within them as verified facts.
 
 ## Essays
 
-### [The Unreadable Language of Perception](the-unreadable-language-of-perception.md)
+### [The Unreadable Language of Perception]({{ '/explorations/consciousness/the-unreadable-language-of-perception.html' | relative_url }})
 
 *DMT, alien glyphs, repeating worlds, and the generative nature of consciousness — October 2026.*
 
-Why do unfamiliar symbols look so convincingly like language while remaining unreadable? How can generated details seem attached to physical surfaces, or distinct clouds and trees appear identical? This essay develops the **Constrained Generative Perception Hypothesis**, connecting firsthand phenomenology to visual neuroscience, psychedelic art, the Project Serpo glyphs, and the claims of the DMT laser experiment.
+Unfamiliar symbols seem embedded in fabric and skin. Clouds and trees appear to share identical forms, while the ground becomes patterned like a tiled landscape. Beginning with these firsthand observations, this essay develops the **Constrained Generative Perception Hypothesis** and asks why a mind can encounter something that looks unmistakably like language yet cannot be read. Four explanatory graphics accompany the discussion of visual neuroscience, visionary art, Project Serpo, the DMT laser experiment, and apparent communication.
 
-[Read the full essay](the-unreadable-language-of-perception.md) · [Read the underlying references](the-unreadable-language-of-perception.md#references-and-further-reading)
+[Read the essay]({{ '/explorations/consciousness/the-unreadable-language-of-perception.html' | relative_url }}) · [Working hypothesis]({{ '/explorations/consciousness/the-unreadable-language-of-perception.html#working-hypothesis' | relative_url }}) · [References]({{ '/explorations/consciousness/the-unreadable-language-of-perception.html#references-and-further-reading' | relative_url }})
 
-These are exploratory research essays rather than claims that psychedelic experiences establish hidden external languages, independent entities, or a simulated universe.
+These are working hypotheses rather than completed experimental findings. First-person observations, measured results, explanatory models, and metaphysical interpretations remain distinct throughout the collection.
+
+[Back to the homepage]({{ '/' | relative_url }})

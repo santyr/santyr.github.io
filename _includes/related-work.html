@@ -1,17 +1,33 @@
 <section id="related-work" class="related-work" aria-labelledby="related-heading">
   <div class="related-inner">
-    <p class="eyebrow">BEYOND THE ESSAY & EXPERIMENT</p>
+    <p class="eyebrow">BEYOND THE ESSAY &amp; EXPERIMENT</p>
     <h2 id="related-heading">Other open-source work</h2>
-    <p class="related-intro">Explorations of perception and consciousness, alongside Bitcoin, Lightning, Nostr, and practical automation.</p>
+    <p class="related-intro">Projects connecting Bitcoin, Lightning, Nostr, and practical automation, followed by explorations of perception and consciousness.</p>
     <div class="project-groups">
-    {% for group in site.data.projects %}
-      <section class="project-group"><h3>{% if group.url %}<a class="project-group-link" href="{{ group.url }}">{{ group.title }} <span aria-hidden="true">→</span></a>{% else %}{{ group.title }}{% endif %}</h3>
-      {% for project in group.items %}
-        <div class="project"><a href="{{ project.url }}">{{ project.title }} ↗</a><p>{{ project.description }}</p></div>
-      {% endfor %}
+      {% for group in site.data.projects %}
+      {% unless group.kind == 'exploration' %}
+      <section class="project-group">
+        <h3>{{ group.title | escape }}</h3>
+        {% for project in group.items %}
+        <div class="project"><a href="{{ project.url | escape }}">{{ project.title | escape }} <span aria-hidden="true">↗</span></a><p>{{ project.description | escape }}</p></div>
+        {% endfor %}
       </section>
-    {% endfor %}
+      {% endunless %}
+      {% endfor %}
     </div>
     <p class="all-projects"><a href="https://github.com/lightning-goats">All Lightning Goats repositories ↗</a> <span>·</span> <a href="https://github.com/santyr">More work by santyr ↗</a></p>
+    {% for group in site.data.projects %}
+    {% if group.kind == 'exploration' %}
+    <section id="consciousness" class="consciousness-exploration" aria-labelledby="consciousness-heading">
+      <p class="eyebrow">PERCEPTION / EXPERIENCE / AWARENESS</p>
+      <h3 id="consciousness-heading"><a href="{{ group.url | relative_url }}">{{ group.heading | default: group.title | escape }} <span aria-hidden="true">→</span></a></h3>
+      <p>First-person observations, scientific models, and questions about how a mind constructs its experienced world.</p>
+      {% for project in group.items %}
+      <div class="project"><a href="{{ project.url | relative_url }}">{{ project.title | escape }} <span aria-hidden="true">→</span></a><p>{{ project.description | escape }}</p></div>
+      {% endfor %}
+      <p class="collection-link"><a href="{{ group.url | relative_url }}">Browse the consciousness essays</a></p>
+    </section>
+    {% endif %}
+    {% endfor %}
   </div>
 </section>

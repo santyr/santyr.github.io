@@ -1,9 +1,3 @@
-- title: Explorations of consciousness
-  url: https://santyr.github.io/explorations/consciousness/
-  items:
-  - title: The Unreadable Language of Perception
-    url: https://santyr.github.io/explorations/consciousness/the-unreadable-language-of-perception.html
-    description: An illustrated, referenced exploration of DMT, unreadable glyphs, generative perception, and the neuroscience of meaning.
 - title: Lightning Goats & infrastructure
   items:
   - title: Lightning Goats
@@ -35,3 +29,11 @@
   - title: Income Report
     url: https://github.com/lightning-goats/incomereport_extension
     description: The Income Report LNbits extension.
+- title: Explorations of consciousness
+  heading: Explorations in Consciousness
+  kind: exploration
+  url: /explorations/consciousness/
+  items:
+  - title: The Unreadable Language of Perception
+    url: /explorations/consciousness/the-unreadable-language-of-perception.html
+    description: An illustrated, referenced essay on DMT, unreadable glyphs, repeated worlds, and the generative nature of perception.
