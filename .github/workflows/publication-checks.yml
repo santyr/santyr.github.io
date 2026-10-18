@@ -1,14 +1,10 @@
 name: Publication verification
 on:
   push:
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types: [completed]
 permissions:
   contents: read
 jobs:
   generated-site:
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -28,12 +24,14 @@ jobs:
       - name: Check generated pages, graphics, links, and anchors
         run: python tests/verify_publication.py --site _site
   deployed-site:
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    # Branch-based Pages deployments do not reliably emit workflow_run events.
+    # Verify from a separate read-only runner after the main-branch build check.
+    if: github.ref == 'refs/heads/main'
+    needs: generated-site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
           persist-credentials: false
       - name: Verify public HTTP pages after deployment
         run: python tests/verify_publication.py --attempts 10
