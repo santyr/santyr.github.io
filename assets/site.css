@@ -6,3 +6,12 @@
 @media(max-width:640px){body{font-size:16px}.header-inner{padding:1.1rem 1.25rem;display:block}.site-header nav{margin-top:1rem;gap:1.2rem;font-size:.8rem}.wordmark{font-size:.96rem}.page-shell,.section-home .page-shell,.with-guide{width:calc(100% - 2.5rem);padding:2.2rem 0}.hero-band img{min-height:110px;object-fit:cover}.prose h1,.section-experiment .prose h1{font-size:2.05rem}.home-intro h1{font-size:2.5rem}.lead{font-size:1.1rem}.publication-grid,.project-groups{grid-template-columns:1fr;gap:1.3rem}.publication-card{padding:1.5rem}.section-essay .prose{font-size:1.1rem;line-height:1.8}.prose h2{font-size:1.4rem}.related-inner{padding:2.5rem 1.25rem}.site-footer{padding:1.5rem 1.25rem;display:block}.site-footer p+p{margin-top:.6rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{body{background:white;color:black;font-size:11pt}.site-header,.hero-band,.desktop-guide,.mobile-guide,.related-work,.site-footer,.source-link,.skip-link{display:none!important}.page-shell,.section-home .page-shell,.with-guide{display:block;width:100%;max-width:none;margin:0;padding:0}.section-essay .prose{font-size:11pt}.prose h2,.prose h3{break-after:avoid}.prose pre,.prose blockquote{break-inside:avoid}.prose table{display:table;font-size:9pt}.prose a{color:inherit}}
+
+/* Consciousness explorations: restrained, accessible conceptual figures. */
+.research-figure{margin:2rem 0 2.3rem;padding:.8rem;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold)}
+.research-figure img{display:block;width:100%;height:auto}
+.research-figure figcaption{font: .81rem/1.6 var(--sans);color:var(--muted);margin:.7rem .55rem .2rem}
+.project-group-link{color:var(--night);text-decoration:none}
+.project-group-link:hover{text-decoration:underline}
+@media(max-width:640px){.research-figure{margin:1.5rem -0.25rem;padding:.3rem}.research-figure figcaption{font-size:.77rem}}
+@media print{.research-figure{break-inside:avoid;border:1px solid #aaa}}

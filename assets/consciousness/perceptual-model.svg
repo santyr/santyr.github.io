@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">A conceptual architecture of generative perception</title>
+<desc id="desc">Physical evidence and internal models interact to produce experienced scenes. Lower panels distinguish apparent glyphs anchored to surfaces, repeated object appearances in natural spatial positions, and repeated spatial texture patterns. This is a hypothesis, not an established neural pathway.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#17577b" stroke-width="1.7"/></marker>
+  <pattern id="weave" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M0 0V28 M0 0H28" stroke="#becdce" stroke-width="1.3"/></pattern>
+  <g id="cloud" stroke="#17577b" stroke-width="2" fill="#dbe6e8"><path d="M-32 12C-47 10-49-8-35-14C-31-32-7-35 2-18C19-25 34-14 34 0C49 4 45 19 32 21H-25C-33 21-37 16-32 12Z"/></g>
+  <g id="rock"><path d="M-11 9L-6-4L7-8L14 9Z" fill="#dbe6e8" stroke="#17577b" stroke-width="1.8"/></g>
+</defs>
+<rect width="1200" height="650" rx="20" fill="#fffef9"/>
+<path d="M32 84H1168" stroke="#e1e7e2"/>
+<text x="42" y="44" fill="#102b44" font-family="system-ui,sans-serif" font-size="25" font-weight="700">Constrained generative perception</text>
+<text x="42" y="68" fill="#5a6872" font-family="system-ui,sans-serif" font-size="14">Proposed relationships between incoming evidence, internal representations, and perceived scenes</text>
+<g font-family="system-ui,sans-serif">
+  <rect x="42" y="110" width="326" height="141" rx="13" fill="#eff2ef" stroke="#d0d9d7"/>
+  <text x="62" y="141" fill="#17577b" font-size="13" letter-spacing="1.8" font-weight="700">SENSORY EVIDENCE</text>
+  <text x="62" y="173" fill="#102b44" font-size="22" font-weight="600">The encountered scene</text>
+  <text x="62" y="202" fill="#4b6070" font-size="16">Light, texture, edges, motion,</text>
+  <text x="62" y="225" fill="#4b6070" font-size="16">viewpoint changes</text>
+  <rect x="437" y="110" width="326" height="141" rx="13" fill="#ebf1f2" stroke="#9bbcc5" stroke-width="1.5"/>
+  <text x="457" y="141" fill="#17577b" font-size="13" letter-spacing="1.8" font-weight="700">PERCEPTUAL INFERENCE</text>
+  <text x="457" y="173" fill="#102b44" font-size="22" font-weight="600">An updating world model</text>
+  <text x="457" y="202" fill="#4b6070" font-size="16">Learned structure, generated</text>
+  <text x="457" y="225" fill="#4b6070" font-size="16">activity, expectation, revision</text>
+  <rect x="832" y="110" width="326" height="141" rx="13" fill="#eff2ef" stroke="#d0d9d7"/>
+  <text x="852" y="141" fill="#17577b" font-size="13" letter-spacing="1.8" font-weight="700">EXPERIENCED WORLD</text>
+  <text x="852" y="173" fill="#102b44" font-size="22" font-weight="600">A coherent percept</text>
+  <text x="852" y="202" fill="#4b6070" font-size="16">May include generated details</text>
+  <text x="852" y="225" fill="#4b6070" font-size="16">experienced as surface or scene</text>
+  <path d="M372 177H428" stroke="#17577b" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M767 177H823" stroke="#17577b" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M600 256V293" stroke="#b89651" stroke-width="2.5"/>
+  <path d="M210 293H991" stroke="#b89651" stroke-width="2.5"/>
+  <path d="M210 293V322M600 293V322M991 293V322" stroke="#b89651" stroke-width="2.5"/>
+  <text x="42" y="337" font-size="12" fill="#4b6070" letter-spacing="1.6" font-weight="700">ILLUSTRATIVE MANIFESTATIONS — NOT VERIFIED NEURAL MECHANISMS</text>
+  <g>
+    <rect x="42" y="355" width="342" height="247" rx="12" fill="#f4f7f5" stroke="#d0d9d7"/>
+    <text x="61" y="385" font-size="18" font-weight="650" fill="#102b44">1 · Object-anchored marks</text>
+    <rect x="68" y="406" width="289" height="110" rx="4" fill="url(#weave)" stroke="#bdcccd"/>
+    <g font-size="34" font-family="Georgia,serif" fill="#17577b" opacity=".92">
+      <text x="108" y="448">ᛟ</text><text x="195" y="490">⌁</text><text x="277" y="450">⋔</text>
+    </g>
+    <text x="61" y="547" fill="#4b6070" font-size="15">Generated glyphs may seem bound</text>
+    <text x="61" y="568" fill="#4b6070" font-size="15">to moving fabric or skin.</text>
+  </g>
+  <g>
+    <rect x="429" y="355" width="342" height="247" rx="12" fill="#f4f7f5" stroke="#d0d9d7"/>
+    <text x="449" y="385" font-size="18" font-weight="650" fill="#102b44">2 · Repeated appearances</text>
+    <g transform="translate(502 448) scale(.76)"><use href="#cloud"/></g>
+    <g transform="translate(669 430) scale(.76)"><use href="#cloud"/></g>
+    <g transform="translate(604 493) scale(.76)"><use href="#cloud"/></g>
+    <text x="449" y="547" fill="#4b6070" font-size="15">Similar objects can seem identical</text>
+    <text x="449" y="568" fill="#4b6070" font-size="15">at naturally irregular positions.</text>
+  </g>
+  <g>
+    <rect x="816" y="355" width="342" height="247" rx="12" fill="#f4f7f5" stroke="#d0d9d7"/>
+    <text x="836" y="385" font-size="18" font-weight="650" fill="#102b44">3 · Repeated arrangements</text>
+    <g transform="translate(856 443)"><use href="#rock"/><use href="#rock" x="66"/><use href="#rock" x="132"/><use href="#rock" x="198"/><use href="#rock" y="52"/><use href="#rock" x="66" y="52"/><use href="#rock" x="132" y="52"/><use href="#rock" x="198" y="52"/></g>
+    <g stroke="#b89651" stroke-width="1.5" opacity=".7"><path d="M843 468H1126M843 518H1126" stroke-dasharray="3 7"/></g>
+    <text x="836" y="547" fill="#4b6070" font-size="15">Terrain and small objects may</text>
+    <text x="836" y="568" fill="#4b6070" font-size="15">seem spatially tiled or periodic.</text>
+  </g>
+  <text x="42" y="629" fill="#5a6872" font-size="13">Model illustration • shared visual architecture is a hypothesis to test, not a demonstrated cause of these experiences.</text>
+</g>
+</svg>

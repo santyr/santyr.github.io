@@ -39,6 +39,25 @@ class PublicationTests(unittest.TestCase):
             self.assertIn(url, urls)
         self.assertEqual(len(urls), len(set(urls)))
 
+    def test_consciousness_exploration_is_published(self):
+        essay = ROOT / 'explorations/consciousness/the-unreadable-language-of-perception.md'
+        landing = ROOT / 'explorations/consciousness/README.md'
+        diagram = ROOT / 'assets/consciousness/perceptual-model.svg'
+        self.assertTrue(essay.is_file())
+        self.assertTrue(landing.is_file())
+        self.assertTrue(diagram.is_file())
+        text = essay.read_text()
+        self.assertIn('Constrained Generative Perception Hypothesis', text)
+        self.assertIn('## Summary', text)
+        self.assertIn('References and further reading', text)
+        self.assertIn("perceptual-model.svg", text)
+        self.assertIn("The Unreadable Language of Perception", landing.read_text())
+        self.assertIn('<svg', diagram.read_text())
+        groups = yaml.safe_load((ROOT / '_data/projects.yml').read_text())
+        category = next(g for g in groups if g['title'] == 'Explorations of consciousness')
+        self.assertIn('explorations/consciousness/', category['url'])
+        self.assertTrue(any('the-unreadable-language-of-perception.html' in item['url'] for item in category['items']))
+
     def test_header_graphic_is_not_rendered(self):
         body = (ROOT / '_layouts/default.html').read_text()
         self.assertNotIn('class="hero-band"', body)

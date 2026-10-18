@@ -7,12 +7,14 @@ This is a static publication layer. It does not implement or execute the Agoric 
 - Home: https://santyr.github.io/
 - Essay: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/article.html
 - Experiment: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/
+- Consciousness explorations: https://santyr.github.io/explorations/consciousness/
+- The Unreadable Language of Perception: https://santyr.github.io/explorations/consciousness/the-unreadable-language-of-perception.html
 
 ## Single-source content
 
-Edit the existing article.md, summary.md, experiment README.md, AGENTS.md, and docs/*.md. They remain usable on GitHub and for separate Nostr publication. Do not copy article text into HTML. GitHub Pages uses Jekyll's supported optional-front-matter, relative-links, readme-index, and titles-from-headings plugins. README pages become directory indexes; other Markdown documents become .html pages. Relative Markdown links are rewritten during the build.
+Edit the existing article.md, summary.md, experiment README.md, AGENTS.md, docs/*.md, and explorations/consciousness/*.md. They remain usable on GitHub and for separate Nostr publication. Do not copy article text into HTML. GitHub Pages uses Jekyll's supported optional-front-matter, relative-links, readme-index, and titles-from-headings plugins. README pages become directory indexes; other Markdown documents become .html pages. Relative Markdown links are rewritten during the build.
 
-Edit _data/projects.yml for related projects and _data/research.yml for the research navigation. The latter lists the original twenty documents. Update its entries when deliberately adding or renaming research documents. Related work appears after each page's primary content via _includes/related-work.html.
+Edit _data/projects.yml for related projects and new exploration sections and _data/research.yml for the research navigation. The latter lists the original twenty documents. Update its entries when deliberately adding or renaming research documents. Related work appears after each page's primary content via _includes/related-work.html.
 
 ## Build and verify
 
