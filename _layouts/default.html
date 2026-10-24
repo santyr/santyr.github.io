@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/donations.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/consciousness.css?v=20261018-r2' | relative_url }}">
+  {% if page.marketplace %}<link rel="stylesheet" href="{{ '/assets/agoric-work-marketplace.css' | relative_url }}">{% endif %}
   <script src="{{ '/assets/donations.js' | relative_url }}" defer></script>
 </head>
 <body class="section-{{ page.section | default: 'publication' }}">
@@ -27,6 +28,7 @@
       <nav aria-label="Main navigation">
         <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}">Essay</a>
         <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}">Experiment</a>
+        <a href="{{ '/projects/agoric-work-marketplace/' | relative_url }}">Work marketplace</a>
         <a href="#related-work">Other work</a>
         <a href="#support">Support</a>
         <a href="https://github.com/santyr">GitHub ↗</a>
@@ -36,6 +38,9 @@
   <div class="page-shell {% if page.section == 'experiment' %}with-guide{% endif %}">
     {% if page.section == 'experiment' %}<aside class="desktop-guide" aria-label="Experiment documents">{% include research-guide.html %}</aside>{% endif %}
     <main id="main-content" class="main-content" tabindex="-1">
+      {% if page.marketplace %}
+      <nav class="exploration-breadcrumb" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true"> / </span><a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}">Agoric Alignment</a><span aria-hidden="true"> / </span><span aria-current="page">Work Marketplace</span></nav>
+      {% endif %}
       {% if page.exploration == 'consciousness' %}
       <nav class="exploration-breadcrumb" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true"> / </span>{% if page.url == '/explorations/consciousness/' %}<span aria-current="page">Explorations in Consciousness</span>{% else %}<a href="{{ '/explorations/consciousness/' | relative_url }}">Explorations in Consciousness</a>{% endif %}</nav>
       {% endif %}
