@@ -7,12 +7,13 @@ This is a static publication layer. It does not implement or execute the Agoric 
 - Home: https://santyr.github.io/
 - Essay: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/article.html
 - Experiment: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/
+- Independent Agoric Work Marketplace: https://santyr.github.io/projects/agoric-work-marketplace/
 - Consciousness explorations: https://santyr.github.io/explorations/consciousness/
 - The Unreadable Language of Perception: https://santyr.github.io/explorations/consciousness/the-unreadable-language-of-perception.html
 
 ## Single-source content
 
-Edit the existing article.md, summary.md, experiment README.md, AGENTS.md, docs/*.md, and explorations/consciousness/*.md. They remain usable on GitHub and for separate Nostr publication. Do not copy article text into HTML. GitHub Pages uses Jekyll's supported optional-front-matter, relative-links, readme-index, and titles-from-headings plugins. README pages become directory indexes; other Markdown documents become .html pages. Relative Markdown links are rewritten during the build.
+Edit the existing article.md, summary.md, experiment README.md, AGENTS.md, docs/*.md, the standalone projects/agoric-work-marketplace/README.md, and explorations/consciousness/*.md. They remain usable on GitHub and for separate Nostr publication. Do not copy article text into HTML. GitHub Pages uses Jekyll's supported optional-front-matter, relative-links, readme-index, and titles-from-headings plugins. README pages become directory indexes; other Markdown documents become .html pages. Relative Markdown links are rewritten during the build.
 
 Edit _data/projects.yml for related projects and new exploration sections and _data/research.yml for the research navigation. The latter lists the original twenty documents. Update its entries when deliberately adding or renaming research documents. Related work appears after each page's primary content via _includes/related-work.html.
 
@@ -22,4 +23,4 @@ The existing GitHub Pages branch deployment runs on main from the repository roo
 
 For source checks: python -m pip install -r publication-requirements.txt; python -m unittest discover -s tests -v. These tests validate the publication layer only, not scientific hypotheses or experimental software.
 
-The site uses local styles and the existing hero.svg; there are no external fonts, client-side trackers, wallet integrations, or required JavaScript. Sensitive legacy filenames, test files, and build notes are excluded from the generated website. They are not removed from repository history.
+The site uses local styles and accessible source SVG figures; there are no external fonts, client-side trackers, wallet integrations, or required JavaScript. The Agoric Work Marketplace is an independent **concept publication** with five conceptual SVG diagrams under assets/agoric-work-marketplace, not a working marketplace or additional experiment result. Sensitive legacy filenames, test files, and build notes are excluded from the generated website. They are not removed from repository history.
