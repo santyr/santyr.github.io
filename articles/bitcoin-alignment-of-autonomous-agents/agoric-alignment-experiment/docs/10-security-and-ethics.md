@@ -8,6 +8,8 @@ A responsible sponsor authorizes purpose, task categories, maximum commitments, 
 
 Default offline. Never use the user's production CLN/LNbits/Nostr/OpenHAB infrastructure or personal wallets under this plan. External reads, public identity/credential writes, isolated test funds, real-value custody and human recruitment require separately documented scopes. Keep environment-specific keys, wallets, databases, event namespaces and reputation indexes isolated. Do not export secrets, bearer ecash or raw participant evidence.
 
+The selected identity integration remains local Python `archon-keymaster` with https://4tress.org under the disabled/read-only profile. Signing stays local; reads do not authorize writes or payments. Follow the capability, provenance and recovery requirements in [12](12-archon-integration.md).
+
 ## Protect participants in every live comparison
 
 Every live policy preserves intelligible terms, protection for earned compensation, evidence review, appeal, safe refusal, privacy and bounded exposure. No unprotected control group, secretly changed contract or automatic reputation-based confiscation is permitted. Bonds cannot force unsafe performance; declining an unaccepted task is not a breach.

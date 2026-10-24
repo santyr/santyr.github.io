@@ -10,7 +10,7 @@ Implement one genuine-task-shaped workflow in the intended application domain: s
 
 ## M1 — Qualify the narrow real-work pilot
 
-Build the minimal worker interface and bounded agent interface around that kernel. Qualify actual required identity, evidence, signing and payment adapters under explicitly scoped permissions. Preserve local-keymaster/4tress constraints and independent credential verification. A mock funding check must never be displayed as live escrow. Cashu preference does not waive enforcement, redemption, custody or recovery requirements.
+Build the minimal worker interface and bounded agent interface around that kernel. Qualify actual required identity, evidence, signing and payment adapters under explicitly scoped permissions. Preserve local Python `archon-keymaster` with https://4tress.org, its scoped integration constraints and independent credential verification. A mock funding check must never be displayed as live escrow. Cashu preference does not waive enforcement, redemption, custody or recovery requirements.
 
 Choose a genuinely needed, low-risk task and a responsible sponsor. Document task admissibility, exact permitted action, participants, contract/acceptance policy, worker compensation and expenses, custody and permitted beneficiaries, individual/aggregate exposure, maximum pending duration, incident contacts, consent, retention, independent review and dispute/appeal. Obtain appropriate legal/security/ethics review for the actual pilot; this specification cannot supply it.
 

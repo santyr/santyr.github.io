@@ -14,4 +14,4 @@ Markdown is the source of truth; Jekyll renders the website. The marketplace con
 
 M0–M5 gates replace the old S0–S6 simulator-first delivery sequence. Retained simulator schemas, A–F contrasts and AT fixtures support testing, not automatic authorization for live experiments. No publishing action authorizes wallet access, public identity writes, human recruitment or expenditure.
 
-See [PUBLISHING.md](PUBLISHING.md) for source, generated-site and deployed-site verification.
+See [PUBLISHING.md](https://github.com/santyr/santyr.github.io/blob/main/PUBLISHING.md) for source, generated-site and deployed-site verification.

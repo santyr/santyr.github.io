@@ -35,6 +35,6 @@ Use independent outcome audits and a versioned evidence register. Capture extern
 
 ## Infrastructure assumptions
 
-Retain local-keymaster/4tress qualification and independent verification requirements in [12](12-archon-integration.md). Cashu/Lightning remains the preferred routine payment design direction subject to actual custody and recovery qualification; use a reviewed alternative or stop if required conditions are absent. Payment, identity and research permissions are separate. Production CLN/LNbits/OpenHAB and personal wallets are not authorized dependencies.
+Retain local Python `archon-keymaster` with https://4tress.org and the qualification and independent verification requirements in [12](12-archon-integration.md). Cashu/Lightning remains the preferred routine payment design direction subject to actual custody and recovery qualification; use a reviewed alternative or stop if required conditions are absent. Payment, identity and research permissions are separate. Production CLN/LNbits/OpenHAB and personal wallets are not authorized dependencies.
 
 Detailed objects and manifests are in [17](17-data-contracts.md); failure and incident procedures are in [13](13-operations.md). No architectural diagram or successful website build establishes financial safety or alignment.

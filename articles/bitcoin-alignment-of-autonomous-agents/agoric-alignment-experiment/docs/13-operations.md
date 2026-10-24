@@ -6,6 +6,8 @@ This runbook describes required capabilities, not an existing deployed service. 
 
 Maintain separate sandbox, integration-qualification and approved live environments with distinct keys, wallets, stores, event namespaces, credentials and reputation indexes. Inventory responsible sponsors, settlement signers, reviewers, incident contacts, consent/data permissions and budget/time limits. Reject accidental production CLN/LNbits/OpenHAB or personal-wallet configuration.
 
+The selected identity integration remains local Python `archon-keymaster` with https://4tress.org under the disabled/read-only profile. Signing stays local; reads do not authorize writes or payments. Follow [12](12-archon-integration.md) for bounded preflight, provenance, independent verification and recovery.
+
 Use one versioned domain implementation across adapters. Record the actual custody and failure assumptions of each rail and identity service. Synthetic work, balances, signatures and oracle/controller labels must never be exported into live reputation. Research extracts do not inherit signing privileges.
 
 ## Before a real task
