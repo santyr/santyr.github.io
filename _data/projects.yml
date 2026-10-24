@@ -2,7 +2,7 @@
   items:
   - title: Agoric Work Marketplace
     url: /projects/agoric-work-marketplace/
-    description: A standalone concept for open human-agent work contracts, portable identities, and Cashu/Lightning settlement.
+    description: A standalone concept for human-agent contracts, portable reputation, economic Sybil resistance, and reputation-backed Cashu/Lightning escrow.
 - title: Lightning Goats & infrastructure
   items:
   - title: Lightning Goats
