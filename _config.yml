@@ -38,6 +38,12 @@ defaults:
     values:
       section: experiment
       description: Research design, historical context, and implementation specifications for the Agoric Alignment Experiment.
+  - scope:
+      path: projects/agoric-work-marketplace
+    values:
+      section: marketplace
+      marketplace: true
+      description: An open protocol for autonomous agents and humans to commission and verify work with Nostr, Archon, Cashu and Lightning.
 exclude:
   - .git-crypt
   - .config.key
