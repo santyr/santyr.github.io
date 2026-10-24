@@ -90,6 +90,39 @@ class PublicationTests(unittest.TestCase):
         self.assertTrue((ROOT / 'assets/agoric-work-marketplace.css').is_file())
         self.assertIn('page.marketplace', layout)
 
+    def test_marketplace_reputation_escrow_publication(self):
+        import xml.etree.ElementTree as ET
+        root = ROOT / 'projects/agoric-work-marketplace'
+        paper = (root / 'README.md').read_text()
+        escrow = (root / 'economic-accountability.md').read_text()
+        assurance = (root / 'marketplace-assurance-patterns.md').read_text()
+        self.assertIn('## 18. Economic Sybil resistance', paper)
+        self.assertIn('## 19. Escrow and reputation', paper)
+        self.assertIn('permalink: /projects/agoric-work-marketplace/economic-accountability.html', escrow)
+        self.assertIn('permalink: /projects/agoric-work-marketplace/marketplace-assurance-patterns.html', assurance)
+        self.assertIn('reputation', escrow.lower())
+        self.assertIn('independent', assurance.lower())
+        self.assertIn('reputation never directly', escrow.lower())
+        self.assertIn('funds', assurance.lower())
+        for name in (
+            'reputation-feedback.svg',
+            'fund-flows.svg',
+            'escrow-outcomes.svg',
+            'assurance-patterns.svg',
+        ):
+            path = ROOT / 'assets/agoric-work-marketplace' / name
+            self.assertTrue(path.is_file(), name)
+            drawing = ET.parse(path).getroot()
+            self.assertEqual(drawing.tag, '{http://www.w3.org/2000/svg}svg')
+            self.assertEqual(drawing.attrib.get('role'), 'img')
+            self.assertTrue(any(name in source for source in (paper, escrow, assurance)))
+        home = (ROOT / 'index.html').read_text()
+        self.assertIn('economic-accountability.html', home)
+        self.assertIn('marketplace-assurance-patterns.html', home)
+        for name in ('economic-accountability.md', 'marketplace-assurance-patterns.md'):
+            self.assertTrue((root / name).is_file())
+        self.assertTrue((ROOT / 'PUBLISHING.md').is_file())
+
     def test_header_graphic_is_not_rendered(self):
         body = (ROOT / '_layouts/default.html').read_text()
         self.assertNotIn('class="hero-band"', body)
