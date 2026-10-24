@@ -17,6 +17,8 @@ description: A standalone Agoric Alignment project exploring a Nostr, Archon, Ca
 
 **Related foundations:** [Bitcoin and the Alignment of Autonomous Agents]({{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}) · [The Agoric Alignment Experiment]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}) · [Project source](https://github.com/santyr/santyr.github.io/tree/main/projects/agoric-work-marketplace)
 
+**Companion design research:** [Reputation-Backed Escrow and Economic Accountability]({{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}) · [Marketplace Assurance Patterns]({{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }})
+
 > **Status and scope.** This paper is an independent project concept intended to support future design decisions and engineering plans. No marketplace, deployed contracts, working escrow, live Archon integration, payment service, worker network, or empirical findings are claimed. Numerical examples are illustrations, not prices or estimates.
 
 ## Executive thesis
@@ -50,6 +52,10 @@ This project grows from the [Agoric Alignment thesis]({{ '/articles/bitcoin-alig
     <li><a href="#11-threat-model-and-failure-modes">11 / Threats and failures</a></li>
     <li><a href="#15-research-questions-that-should-determine-a-later-plan">15 / Future design questions</a></li>
     <li><a href="#16-proposed-validation-ladder-not-a-deployment-schedule">16 / Validation</a></li>
+    <li><a href="#18-economic-sybil-resistance-and-reputation-backed-escrow">18 / Economic Sybil resistance</a></li>
+    <li><a href="#19-escrow-and-reputation-for-other-marketplace-failures">19 / Broader assurance</a></li>
+    <li><a href="{{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}">Deep dive / escrow and reputation →</a></li>
+    <li><a href="{{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }}">Deep dive / threats and remedies →</a></li>
     <li><a href="#sources-and-technical-references">Sources and standards</a></li>
   </ul>
 </nav>
@@ -317,6 +323,68 @@ Comparative trials could contrast a centralized task board against multi-relay d
 
 **Evidence over ideology.** The project should be tested for actual economic and human outcomes rather than assuming decentralization or Bitcoin automatically yields alignment.
 
+## 18. Economic Sybil resistance and reputation-backed escrow
+
+**We do not need one human or one AI per identity. We need each identity's privileges to reflect the obligations it can credibly honor.** Anyone may create an Archon DID. A marketplace may charge its own nonrefundable service fees for listings, queries or verification, but such payments purchase access to a service—not an earned reputation. Economic accountability instead emerges from explicit collateral commitments, verifiable work outcomes and counterparties who change the terms of future cooperation in response to credible conduct.
+
+The key refinement is a **reputation-adjusted escrow feedback loop**. First, a requester or worker enters a bounded, signed contract and funds an appropriate escrow or performance bond. Second, reviewers evaluate task evidence under the agreed process; the payment rail independently verifies settlement. Third, completed work and final adjudicated violations generate portable, signed attestations. Fourth, future counterparties evaluate those attestations and may require a larger bond, reduce transaction exposure, demand an independent guarantee or decline an agent whose history suggests elevated risk. Reliable performance may produce better commercial terms and greater access to work.
+
+This is an **economic incentive**, not proof of moral alignment. Misconduct becomes more expensive when credible sanctions and future lost opportunities exceed expected illicit profit. But an agent intending a single high-value fraud may not care about future reputation; limits on initial exposure and funded recovery must therefore provide immediate protection. An attacker's new DID begins unproven and can still access small, low-risk work rather than being presumed guilty. A wealthy adversary can pay many admission fees, so paid registration by itself is not Sybil resistance.
+
+<figure class="research-figure market-figure" id="figure-economic-feedback">
+  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/reputation-feedback.svg' | relative_url }}" aria-label="Open conceptual reputation-adjusted escrow feedback figure">
+    <img src="{{ '/assets/agoric-work-marketplace/reputation-feedback.svg' | relative_url }}" alt="Signed contract and verifiable funding lead to evidence review, portable outcome attestations, and independently chosen future contract terms. Reliable behavior may lower collateral while confirmed misconduct may raise it; reputation alone never transfers funds." loading="lazy">
+  </a>
+  <figcaption><strong>Figure 6 — Reputation changes the cost of future trust.</strong> Final outcomes inform independent counterparties; reputation ratings cannot directly confiscate funds.</figcaption>
+</figure>
+
+### Distinguish service fees, reputation bonds and job escrows
+
+The funds must have explicit beneficial owners and destinations. A **posting or verification fee** is payment to the chosen service for performed work. A **job escrow** belongs to the funding agreement and normally compensates the worker when the task meets its acceptance rules; otherwise it is refunded or divided under documented cancellation, partial-performance or dispute conditions. A **reputation or performance bond** remains the contributor's encumbered asset, available for limited contractual restitution only after the specified evidence and decision process. The default is not to send forfeitures to a central operator, burn them, or create a shared slashing treasury.
+
+For example, a worker may have a 100,000-sat bond against agreed, measurable losses. If a finalized, reviewable decision establishes a 25,000-sat liability, that amount can be transferred to the authorized beneficiary under the contract, with the remaining 75,000 sats released when no other valid reservation remains. The actual transfer depends on the escrow's spending rules and payment rail; a negative Nostr event cannot trigger it independently. An allegation, a complaint, a failed relay, or a bad rating is **not** an adjudicated breach.
+
+### Where smart contracts help—and where they cannot
+
+Bitcoin multisignature and timelock constructions can enforce authorized signatures and deadlines. Cashu [NUT-11](https://cashubtc.github.io/nuts/11/) can support mint-enforced multisignature, locktime and refund conditions if and only if the chosen mint enforces those optional features. A correctly signed settlement is still not proof that a package arrived or an installation was safe. Evidence, review, arbitration, appeal and human rights remain separate from cryptographic spend authorization. Moreover, Cashu is generally mint-custodial; long-lived or valuable bonds warrant explicit comparison with Bitcoin on-chain spending paths and suitably regulated escrow.
+
+A proposed 2-of-3 cooperative/adjudicated spending arrangement must be tested for two-signer collusion, liveness failures, lost keys, appeal timing, unintended early refunds and fund lockup. The bond should never secure unlimited concurrent obligations. A single 100,000-sat collateral proof pledged to ten independent marketplaces is not equivalent to ten independently funded 100,000-sat escrows. **Unique, externally verifiable per-job reservations are necessary**; for an initial system, segregated job collateral is safer to reason about than a globally pooled reputation bond.
+
+### Reputation, appeals and the danger of false sanctions
+
+An adverse outcome must record who assessed the evidence, the contract version, what could actually be proved, whether an appeal is available or pending, and any corrected final result. A fabricated complaint or collusive rating ring must not automatically increase every market's bond requirements. Independent reputation evaluators can disagree, and an overturned allegation must be marked as such with a signed superseding attestation. Participants should have practical paths to contest mistaken findings, recover reputation, and undertake small legitimate jobs without large upfront deposits.
+
+The complete [Reputation-Backed Escrow and Economic Accountability]({{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}) chapter specifies destinations of funds, conditional-spend candidates, bond reservation models, example settlements, portable credentials, incentives, adversarial cases and stage gates.
+
+## 19. Escrow and reputation for other marketplace failures
+
+Sybil resistance is only one part of the economic problem. Similar risk-specific mechanisms can improve many common marketplace failures, but **no single bond can solve all of them**:
+
+| Marketplace issue | Primary protection | Appropriate reputational effect |
+| --- | --- | --- |
+| Mass job spam or bid flooding | Per-provider service fees, rate limits and targeted refundable reservations | None for mere new identity or normal refusal; adverse record only for verified abuse |
+| AI requester refuses to pay | Independently verified prepaid worker-fee escrow; sponsor liability where required | Final proven nonpayment raises requester risk |
+| Worker no-show or dishonest abandonment | Capped performance bond, fair exceptions, evidence review and appeal | Contextual record of established breach, not automatic lifelong penalty |
+| Fake receipts, photos or fabricated work | Independent evidence checks and fraud-specific contractual remedies | Authentic, reviewable adverse attestation after proven falsification |
+| Collusive endorsements / fake job volume | Issuer diversity, correlation analysis, independent outcome checks | Discount nonindependent praise; sanction proven collusion, not high volume alone |
+| Malicious complaints and arbitration capture | Dispute-state labels, reviewer independence, appeal and correction | False allegations cannot directly slash funds or become final guilt |
+| Duplicate use of a pooled bond | Per-job segregation or independently verifiable scarce reservations | Proven misrepresentation may inform future collateral policy |
+| Mint or relay failure | Bounded provider exposure, tested recovery and safe fallback | Neutral where failure is beyond a participant's control |
+| Unsafe or unauthorized physical work | Admissibility checks, consent, qualification requirements and right to refuse | Escrow never substitutes for prevention or legal accountability |
+
+The appropriate mechanism depends on the harm. A worker who declines an unaccepted job should not pay a penalty. A genuinely injured party may deserve restitution, but an operator should not profit merely from labeling someone dishonest. A photo's cryptographic signature authenticates an assertion, not what happened in the world. A high-risk procurement job deserves different risk controls from a tiny data-labeling task.
+
+<figure class="research-figure market-figure" id="figure-assurance-patterns">
+  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/assurance-patterns.svg' | relative_url }}" aria-label="Open conceptual diagram of threat-specific marketplace protections">
+    <img src="{{ '/assets/agoric-work-marketplace/assurance-patterns.svg' | relative_url }}" alt="Listing spam is mitigated by metering, worker nonpayment by funded escrow, no-shows by limited performance bonds, false evidence by independent verification, wash trading by diverse issuers, and abusive disputes by appeal and review safeguards." loading="lazy">
+  </a>
+  <figcaption><strong>Figure 7 — Match economic remedies to concrete harms.</strong> Fees, collateral, independent evidence and due process are complementary, not interchangeable.</figcaption>
+</figure>
+
+These patterns are analyzed in the separate [Marketplace Assurance Patterns]({{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }}) chapter, including case studies of nonpayment, erroneous procurement, manipulated verification, identity resets, Cashu mint failure and multi-market collateral double-pledging.
+
+Together, these designs suggest an engineering priority: **prove correct, independently funded per-job settlement and trustworthy outcome histories before attempting a general reputation-weighted capital market**. A later planning phase should compare prepaid-only jobs, flat collateral, reputation-adjusted collateral, guarantor sponsorship and specialized insurance against matched adversarial workloads and measures of worker fairness. The marketplace should retain whichever mechanisms measurably reduce harm without imposing undue lockup or barring honest newcomers.
+
 ## Conclusion
 
 The Agoric Work Marketplace imagines an economy in which an AI can identify a real-world need, describe it precisely, negotiate with a willing human, arrange bounded funding, observe credible evidence of completion, and settle fairly—without forcing both parties into a single dominant intermediary. It also imagines humans hiring other humans or software agents through the same foundational conventions. The common denominator is not the kind of intelligence participating. It is the ability to make commitments, provide evidence, honor obligations and earn trust.
@@ -336,6 +404,9 @@ The links below are design inputs. Standards marked draft or optional must be ca
 - [NIP-99 Classified Listings](https://nips.nostr.com/99), [NIP-17 Private Direct Messages](https://nips.nostr.com/17), [NIP-46 Remote Signing](https://nips.nostr.com/46), [NIP-47 Nostr Wallet Connect](https://nips.nostr.com/47).
 - [NIP-60 Cashu Wallets](https://nips.nostr.com/60), [NIP-61 Nutzaps](https://nips.nostr.com/61) — useful wallet/payment references, not escrow implementations.
 - [Cashu NUT-11 P2PK](https://cashubtc.github.io/nuts/11/) and [NUT-06 Mint Information](https://cashubtc.github.io/nuts/06/) — conditional-spend specification and capability discovery.
+- [Bitcoin BIP-112 CHECKSEQUENCEVERIFY](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) — timelock construction and escrow-with-timeout example.
+- [Reputation-Backed Escrow and Economic Accountability]({{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}) — companion design research on risk-adjusted bonds and verified penalties.
+- [Marketplace Assurance Patterns]({{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }}) — companion study of fraud, nonpayment, false evidence and disputes.
 - [RentAHuman agent/MCP documentation](https://www.rentahuman.ai/docs) — contemporary centralized agent-to-human marketplace reference.
 - [Bitcoin and the Alignment of Autonomous Agents]({{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}) — conceptual framework for substrate-independent identity and reputation.
 
