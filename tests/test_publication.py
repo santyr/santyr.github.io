@@ -58,6 +58,38 @@ class PublicationTests(unittest.TestCase):
         self.assertIn('explorations/consciousness/', category['url'])
         self.assertTrue(any('the-unreadable-language-of-perception.html' in item['url'] for item in category['items']))
 
+
+    def test_agoric_work_marketplace_is_independent_and_illustrated(self):
+        import xml.etree.ElementTree as ET
+        project = ROOT / 'projects/agoric-work-marketplace/README.md'
+        self.assertTrue(project.is_file())
+        paper = project.read_text()
+        self.assertIn('permalink: /projects/agoric-work-marketplace/', paper)
+        self.assertIn('Concept and research proposal, not an implementation', paper)
+        self.assertIn('Cashu', paper)
+        self.assertIn('Archon', paper)
+        self.assertIn('Nostr', paper)
+        figure_paths = [
+            'architecture.svg',
+            'mission-graph.svg',
+            'trust-graph.svg',
+            'settlement.svg',
+            'lifecycle.svg',
+        ]
+        for name in figure_paths:
+            asset = ROOT / 'assets/agoric-work-marketplace' / name
+            self.assertTrue(asset.is_file(), name)
+            root = ET.parse(asset).getroot()
+            self.assertEqual(root.tag, '{http://www.w3.org/2000/svg}svg')
+            self.assertEqual(root.attrib.get('role'), 'img')
+            self.assertIn(name, paper)
+        home = (ROOT / 'index.html').read_text()
+        layout = (ROOT / '_layouts/default.html').read_text()
+        self.assertIn('/projects/agoric-work-marketplace/', home)
+        self.assertIn('/projects/agoric-work-marketplace/', layout)
+        self.assertTrue((ROOT / 'assets/agoric-work-marketplace.css').is_file())
+        self.assertIn('page.marketplace', layout)
+
     def test_header_graphic_is_not_rendered(self):
         body = (ROOT / '_layouts/default.html').read_text()
         self.assertNotIn('class="hero-band"', body)
