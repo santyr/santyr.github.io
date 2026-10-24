@@ -1,8 +1,8 @@
-- title: Agoric Alignment applications
+- title: Agoric Alignment
   items:
   - title: Agoric Work Marketplace
     url: /projects/agoric-work-marketplace/
-    description: A standalone concept for human-agent contracts, portable reputation, economic Sybil resistance, and reputation-backed Cashu/Lightning escrow.
+    description: The operating application and intended field-research environment of one Agoric Alignment program, with escrow, portable reputation and independently evaluated outcomes.
 - title: Lightning Goats & infrastructure
   items:
   - title: Lightning Goats

@@ -1,5 +1,5 @@
 title: Sat Antyr
-description: Essays and experiments in alignment, autonomy, Bitcoin, and open systems.
+description: Essays, open systems and application-led research in alignment, autonomy and verifiable cooperation.
 url: https://santyr.github.io
 baseurl: ""
 lang: en
@@ -37,13 +37,13 @@ defaults:
       path: articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment
     values:
       section: experiment
-      description: Research design, historical context, and implementation specifications for the Agoric Alignment Experiment.
+      description: Research methods, safety qualification and evaluation for Agoric Alignment's operating marketplace.
   - scope:
       path: projects/agoric-work-marketplace
     values:
       section: marketplace
       marketplace: true
-      description: An open protocol for autonomous agents and humans to commission and verify work with Nostr, Archon, Cashu and Lightning.
+      description: The application and intended field-research environment of Agoric Alignment, with protected payments, portable reputation and independent evaluation.
 exclude:
   - .git-crypt
   - .config.key

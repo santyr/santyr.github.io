@@ -1,56 +1,39 @@
-# 13 — Research operations, reproducibility and release runbook
+# 13 — Operating, observing and recovering one application
 
-## First local setup (planned, not implemented yet)
+This runbook describes required capabilities, not an existing deployed service. Follow [M0–M5 gates](11-stage-gates.md), [security/ethics](10-security-and-ethics.md) and the [data contracts](17-data-contracts.md). Publication is not operational permission.
 
-1. Clone repository and enter `articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment`.
-2. Review `AGENTS.md` and check the stage gate; do not start network services or use real keys.
-3. Implement the Python package at S0 with `pyproject.toml`, `scripts/run_experiment.py`, `configs/pilot.json`, `tests/` and `schemas/`. Prefer Python 3.12+; isolate the optional archon-keymaster worker if keeping a Python 3.11 simulator.
-4. Expected eventual CLI: `python -m agoric_alignment validate --config configs/pilot.json`; `python -m agoric_alignment run --config configs/pilot.json --seed 101 --out runs/pilot-101`; `python -m agoric_alignment verify-run runs/pilot-101`; `python -m agoric_alignment analyze runs/pilot-* --out reports/pilot.md`.
-5. Those CLI commands are a specification, not currently executable. Implement and document them before claiming setup complete.
+## Environment and authority inventory
 
-## Hosted Archon setup at S4
+Maintain separate sandbox, integration-qualification and approved live environments with distinct keys, wallets, stores, event namespaces, credentials and reputation indexes. Inventory responsible sponsors, settlement signers, reviewers, incident contacts, consent/data permissions and budget/time limits. Reject accidental production CLN/LNbits/OpenHAB or personal-wallet configuration.
 
-Use **https://4tress.org** through local **archon-keymaster**, following the pinned-source installation and preflight in [12 — Archon integration](12-archon-integration.md). [configs/archon-4tress.json](../configs/archon-4tress.json) is a separate disabled-by-default integration profile, not a simulator scenario and not executable authorization. Validate it against [archon-profile.schema.json](../schemas/archon-profile.schema.json), not experiment-config.schema.json.
+Use one versioned domain implementation across adapters. Record the actual custody and failure assumptions of each rail and identity service. Synthetic work, balances, signatures and oracle/controller labels must never be exported into live reputation. Research extracts do not inherit signing privileges.
 
-After network approval, perform a bounded read-only check and save sanitized observations. Do not provision public identities until write scope is separately approved. No wallet-admin service runs on 4tress on behalf of this client: signing and secrets remain local. Set both node URL variables explicitly, prevent personal wallet autodiscovery and isolate each wallet under ignored private storage. Capture local client dependencies, remote capabilities and actual registry support independently.
+## Before a real task
 
-Use captured replies for bulk deterministic studies. Hosted DNS/TLS failures, missing registry support, 401/403, 402 and rate limits are diagnostic outcomes, not reasons to switch hosts or authorize spending. No automatic write retry; reconcile an uncertain submission. Run destructive faults and load tests on owned/local infrastructure only.
+Confirm genuine sponsor demand, admissible low-risk scope, participant understanding and consent, accepted immutable contract/policy versions, beneficiary/fee rules, qualified funding status, safe refusal/cancellation, evidence access, reviewer/arbitrator availability and escalation. Enforce per-job and aggregate exposure, pending-liability limits and reservation uniqueness. An unverified message cannot make a job funded.
 
-## Run layout
+Record subsidies and manual assistance. Operational data collection and optional research use must be separated under the approved protocol. No research assignment or hidden policy change is implied by ordinary enrollment.
 
-`runs/<run_id>/manifest.json` — immutable software/config/dependency/seed/treatment hashes and mode.  
-`runs/<run_id>/oracle-truth.jsonl` — restricted omniscient outcomes/controller links.  
-`runs/<run_id>/public-evidence.jsonl` — signed claims visible per arm, proof status separate from truth.  
-`runs/<run_id>/events.jsonl` — append-only canonical economic events.  
-`runs/<run_id>/predictions.jsonl` — evaluator/model version, evidence digests and probability.  
-`runs/<run_id>/final-balances.json` — account distribution and conservation check.  
-`runs/<run_id>/verification-report.json` — signatures, availability, anchor depth and reproduction.  
-`runs/<run_id>/summary.json` — preregistered metrics, incidents and missingness.  
-`runs/<run_id>/archon-observations.json` — remote status/version when exposed, registry list, sanitized request observations and proof provenance; used by hosted profiles.  
-`runs/private/archon/<run_id>/<pseudonym>/` — local wallet and passphrase files; never included in exported artifact maps or publications.
+## During execution
 
-No exported artifact may contain secrets or real identities. Use restrictive permissions for private/oracle files and never publicly commit raw human data.
+Persist authenticated transitions and reconcile ambiguous external actions before retrying. Keep public attestations separate from private receipts and addresses. Preserve actual deadline, evidence, review, appeal and rail-confirmation states rather than compressing everything into success/failure. Do not ask a worker to continue unsafe work to avoid a penalty.
 
-## Manifest requirements
+Freeze contract terms at acceptance. Policy updates apply prospectively and may require new consent, safety qualification or a new research revision. Monitor privacy, compensation, accounting and safety independently of whether a result is statistically significant.
 
-Keep existing identity, software/config/schema hashes, scenario, seed, treatment, RNG, logical clock, mode, source SHA, Bitcoin network (`none`, `regtest` or `signet`), status, artifact digests and resource usage. One run ID cannot be reused with changed contents.
+## Incident and recovery
 
-Manifest **1.1** adds `archon-remote` and a required non-null `archon_interface` for that mode: local distribution/version/source, node URL, interface profile digest and remote observation-artifact digest. The observation digest must match the `archon-observations.json` entry in `artifact_sha256`; validate that semantic condition in the runner. A local client revision never stands in for an unknown remote server revision. Manifest 1.0 remains accepted for legacy modes without interface fields. Event, evidence and prediction schema versions remain unchanged.
+Pause new commitments when authority checks, conservation, duplicate-settlement protection, privacy or safety fail. Protect already earned compensation and legitimate outstanding claims during containment. Reconcile the mint/wallet/chain state and immutable event log; do not automatically resend funds or switch rails. Use tested signer-loss, timeout, cancellation, disputed-payment and provider-outage paths under accepted terms.
 
-## Repeatability check
+Document affected contracts, exposed funds, evidence limits, response decisions, corrections and any necessary research unblinding. A safety amendment can invalidate a frozen comparison; record the break and obtain reapproval rather than silently continuing under the same claim.
 
-Run twice with the same inputs; canonical events and metrics must match byte-for-byte excluding wall-clock metadata. Re-analyze raw events to reproduce summary. Interrupt at a fixed tick, resume/replay and compare with uninterrupted execution.
+## Reproduction and analysis
 
-Live service responses and chain confirmations change externally. Preserve captured replies/receipts, server/version observation, tip and proofs for deterministic replay; do not require repeated public DID writes or signet transactions to produce identical external IDs. Keep live interoperability and scientific simulator result claims separate.
+Offline deterministic runs use pinned code/config/seeds, logical clocks and byte-stable canonical events. Live operations capture actual external observations for replay; rerunning a network request is not reproduction of historical state. Version schemas, policies, model provenance and adapters and separate unknown server versions from client pins.
 
-## Verification chain
+Produce minimal authorized extracts for independent analysis, with audit sampling, assignment, missingness, subsidy and intervention records. Analysts cannot sign settlements. Store consent and identity-linking information with stricter access than research aggregates. Honor disclosed retention/withdrawal limits without promising to erase immutable public data.
 
-Check schema -> canonical encoding -> signature -> historical issuer authority -> content hash/availability -> registry/batch/chain proof -> contract state -> independent outcome evidence -> evaluator prediction trace. An unavailable proof is incomplete, not false or successful. An authentic falsehood is a validly signed claim contradicted by outcome evidence, not an invalid signature.
+## Public reporting
 
-## Audit report and release
+Each [evidence entry]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) identifies its evidence level, environment, approvals, revisions, sample/assignment, methodology, executed verification, outcomes, limitations and conflicts. Publish null/adverse results and privacy-safe corrections. A site build or simulator run is not a completed field gate.
 
-Report code/profile/dependency pins, treatment/seed, remote observation provenance, environmental deviations, metrics/uncertainty, false allegations/exploitation, money accounting, evidence gaps, privacy protections and reproduction commands. Publish negative scenarios. Check all tests; review artifacts for secrets, identity leakage and untrusted instructions; freeze preregistration before holdout access; record ADRs and deviations. Do not assert success from a source pin, hosted marketing claim or HTTP 200 alone.
-
-## Incidents
-
-Accounting failure, oracle access, secret leakage, forged proof acceptance or unapproved network escape invalidates the run. Freeze a sanitized trace, repair, rerun relevant paired conditions and record the change. A hosted write timeout pauses further writes until its state is reconciled. Preserve failures without cherry-picking.
+Before expanding categories, rails, autonomy or exposure, requalify the relevant failure and participant-protection case. Independent replication is a later evidence step, not permission to skip initial recovery drills.

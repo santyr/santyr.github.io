@@ -1,56 +1,51 @@
-# 02 — Preregistration and hypothesis registry
+# 02 — Preregistration for an application-led field study
 
-**Status: DRAFT; not yet frozen.** Only after S2 pilot results are separately archived may the research lead freeze this document, the holdout scenario hash, and analysis plan in a tagged commit. Changes afterward are deviations with timestamp, author, reason and effect; no silent changes to success thresholds.
+**Status: protocol requirements, not an executed or registered study.** Read the [unified charter]({{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}), [design](03-experimental-design.md), [metrics](09-metrics-and-analysis.md) and [M0–M5 gates](11-stage-gates.md).
 
-## Estimands and units
+## Distinguish learning from confirmation
 
-An independent *economy run* is a full simulated market with a fixed population seed, random task stream, treatment and strategy schedule. The treatment is assigned to a whole economy to avoid within-economy spillovers. An individual transaction is a repeated observation, **not** an independent replicate.
+M0–M1 qualify the workflow; M2 demonstrates limited feasibility; M3 supports exploratory repeated activity and measurement qualification. Do not represent these as confirmatory evidence for the incentive hypothesis. M4 needs an approved, timestamped registration before the relevant confirmatory outcomes are examined. Use pilot observations to improve a later design, then disclose that use and keep the evaluation sample genuinely prospective or appropriately held out.
 
-Primary treatment contrasts compare public signed history + reputation against (a) local-only reputation and (b) private authenticated records; secondary contrast substitutes Bitcoin anchoring for a cryptographically authenticated replicated transparency log, holding reputation methods and availability assumptions constant. A null difference in the second contrast is informative, not grounds to discard it.
+The historical simulator hypotheses and A–F labels remain sandbox research inputs. Their sample sizes, oracle variables and assumptions are not a field protocol and cannot be imported as if participants were independent simulated economies. An externally registered study requires an actual registry record; committing this checklist is not itself completion of that step.
 
-## Formal hypotheses
+## Proposed first contrast
 
-| ID | Proposed effect / falsifier | Primary operationalization |
-|---|---|---|
-| H1 | Established positive histories carry economic value; no effect falsifies a universal claim | Lifetime discounted net earnings, favorable contract selection/terms vs identical newcomer |
-| H2 | Pseudonymous histories suffice for trust without controller disclosure; type-label effects reject strict substrate neutrality | Probability of selection, collateral and effective prices under randomized true/claimed substrate label |
-| H3 | Independently reconstructible histories increase detection and welfare relative to unavailable/selective records | Verified exploitation losses and realized surplus per economy run |
-| H4 | Repeated pseudonym resets reduce future value when reputational capital is substantial; profitable resets in many conditions bound thesis | Net discounted return of reset strategy vs continuity with matched opportunities |
-| H5 | Public proof and accurate witness history support calibrated predictions | Holdout Brier score, calibration error, risk-adjusted contract choices |
-| H6 | Multiple competing reputation evaluators resist evaluator-level monopolization while preserving accuracy | Best-available forecast loss; evaluator concentration/market-share HHI; exit costs |
-| H7 | Selective disclosure can reduce harm while preserving adequate verification | Privacy-harm incidence and detection of actual defaults across disclosure arms |
-| H8 | Anchoring with Bitcoin improves particular adversarial properties over similarly engineered alternatives | Independent reconstruction, censorship/rollback detection, latency, monetary cost under attacks |
+Compare fixed task-specific economic terms with a prespecified history-sensitive policy inside the same marketplace. Both retain qualified worker-fee protection, signed authority, evidence review, privacy, safe refusal, accessible dispute/appeal and exposure ceilings. Keep payment rail, verifier standards, task eligibility and compensation protections comparable. Declare whether collateral, exposure or their joint policy is the intervention; a bundled treatment cannot identify each component separately.
 
-**Null hypothesis:** no difference in the assigned primary metric after controlling for matched seed pair and declared covariates; report direction and uncertainty irrespective of p-value. Do not collapse H1–H8 into one unverifiable universal claim.
+The working prediction is an improvement in useful cooperation relative to costs, without unacceptable losses, false sanctions or exclusion. Its quantitative form, meaningful effect sizes and acceptable harm/access bounds must be fixed before the study, not selected after results. Do not assume every safeguard can be converted into one compensating numerical utility.
 
-## Primary outcomes and decision rule (draft)
+## Required registration fields
 
-P1. Mean *realized cooperative surplus* per run, excluding pure transfers; account for work output value, resource costs, monitoring/anchor/payment overhead and externally borne harms.  
-P2. Mean verified *exploitation loss* per run normalized by at-risk contractual value.  
-P3. *Newcomer access*: successful nonfraudulent contracts per fresh entrant at fixed opportunity level, stratified by initially unknown controller type.
+| Domain | Required decisions |
+| --- | --- |
+| Question and estimand | Policy contrast, target population, horizon, outcome definitions and whether estimating assignment, participation or a broader equilibrium effect |
+| Eligibility and recruitment | Genuine task categories; who may receive offers; consent and optional research arrangements; recruitment/subsidy disclosure |
+| Assignment | Unit, method, allocation concealment where appropriate, clustering, repeated participants, shared counterparties and spillover/exposure mapping |
+| Intervention | Exact policy/code/model revisions, inputs, permitted adaptation, limits, escrow/settlement assumptions and common safety floor |
+| Outcomes | Primary benefit, loss and newcomer/access measures; reporting denominators; independent audit sampling; uncertain cases; external harms |
+| Precision and sample | Independent units, cluster sizes and correlation assumptions, plausible effect sizes, rare-event sensitivity, power or precision rationale |
+| Analysis | Intention-to-treat where randomized, clustering-aware inference, repeated observations, missingness, attrition, multiplicity and sensitivity analyses |
+| Monitoring and stopping | Maximum exposure, harm stops, complaint/appeal handling, preplanned interim looks and statistical stopping rules |
+| Independence | Operator/reviewer conflicts, blinding where feasible, safety unblinding and audit permissions |
+| Data governance | Operational versus research records, access, retention, withdrawal/deletion limits, consent evidence and safe publication |
+| Reporting | All planned outcomes, deviations, null/adverse findings, subsidies, manual interventions, corrections and evidence-level limits |
 
-A provisional target for exploring practical importance is >=25% reduction in exploitation loss vs the corresponding matched no-public-history baseline, **without** worsening newcomer access by more than 10% or decreasing net surplus. These numbers are illustrative planning thresholds until frozen after the pilot; do not state them as achieved facts.
+No fixed arbitrary sample count is supplied here. Many transactions from a few connected participants do not provide many independent observations. A small pilot can honestly support feasibility and descriptive uncertainty without pretending to detect rare fraud or durable reputation effects.
 
-Secondary: claim-detection recall/precision, calibration and Brier score, false accusation rate, trust concentration, evaluator HHI, successful identity-abandonment fraud value, privacy targeting rate, proof verification time, log completeness, chain-anchor cost and availability.
+## Primary outcome family
 
-## Research design parameters (provisional)
+Prespecify measures of independently verified useful work, uncompensated loss and meaningful newcomer participation together with relevant costs. Define each denominator before assignment: eligible opportunities, assigned participants, accepted work and resolved contracts answer different questions. Always publish the flow between eligibility, offer, refusal, acceptance, completion and settlement. Define independent audit coverage and uncertainty rather than treating the platform's reputation scores as truth.
 
-Pilot: 20–50 runs per environment and seeds fixed only to debug instrumentation/estimate variance. Confirmatory plan: start with >=100 independent economy runs per condition and 100 agents/run; specify effect size, variance-based power and exact count after pilot. Each run has >=1,000 contract opportunities; parameter sweeps use distinct predetermined seed families. Never treat 100 agents * 1,000 transactions as 100,000 independent statistical units.
+Where several outcomes or policy variants support a confirmatory claim, predeclare multiplicity control and decision criteria. Do not retain only the metric on which the candidate happens to win. Report confidence/uncertainty intervals and practical magnitudes, not just a significance label. Ethical stops take precedence over collecting a planned sample.
 
-Matched-pair randomization: one master seed defines identical exogenous task arrivals, capabilities and stochastic shocks; treatment determines only what economic evidence participants can access. Per-treatment agent random streams are derived using SHA-256 namespaced streams to avoid order-dependent RNG consumption. Record actual pairing failures.
+## Selection, interference and consent
 
-Preregister rewards/time horizon, fraud opportunities, detection mechanisms, resource scarcity, initial inequality, collusion share and evaluator competition. Fully crossed factorial designs may be expensive; select a balanced fraction and define planned interactions (public evidence × identity persistence; disclosure × fraud detection; anchoring × adversarial network availability).
+For randomized comparisons, retain assignment and analyze eligible/assigned units as specified even when participants decline the terms. Report participation-conditioned outcomes separately. For observational or self-selected policy use, explain confounding and avoid randomized-style causal claims. A field deployment does not become an experiment merely because it has a dashboard.
 
-## Analysis plan
+Shared workers, requesters and durable reputations create dependence and spillovers. Declare what comparisons remain identifiable if clusters interact; clustering does not magically remove all interference. See [Holtz et al.](https://arxiv.org/abs/2004.12489). Inform participants of relevant experimental terms; do not falsify reputation, withhold earned payment or impose unapproved adverse treatment.
 
-Compute run-level summaries. For matched treatment pair i, use delta_i = outcome(treatment,i) - outcome(control,i). Report paired mean/median effects, bootstrap 95% intervals over runs and, where appropriate, a preregistered two-sided randomization/permutation test. Cluster/hierarchical approaches are permitted if frozen before holdout release and sensitivity analyses show agreement. Use multiplicity correction (Holm) for the three primary outcomes; exploratory contrasts are explicitly labeled.
+## Freeze, amendment and publication
 
-Investigate heterogeneous effects by agent strategy, risk size, time horizon, issuer credibility and labeled substrate. Calibration tests use held-out contracts and proper scoring rules; never optimize evaluators on the same contracts reported for confirmatory accuracy.
+Record protocol hash, registration location/date, code and contract-policy revisions, data access history, holdout plan and analysis scripts. Amend prospectively where possible; preserve dated earlier versions and explain outcome-informed changes. Safety changes may be necessary, but pause/requalify and report a break in comparability rather than silently claiming adherence to the original protocol.
 
-## Blinding and negative evidence
-
-The public simulator API does not reveal treatment names or controller substrate labels. Evaluator code receives permitted evidence only. Researchers may know the experimental treatment while coding but must freeze all confirmatory code, scenario generators, thresholds and holdout seed hash before running the final study. Analyze *all* prescribed runs, including catastrophic failures, timeout and censored outcomes under defined policies.
-
-## Failure interpretation
-
-No practical benefit, adverse welfare effects, selective disclosure outperforming public history, identity resets remaining profitable, or strong counterparty prejudice despite equivalent evidence would count against important variants of the thesis. No report may extrapolate directly to human moral alignment or existential AI safety.
+The distinction between exploration and tests of prior predictions follows [Nosek et al.](https://doi.org/10.1073/pnas.1708274114). Preregistration is not a substitute for a credible design. All field records, results and limitations belong in the [evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) with appropriate privacy protection.

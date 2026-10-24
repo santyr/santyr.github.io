@@ -1,40 +1,40 @@
-- title: 00 / Charter
+- title: 00 / Program charter
   file: 00-charter.html
 - title: 01 / Intellectual lineage
   file: 01-intellectual-lineage.html
-- title: 02 / Preregistration
+- title: 02 / Field preregistration
   file: 02-preregistration.html
-- title: 03 / Experimental design
+- title: 03 / Field & sandbox design
   file: 03-experimental-design.html
-- title: 04 / Economy & agents
+- title: 04 / Synthetic economy models
   file: 04-economy-and-agents.html
-- title: 05 / Architecture
+- title: 05 / Shared application architecture
   file: 05-architecture.html
 - title: 06 / Evidence & identity
   file: 06-evidence-and-identity.html
 - title: 07 / Reputation & incentives
   file: 07-reputation-and-incentives.html
-- title: 08 / Adversarial suite
+- title: 08 / Controlled adversarial suite
   file: 08-adversarial-suite.html
-- title: 09 / Metrics & analysis
+- title: 09 / Outcomes, costs & analysis
   file: 09-metrics-and-analysis.html
-- title: 10 / Security & ethics
+- title: 10 / Security, consent & ethics
   file: 10-security-and-ethics.html
-- title: 11 / Stage gates
+- title: 11 / M0–M5 application gates
   file: 11-stage-gates.html
-- title: 12 / Archon integration
+- title: 12 / Archon qualification
   file: 12-archon-integration.html
-- title: 13 / Operations
+- title: 13 / Operations & recovery
   file: 13-operations.html
 - title: 14 / References
   file: 14-references.html
-- title: 15 / Open questions
+- title: 15 / Open decisions
   file: 15-open-questions.html
-- title: 16 / Implementation backlog
+- title: 16 / Application-led backlog
   file: 16-implementation-backlog.html
-- title: 17 / Data contracts
+- title: 17 / Shared data contracts
   file: 17-data-contracts.html
-- title: 18 / Agent handoff
+- title: 18 / Unified agent handoff
   file: 18-agent-handoff.html
-- title: 19 / Scenarios
+- title: 19 / Real tasks & test scenarios
   file: 19-scenarios.html

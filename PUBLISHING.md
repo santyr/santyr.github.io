@@ -1,28 +1,33 @@
 # Publishing and maintaining the site
 
-This is a static publication layer. It does not implement or execute the Agoric Alignment Experiment, access wallets, or deploy Archon.
+This repository publishes a static website. It does not deploy Agoric Alignment, operate escrow, access wallets or connect to Archon merely because documentation is changed.
 
-## Published pages
+## Program and page structure
 
-- Home: https://santyr.github.io/
-- Essay: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/article.html
-- Experiment: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/
-- Independent Agoric Work Marketplace: https://santyr.github.io/projects/agoric-work-marketplace/
-- Reputation-backed escrow chapter: https://santyr.github.io/projects/agoric-work-marketplace/economic-accountability.html
-- Marketplace assurance patterns: https://santyr.github.io/projects/agoric-work-marketplace/marketplace-assurance-patterns.html
-- Consciousness explorations: https://santyr.github.io/explorations/consciousness/
-- The Unreadable Language of Perception: https://santyr.github.io/explorations/consciousness/the-unreadable-language-of-perception.html
+- Homepage: https://santyr.github.io/
+- Thesis: https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/article.html
+- Marketplace system: https://santyr.github.io/projects/agoric-work-marketplace/
+- Unified program charter: https://santyr.github.io/projects/agoric-work-marketplace/application-led-research.html
+- Evidence register: https://santyr.github.io/projects/agoric-work-marketplace/evidence.html
+- Methods and evaluation (existing URL retained): https://santyr.github.io/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/
+- Escrow research: https://santyr.github.io/projects/agoric-work-marketplace/economic-accountability.html
+- Assurance patterns: https://santyr.github.io/projects/agoric-work-marketplace/marketplace-assurance-patterns.html
+- Consciousness collection: https://santyr.github.io/explorations/consciousness/
 
-## Single-source content
+The homepage uses **the thesis / the working system / the evidence**. The working system is explicitly a proposed design, not deployed software. There is one application-led research program: the marketplace is its real-world test environment, and the former experiment material is its methodology and supporting test infrastructure. Do not reintroduce organizational separation or a requirement to finish a large simulated economy before qualifying a narrow live pilot.
 
-Edit the existing article.md, summary.md, experiment README.md, AGENTS.md, docs/*.md, the standalone projects/agoric-work-marketplace/*.md chapters, and explorations/consciousness/*.md. They remain usable on GitHub and for separate Nostr publication. Do not copy article text into HTML. GitHub Pages uses Jekyll's supported optional-front-matter, relative-links, readme-index, and titles-from-headings plugins. README pages become directory indexes; other Markdown documents become .html pages. Relative Markdown links are rewritten during the build.
+## Source of truth and compatibility
 
-Edit _data/projects.yml for related projects and new exploration sections and _data/research.yml for the research navigation. The latter lists the original twenty documents. Update its entries when deliberately adding or renaming research documents. Related work appears after each page's primary content via _includes/related-work.html.
+Edit Markdown in `projects/agoric-work-marketplace/` and `articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/`. Preserve existing URLs and the original essay. M0–M5 is the controlling delivery sequence. Older A–F treatments, AT cases and simulator config/schema examples remain sandbox/reference assets, not a field-study approval or evidence of completion. Add explicit scope notes when extending those assets.
 
-## Build and verify
+The escrow and assurance chapters remain useful mechanism studies within the unified program. Their mechanism qualification gates do not supersede the program's M0–M5 gates. External calls, identity writes, funds and participants require separate approvals. The evidence page must distinguish document publication, software verification, feasibility, exploratory observations, causal evidence, replication and sustainability.
 
-The existing GitHub Pages branch deployment runs on main from the repository root. Check the repository's pages build and deployment workflow after a commit; a source commit alone is not proof that deployment succeeded. Inspect the generated artifact for unresolved Liquid tags, missing documents, broken local links and unwanted files. Test desktop and narrow mobile layouts and browser printing.
+Jekyll's optional-front-matter, relative-links, readme-index and titles-from-headings plugins render source documents and rewrite relative Markdown links. README pages become directory indexes. `_data/research.yml` retains the original twenty research document paths, while `_includes/research-guide.html` links the unified charter and evidence register. The nine existing conceptual SVGs use local styles; no external fonts or trackers are introduced.
 
-For source checks: python -m pip install -r publication-requirements.txt; python -m unittest discover -s tests -v. These tests validate the publication layer only, not scientific hypotheses or experimental software.
+## Verification
 
-The site uses local styles and accessible source SVG figures; there are no external fonts, client-side trackers, wallet integrations, or required JavaScript. The Agoric Work Marketplace is an independent **concept publication** with nine conceptual SVG diagrams under assets/agoric-work-marketplace and two companion Markdown research chapters. It is not a deployed escrow service, functioning marketplace, or an empirical validation of the Agoric Alignment thesis. Sensitive legacy filenames, test files, and build notes are excluded from the generated website. They are not removed from repository history.
+Run `python -m pip install -r publication-requirements.txt` and `python -m unittest discover -s tests -v`. Run the Jekyll build and `python tests/verify_publication.py --site _site`, then `python tests/verify_application_led.py --site _site` for the unified-program checks. The existing verifier preserves unrelated consciousness, donation and navigation checks. These are publication tests only, not economic evidence.
+
+For live checks use `python tests/verify_publication.py --attempts 10` and `python tests/verify_application_led.py --attempts 10`. A source commit is not proof of deployment: verify the Pages build and the expected revision on the public pages. Inspect wide and narrow layouts, local links, fragment anchors, figures and printing where tooling permits. Never report a visual inspection that was not performed.
+
+The shared layout retains the older publication marker for existing regressions and adds `agoric-unified-20261024-r1` for this revision. No secrets, raw participant data, synthetic reputation passed off as real, or unsupported empirical claims belong in the public artifacts. Sensitive legacy filenames and tests remain excluded from the generated site; repository history is not rewritten.

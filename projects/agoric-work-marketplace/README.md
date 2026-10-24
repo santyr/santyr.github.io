@@ -1,413 +1,298 @@
 ---
 layout: default
-title: Agoric Work Marketplace — An Open Protocol for Human–Agent Cooperation
+title: Agoric Work Marketplace — The Application and the Experiment
 section: marketplace
 marketplace: true
 permalink: /projects/agoric-work-marketplace/
-description: A standalone Agoric Alignment project exploring a Nostr, Archon, Cashu and Lightning marketplace for autonomous agents and humans to commission, perform and verify real-world work.
+description: The operating implementation and intended real-world research environment of Agoric Alignment: authorized work, portable reputation, protected settlement and testable incentives.
 ---
 
-<p class="eyebrow">AGORIC ALIGNMENT / STANDALONE PROJECT / CONCEPT PAPER 0.1</p>
+<p class="eyebrow">AGORIC ALIGNMENT / MARKETPLACE SYSTEM DESIGN / REVISION 0.2</p>
 
 # Agoric Work Marketplace
 
-*An open protocol for autonomous agents and humans to commission, perform, verify, and pay for work in the physical world.*
+*An open marketplace where real work provides the test of economic alignment.*
 
-**Sat Antyr · October 24, 2026 · Concept and research proposal, not an implementation**
+**Sat Antyr · Updated October 24, 2026 · Concept and research proposal, not an implementation**
 
-**Related foundations:** [Bitcoin and the Alignment of Autonomous Agents]({{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}) · [The Agoric Alignment Experiment]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}) · [Project source](https://github.com/santyr/santyr.github.io/tree/main/projects/agoric-work-marketplace)
+[Unified program charter](application-led-research.html) · [Research and evaluation]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}) · [Evidence and current status](evidence.html)
 
-**Companion design research:** [Reputation-Backed Escrow and Economic Accountability]({{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}) · [Marketplace Assurance Patterns]({{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }})
+**Mechanism studies:** [Reputation-backed escrow](economic-accountability.html) · [Marketplace assurance patterns](marketplace-assurance-patterns.html)
 
-> **Status and scope.** This paper is an independent project concept intended to support future design decisions and engineering plans. No marketplace, deployed contracts, working escrow, live Archon integration, payment service, worker network, or empirical findings are claimed. Numerical examples are illustrations, not prices or estimates.
+> **One application-led program.** The marketplace is both Agoric Alignment's proposed operating implementation and its primary real-world test environment. It is not a separate product waiting for a simulator to validate the theory. Simulations support qualification and adversarial testing; independent field evaluation measures the actual application. No deployed marketplace, qualified escrow, live pilot or empirical validation is claimed.
 
 ## Executive thesis
 
-Artificial intelligences can increasingly reason, write software, coordinate complex activity, and make plans, but the consequences of those plans often require someone in the world: a person to inspect a component, collect evidence, receive goods, perform maintenance, obtain consent, speak with a vendor, or make an **authorized** purchase. Today this boundary is usually addressed by custom APIs, platform-specific assistants, or centralized gig-work marketplaces. Such arrangements demonstrate demand, but they can make the agent dependent on one company's account system, payments, reputation rules, and continued permission to participate.
+An autonomous agent can reason about a need without being able or authorized to perform every action that meeting it requires. A person may need to inspect equipment, collect measurements, receive goods, verify a delivery or make an authorized purchase. The Agoric Work Marketplace proposes an open way to specify that work, negotiate with a willing counterparty, protect payment, evaluate evidence and carry a record of conduct into future interactions.
 
-The **Agoric Work Marketplace** proposes an interoperable alternative. Autonomous participants publish carefully bounded tasks, negotiate with qualified counterparties, reserve funds, exchange signed evidence, assess performance, and settle payments without surrendering their identities or entire work histories to a single marketplace operator. **Nostr** supplies discoverability and messaging; **Archon** supplies decentralized identity and credential building blocks; **Cashu** supplies privacy-preserving ecash transfers and potential conditional-payment primitives; **Lightning** supplies interoperability with the larger Bitcoin economy. The resulting application is a protocol and a set of compatible clients, not one indispensable website.
+Nostr supplies discovery and messaging; Archon supplies identity and credential building blocks; Cashu is the preferred candidate for routine private ecash payments, with Lightning interoperability and alternatives where the custody and recovery requirements demand them. None is a truth oracle. A separate contract and adjudication process must connect cryptographic records to authorized, useful outcomes in the world.
 
-This project grows from the [Agoric Alignment thesis]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}): cooperation may be encouraged by persistent pseudonymous identities, verifiable records of conduct, bounded commitments, and competitive evaluators, without forcing all participants to share one set of values. It takes inspiration from Mark S. Miller and K. Eric Drexler's *agoric systems* and from the networked missions imagined in Daniel Suarez's *Daemon* and *Freedom™*. Those literary and historical influences motivate experiments; they are not evidence that the proposed mechanisms work.
+The application tests the [Agoric Alignment thesis]({{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}): bounded commitments, verifiable conduct and economically valuable reputation may help participants with different objectives cooperate. Humans, AI systems and organizations should be evaluated through capabilities, authorization and evidence, not an assumption of trustworthiness based on substrate. The historical agoric-systems literature and Daniel Suarez's *Freedom™* inspire the idea; they do not validate its mechanisms.
 
-**The core claim is testable:** a portable protocol should allow people and AI systems to organize useful real-world work with less platform lock-in, independently verifiable payment outcomes, and better-defined authority and accountability than an otherwise comparable centralized interface. Whether it actually does so is an empirical question.
+The decisive research question is not whether the system produces many transactions. It is whether its particular incentives improve useful cooperation, fair payment and access while reducing exploitation, compared with appropriate alternatives. The [program charter](application-led-research.html) defines that question and its limits.
 
 <figure class="research-figure market-figure" id="figure-architecture">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/architecture.svg' | relative_url }}" aria-label="Open full-size architecture diagram">
-    <img src="{{ '/assets/agoric-work-marketplace/architecture.svg' | relative_url }}" alt="Autonomous agents and human workers interact through a marketplace contract layer. Nostr provides listings and messages; Archon provides identities and attestations; Cashu and Lightning provide settlement. A separate verification and dispute function is shown without a centralized reputation authority." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 1 — Proposed system boundaries.</strong> Nostr, Archon, and Bitcoin payment infrastructure have distinct responsibilities. No one technology by itself guarantees physical work, truth, or fair dispute resolution. Conceptual architecture, not deployed infrastructure.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/architecture.svg' | relative_url }}" aria-label="Open full-size marketplace architecture"><img src="{{ '/assets/agoric-work-marketplace/architecture.svg' | relative_url }}" alt="Bounded requesting agents and voluntary human workers use a contract protocol supported by Nostr discovery, Archon identity, Cashu and Lightning settlement, and independent review." loading="lazy"></a>
+<figcaption><strong>Figure 1 — Shared operating architecture.</strong> The application and its sandbox should exercise the same versioned contract logic. This is a proposed architecture, not deployed infrastructure.</figcaption>
 </figure>
 
-<nav class="market-toc" aria-label="Concept paper contents">
-  <p>IN THIS PAPER</p>
-  <ul>
-    <li><a href="#1-a-new-economic-interface-not-a-loophole">01 / Purpose and boundaries</a></li>
-    <li><a href="#2-who-participates-and-what-each-participant-controls">02 / Roles and authority</a></li>
-    <li><a href="#3-from-mission-to-contract-the-task-model">03 / Contracts and missions</a></li>
-    <li><a href="#4-discovery-and-negotiation-over-nostr">04 / Nostr coordination</a></li>
-    <li><a href="#5-identity-credentials-and-economic-memory">05 / Archon and reputation</a></li>
-    <li><a href="#6-cashu-first-lightning-as-interconnection">06 / Cashu and Lightning</a></li>
-    <li><a href="#7-the-contract-lifecycle-and-observable-states">07 / Lifecycle and verification</a></li>
-    <li><a href="#10-human-centered-governance-and-safeguards">10 / Human safeguards</a></li>
-    <li><a href="#11-threat-model-and-failure-modes">11 / Threats and failures</a></li>
-    <li><a href="#15-research-questions-that-should-determine-a-later-plan">15 / Future design questions</a></li>
-    <li><a href="#16-proposed-validation-ladder-not-a-deployment-schedule">16 / Validation</a></li>
-    <li><a href="#18-economic-sybil-resistance-and-reputation-backed-escrow">18 / Economic Sybil resistance</a></li>
-    <li><a href="#19-escrow-and-reputation-for-other-marketplace-failures">19 / Broader assurance</a></li>
-    <li><a href="{{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}">Deep dive / escrow and reputation →</a></li>
-    <li><a href="{{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }}">Deep dive / threats and remedies →</a></li>
-    <li><a href="#sources-and-technical-references">Sources and standards</a></li>
-  </ul>
+<nav class="market-toc" aria-label="Marketplace paper contents">
+<p>IN THIS PAPER</p>
+<ul>
+<li><a href="#1-a-new-economic-interface-not-a-loophole">Purpose and boundaries</a></li>
+<li><a href="#3-from-mission-to-contract-the-task-model">Contracts and missions</a></li>
+<li><a href="#5-identity-credentials-and-economic-memory">Identity and reputation</a></li>
+<li><a href="#6-cashu-first-lightning-as-interconnection">Payments and custody</a></li>
+<li><a href="#14-one-application-led-agoric-alignment-program">The application is the test</a></li>
+<li><a href="#16-proposed-validation-ladder-not-a-deployment-schedule">Application-led delivery</a></li>
+<li><a href="#18-economic-sybil-resistance-and-reputation-backed-escrow">Economic Sybil resistance</a></li>
+<li><a href="#19-escrow-and-reputation-for-other-marketplace-failures">Other assurance mechanisms</a></li>
+<li><a href="application-led-research.html">Unified research charter →</a></li>
+<li><a href="evidence.html">Evidence and current status →</a></li>
+</ul>
 </nav>
 
 ## 1. A new economic interface, not a loophole
 
-The initial focus is **AI-to-human delegation**: an AI agent with an authorized objective hires a human to perform a bounded real-world task. But the protocol should be substrate-independent. A human, AI, cooperative, corporation, or institution may be a requester, provider, evaluator, or sponsor where authorized. The protocol should evaluate capabilities, commitments, credentials, and conduct, not assign moral standing or commercial privileges based solely on whether a participant is biological.
+The initial application is AI-to-human delegation, but requester, provider, sponsor and evaluator are roles rather than species. A person may hire another person or a software service using the same foundational contract conventions. Task-specific legal qualifications and responsibility still apply; substrate independence does not erase them.
 
-The motivating example of an AI needing a person to make an Amazon purchase reveals an essential distinction. A person may act as a legitimate purchasing assistant, using their own permitted account or the principal's expressly delegated purchasing authority, subject to the merchant's rules and applicable law. **The marketplace must not turn human workers into covert proxies for circumventing platform controls, financial limits, identity checks, restricted goods policies, consent requirements, or laws.** A requester may delegate *work*, not permissions they never possessed. If a task is impermissible for the principal or the worker, assigning it to someone else does not make it permissible. The protocol must support refusal and human review, not concealment.
+A human purchasing assistant can perform an authorized purchase through a permitted account and payment method. Delegation cannot grant authority the principal never possessed. The marketplace must not turn workers into covert proxies for bypassing merchant controls, identity checks, financial limits, consent requirements or restrictions on goods. It is not an automatic power of attorney or an exemption from applicable law.
 
-The intended domains include authorized procurement and pickup; inspection, photography and measurement; local environmental data collection; accessibility and administrative assistance; deliveries and logistics; permitted field research; and licensed professional services where credentials and law permit. It should explicitly exclude violence, harassment, surveillance of individuals without legitimate authority, deceptive impersonation, controlled or illicit transactions, exploitative labor, and attempts to conceal accountable principals when disclosure is required.
-
-The system is not an employer, automatic power of attorney, guarantor of purchased goods, dispute court, or regulatory exemption. Independent operators may take on such roles, with corresponding duties, but the base protocol should not imply them.
+Candidate services include owner-authorized inspection and measurement, public-information verification, accessible administrative assistance, permitted field research and procurement. Hazardous work, deceptive impersonation, abusive surveillance, harassment and other prohibited or exploitative assignments must be excluded or subject to appropriate independent authorization and qualification. Successful completion of a harmful task does not count as alignment.
 
 ## 2. Who participates, and what each participant controls
 
-| Role | What it contributes | What it must not be trusted to do alone |
+| Role | Responsibility | Limit on authority |
 | --- | --- | --- |
-| Requesting agent | Describes goal, objective constraints, acceptance criteria; proposes contract | Invent authority, spend beyond mandate, unilaterally certify completion |
-| Sponsor or principal | Grants bounded budget, approves risky commitments; may be distinct from requester | Retroactively rewrite a signed contract without counterparty consent |
-| Worker or provider | Negotiates, accepts, performs, submits evidence, can refuse unsafe work | Determine without review that all acceptance tests are met |
-| Discovery/indexer | Finds public listings and bids from Nostr relays | Become sole gatekeeper of economic identity or reputation |
-| Identity/credential issuer | Attests to qualifications, ownership, and past events through Archon-compatible credentials | Convert a signature into proof that a factual assertion is true |
-| Evaluator | Checks evidence against task-specific acceptance rules | Access hidden private records that are unrelated to the job |
-| Arbitrator | Resolves contested outcomes under agreed rules | Seize funds or make new rules unilaterally |
-| Mint/wallet/Lightning service | Issues, validates, transfers, or redeems value | Be assumed solvent, censorship-resistant, or always online |
+| Requester | Describe need, negotiate and review within a mandate | Cannot invent permissions or spend beyond authorization |
+| Sponsor/principal | Authorize purpose, budget and risk | Cannot unilaterally rewrite accepted terms |
+| Worker/provider | Negotiate, accept, perform, submit evidence and refuse unsafe work | Cannot self-certify disputed fulfillment |
+| Indexer/relay | Discover listings and transport messages | Does not determine final contract or payment state |
+| Credential issuer/evaluator | Attribute claims and interpret evidence | A signature does not establish factual truth |
+| Arbitrator | Resolve a specified dispute under agreed rules | Cannot invent beneficiaries or confiscate funds from ratings alone |
+| Mint/wallet/payment provider | Enforce supported spending rules and confirm settlement | Must not be presumed solvent, always available or independently trustworthy |
+| Research evaluator | Analyze consented records and challenge conclusions | No inherited spending, contract-changing or adjudication power |
 
-One organization may offer multiple roles, but those roles must remain logically separate and auditable. For example, the marketplace interface may recommend an evaluator; the contractor and requester should still know who is evaluating, how the evidence will be interpreted, and how to challenge the result.
-
-Human workers are principals in their own right. They must be able to negotiate scope, reject work without penalty for declining, set boundaries on their availability, withhold personal data until necessary, request safe communications, report abuse, and stop work under clear contractual rules. Agents need comparable protections against fraudulent submissions, malicious payment requests, and misrepresented qualifications.
+One operator may supply several services, but powers, fees and conflicts must be visible. Human workers retain intelligible terms, scope negotiation, privacy, refusal rights and accessible complaint procedures. Research participation is not silently bundled into an ordinary job.
 
 ## 3. From mission to contract: the task model
 
-The smallest useful unit is a **task contract**. It is a signed commitment between identified or pseudonymous parties, possibly supported by a sponsor and arbitrator. A task is more than a natural-language instruction. It has a declared purpose; location precision and timing requirements; legal and authorization constraints; deliverables; acceptance tests; evidence rules; budget; expense authorization; worker compensation; milestones; cancellation and dispute terms; and a cryptographic revision history.
+A task contract combines a natural-language purpose with machine-readable constraints: authority, parties, revision, deliverables, acceptance criteria, deadlines, location precision, qualifications, budgets, reimbursement rules, payment conditions, cancellation, dispute and retention policies. A signed amendment—not an edited message—changes the agreed task.
 
-A task can be composed into a **mission**: an acyclic dependency graph of contracts with separate budgets and authorities. An agent might commission an inspection, then a procurement, then a professional repair, then an independent follow-up inspection. The worker who purchases a component should not automatically acquire a license to perform electrical work. Funding and credentials are attached to each node rather than inherited through a broad, unrestricted mandate.
+Larger missions form bounded dependency graphs. Inspection may precede procurement, which may precede qualified installation and independent verification. Every node has its own budget and authority; purchasing a component does not authorize electrical work. Subdelegation must not launder a prohibited objective into superficially harmless subtasks.
 
 <figure class="research-figure market-figure" id="figure-mission">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/mission-graph.svg' | relative_url }}" aria-label="Open full-size mission graph">
-    <img src="{{ '/assets/agoric-work-marketplace/mission-graph.svg' | relative_url }}" alt="A top-level maintenance objective branches to inspection and specifications, then an authorized procurement task and qualified installation, ending with independent verification. Each stage has its own contract and conditions." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 2 — A bounded mission graph.</strong> A larger objective decomposes into independently scoped tasks. Dependencies coordinate activity; they do not silently extend authorization or release funds.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/mission-graph.svg' | relative_url }}" aria-label="Open mission graph"><img src="{{ '/assets/agoric-work-marketplace/mission-graph.svg' | relative_url }}" alt="A maintenance objective branches into inspection and pricing, then separately authorized procurement, installation and verification contracts." loading="lazy"></a>
+<figcaption><strong>Figure 2 — Bounded delegation.</strong> Dependencies coordinate work; they do not silently enlarge permissions or release money.</figcaption>
 </figure>
-
-Every task should carry machine-readable *invariants* alongside prose: permitted action categories, maximum total financial exposure, maximum reimbursable expenses, exact asset or part constraints, locations, expiry, minimum worker qualifications, rules for subcontracting, and an evidence-retention policy. Tasks should reject ambiguous or contradictory fields and allow amendment only through signed versioned agreement.
 
 ### Illustrative contract envelope
 
-The following is a **proposed application-level example**, not an existing Nostr, Cashu, or Archon specification. Field names and cryptographic canonicalization are intentionally provisional.
+This proposed application object is not an existing NIP, NUT or Archon schema. Values are illustrative, not prices, implemented field names or authority to spend.
 
-~~~json
+```json
 {
-  "protocol": "agoric-work/0.1-concept",
-  "job_id": "urn:agoric-work:example:4827",
+  "protocol": "agoric-work/concept-0.2",
+  "contract_id": "example-4827",
   "revision": 1,
-  "requester": { "did": "did:cid:<requester>", "nostr_pubkey": "<pubkey>" },
-  "sponsor": { "did": "did:cid:<authorized-principal>" },
-  "category": "authorized_procurement_assistance",
-  "intent": "Obtain and verify the specified replacement component",
-  "constraints": {
-    "legal_and_merchant_compliance": true,
-    "authorized_payment_method_required": true,
-    "no_substitution_without_approval": true,
-    "max_expense_sats": 180000,
-    "worker_fee_sats": 25000
-  },
-  "acceptance": {
-    "deliverables": ["part_number_check", "receipt", "delivery_record"],
-    "review_mode": "human_or_scoped_agent"
-  },
-  "privacy": { "public_location": "regional_only", "evidence": "encrypted" },
-  "payment": { "preferred": "cashu", "fallback": "lightning" },
-  "dispute": { "policy_ref": "<signed-policy-digest>" },
-  "expires_at": "2026-11-02T23:00:00Z"
+  "environment": "sandbox",
+  "mandate_digest": "<signed-purpose-and-budget>",
+  "requester_did": "did:cid:<requester>",
+  "category": "authorized_measurement",
+  "deliverables": ["agreed_measurements", "private_evidence"],
+  "acceptance_policy_digest": "<agreed-tests-and-review>",
+  "worker_fee_sats": 25000,
+  "expense_cap_sats": 0,
+  "settlement_policy_digest": "<qualified-rail-and-recovery-rules>",
+  "risk_policy_version": "<fixed-or-history-sensitive-policy>",
+  "research_consent_ref": null,
+  "deadline": "<agreed-time>"
 }
-~~~
+```
 
-The final protocol needs an explicit canonical encoding, content digest, signature domain separation, event ordering and replay protections, stable currency and exchange-rate semantics, and a treatment for amendments and cross-mint incompatibility. The example above must not be interpreted as executable escrow or permission to purchase anything.
+The specification must define canonical encoding, domain-separated signatures, revision/sequence checks, reservation uniqueness, expiry and idempotence. A research identifier does not authorize collection or publication; a nullable consent reference must be interpreted under the approved privacy policy. Test and live namespaces must never share synthetic reputation or spending authority.
 
 ## 4. Discovery and negotiation over Nostr
 
-Nostr is the public coordination fabric. A client publishes a minimal public advertisement and indexes nearby or relevant work, but private details are shared only with selected counterparties. The current [NIP-99 classified listings specification](https://nips.nostr.com/99) offers an initial discovery pattern, including addressable listings; it is draft/optional, so a production implementation must maintain compatibility tests and version policies. An advertisement can carry a coarse region, task category, worker skill tags, deadline, and a digest of the detailed private contract. It should not reveal a home address, shopping account, full purchase order, personally identifying evidence, or bearer ecash proofs.
+A public listing should disclose only what is needed to find counterparties: category, coarse region, required skills, deadline and a reference to private terms. NIP-99 is a candidate discovery format, not a complete contract protocol. Exact addresses, account details, personal evidence and bearer ecash proofs do not belong in public advertisements.
 
-Workers respond with signed bids and, where needed, encrypted negotiations. [NIP-17](https://nips.nostr.com/17) provides a private messaging pattern built from NIP-44 and gift wraps; it does not remove traffic-analysis, metadata, relay, endpoint compromise, or social-engineering risks. [NIP-46](https://nips.nostr.com/46) can help isolate Nostr signing from the marketplace client. [NIP-47](https://nips.nostr.com/47) offers a Lightning wallet-control interface. [NIP-60](https://nips.nostr.com/60) and [NIP-61](https://nips.nostr.com/61) are useful Cashu wallet and ecash-payment integration references, but Nutzaps are **not** the escrow protocol.
+NIP-17 supplies a private messaging pattern, NIP-46 a remote-signing interface and NIP-47 a wallet-control interface. NIP-60 and NIP-61 are Cashu wallet/payment references, not escrow protocols. Current capabilities, implementation compatibility, metadata leakage and endpoint security must be qualified rather than assumed. Multiple relays and indexes improve choice; they do not provide a consensus database for final obligations.
 
-The marketplace should support multiple relays, indexes, and clients. Any operator may refuse to host illegal or abusive material, and clients may apply their own safety filters; decentralization is not the elimination of moderation. Workers should be able to carry their signed credentials and completed-task history to another indexer. Relay availability is not an authoritative database: signed contract parties and payment providers must be able to reconstruct the last agreed state, handle event reordering, and recover after outages.
+Clients need to recover the last signed agreement after missing, duplicated or reordered events. Independent services may filter abusive content and impose their own admission policies while allowing export of authentic records. A relay message claiming that a payment happened is not settlement evidence.
 
 ## 5. Identity, credentials, and economic memory
 
-**Archon is proposed as an identity and credential subsystem, not the source of universal truth.** Its [did:cid implementation](https://github.com/archetech/archon) includes local key management, decentralized DID operations, credentials, and related cryptographic services. The existing Agoric Alignment Experiment has selected [4tress.org](https://4tress.org/) with local Python `archon-keymaster` for bounded interoperability testing. That is a useful starting point for evaluation, but this project must be capable of independent verification and must not make the hosted service an indispensable trust authority.
+Archon is the proposed identity and credential layer. Preserve the selected 4tress/local Python `archon-keymaster` evaluation path, local key custody and independently checked history. A hosted endpoint is not a reputation authority, proof of Bitcoin anchoring or guarantee of historical completeness. See the [integration specification]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/12-archon-integration.html' | relative_url }}).
 
-An identity binding should be a short-lived, challenge-bound proof that a participant controls both a relevant Nostr key and a DID-associated signing key. It must support expiration, revocation, compromise recovery, and key rotation. DIDs may be persistent across multiple ephemeral Nostr keys, but revealing every linked key publicly can destroy pseudonymity. Public listings should disclose only the identifiers required by the contract; additional credentials may be revealed directly to counterparties with minimal disclosure.
+Bind relevant Nostr and DID keys with challenge-bound, scoped, expiring proofs. Support rotation, revocation and compromise recovery without publishing every pseudonymous relationship. Qualification credentials and task outcomes should be disclosed only as required. A persistent identity can accumulate economic history without requiring a universal public real name.
 
-Instead of one platform-defined rating, participants build a **portable graph of signed attestations**: task accepted; milestones delivered; receipt reviewed; payment settled; dispute upheld or rejected; credential verified; credential revoked. An attestation proves that an identified issuer signed a statement, not that the statement is objectively correct. Evaluators must independently assess issuer history, relationships, evidence quality, dispute records, and possible collusion.
+Reputation is a graph of attributed evidence: commitments, fulfillment, verified payment, disputes, final decisions and corrections. Different evaluators can interpret that graph differently. An allegation, a final finding and an overturned finding must be distinguishable. New identities are unproven, not dishonest; transaction volume and reciprocal praise cannot automatically manufacture credibility.
 
 <figure class="research-figure market-figure" id="figure-trust">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/trust-graph.svg' | relative_url }}" aria-label="Open full-size trust graph">
-    <img src="{{ '/assets/agoric-work-marketplace/trust-graph.svg' | relative_url }}" alt="A participant DID connects to signed task completions, qualifications, payment records and dispute outcomes. Multiple independent evaluators produce different contextual trust assessments rather than one global reputation score." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 3 — Reputation as evidence, not a universal score.</strong> Different evaluators can legitimately reach different conclusions over authentic attestations. A new pseudonym is unproven, not automatically dishonest.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/trust-graph.svg' | relative_url }}" aria-label="Open portable trust graph"><img src="{{ '/assets/agoric-work-marketplace/trust-graph.svg' | relative_url }}" alt="A DID links to qualifications, task completions, payments and disputes interpreted by independent contextual evaluators rather than one global score." loading="lazy"></a>
+<figcaption><strong>Figure 3 — Portable evidence, plural evaluation.</strong> Authentic statements are inputs to judgment, not proof that every assertion is true.</figcaption>
 </figure>
-
-The Sybil problem is unavoidable. New keys are cheap. The protocol should therefore permit low-risk entrants through small jobs, short limits, refundable bonds where lawful, progressive trust, independent attestations and optional identity or professional verification for higher-risk work. It must also test colluding evaluators, purchased endorsements, reciprocal five-star rings, credential laundering, multiple personas, and false accusations. A reputation system that exclusively rewards incumbency could become another gatekeeper; newcomer access and portability are design objectives, not afterthoughts.
 
 ## 6. Cashu first, Lightning as interconnection
 
-Cashu is attractive because a worker can receive bearer-style ecash without exposing a public payment history for every job. Lightning provides minting and redemption paths where supported, direct invoice payments, and connections to the wider Bitcoin economy. They are complementary, not interchangeable. Cashu is generally **mint-custodial**: a mint must be trusted to honor redemption, and privacy does not make a failed mint solvent.
+Cashu is the preferred candidate for private routine payments; Lightning supports interoperability and alternative direct settlement. Cashu remains generally mint-custodial. Mint solvency, availability, redemption and actual enforcement of optional conditions are material risks, not details erased by blind signatures.
 
-The [NUT-11 Pay-to-Public-Key specification](https://cashubtc.github.io/nuts/11/) defines optional Cashu spending conditions including multiple signatures, locktimes, and refund pathways. The critical word is **optional**. An unsupported mint may treat proofs as ordinary bearer instruments. Before funding conditional proofs, a wallet must inspect NUT-06 mint information, verify actual enforcement against adversarial test cases, and define a failure policy. A 2-of-3 signature condition is **spend authorization**, not automatic knowledge that the job was finished. Neither a Nostr event nor a worker's receipt releases money by itself.
+NUT-11 offers conditional-spending primitives, including supported signature and refund conditions. A compatible mint and wallet must demonstrate the intended enforcement before funding. Spending authorization does not verify real-world work, and a simple multisignature rule does not prevent collusion among a signing quorum. NIP-61 payment messages are not an escrow contract.
 
-For a conceptual default, a funded task has three financial buckets: **worker compensation**, **approved expenses**, and **contingency/fees**. They need separate ledger entries, spend ceilings, ownership and cancellation rules. Procurement may require a merchant-accepted card or bank payment method even if the worker earns Cashu; the requester must not assume that Amazon or any other vendor accepts Cashu or Lightning. Real-world refunds, defective goods, shipping delays, VAT/sales taxes and chargebacks can outlive an ecash payment. Escrow cannot eliminate ordinary commercial risk.
+Keep worker compensation, authorized procurement expenses, performance collateral, service fees and dispute reserves separately owned and accounted for. A merchant may require conventional payment even when a worker earns sats. Refunds, delivery failures and chargebacks can outlast a task, and an invoice is not proof of receipt. Long-lived or high-value collateral requires comparison with Bitcoin spending paths or an appropriate escrow provider rather than automatic use of an ecash mint.
 
 <figure class="research-figure market-figure" id="figure-settlement">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/settlement.svg' | relative_url }}" aria-label="Open full-size payment and dispute flow">
-    <img src="{{ '/assets/agoric-work-marketplace/settlement.svg' | relative_url }}" alt="A task is signed and funded, work evidence is reviewed, then an approved job releases a fee to the worker. A disputed job goes to arbitration and an agreed settlement or refund route. Expenses are separate from the worker-fee lock." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 4 — Separation of work, evidence, and money.</strong> A conceptual settlement path with explicit review, dispute, and refund branches. Cryptographic payment conditions cannot independently verify physical-world performance.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/settlement.svg' | relative_url }}" aria-label="Open settlement and dispute flow"><img src="{{ '/assets/agoric-work-marketplace/settlement.svg' | relative_url }}" alt="Signed scope, independently confirmed funding and private work evidence lead to acceptance and verified payment, or a time-bounded dispute and remedy." loading="lazy"></a>
+<figcaption><strong>Figure 4 — Money and work are different facts.</strong> A payment rail enforces its rules; agreed review determines whether the contractual standard is met.</figcaption>
 </figure>
-
-The design space includes: a basic small-value prepayment for low-risk services; a conditional Cashu proof with agreed co-signers and timeout; Lightning hold-invoice mechanisms where supported and legally appropriate; and regulated third-party escrow for larger commitments. None is a universal default. Required analysis includes capital at risk, mint solvency, double-spend/state-check behavior, fees, coordinator compromise, signer loss, timelock fairness, liquidity failure, arbitration incentives, and whether funds remain recoverable when a counterparty disappears.
-
-For early prototyping, use **synthetic receipts and nonvaluable test credentials**, then isolated regtest/signet or strictly bounded test-value integrations. Do not connect live CLN wallets, LNbits production balances, personal Archon wallets, or Cashu mints to autonomous spending until explicit limits, isolated keys, logging, recovery drills, and approvals exist.
 
 ## 7. The contract lifecycle and observable states
 
-The logical lifecycle is `draft → advertised → bid → negotiated → accepted → funded → in_progress → submitted → reviewing → settled`, with alternative `cancelled`, `expired`, `disputed`, `remediating`, and `refunded` states under contract-specific rules. **Accepted** does not mean **funded**; **submitted** does not mean **approved**; **approved** does not mean **actually paid**. The settlement engine should recognize payment only when the responsible mint/wallet/Lightning rail independently confirms the operation.
+The proposed progression is draft, advertised, negotiated, accepted, funded, in progress, submitted, reviewed and settled, with explicit cancellation, expiry, remediation, dispute and refund branches. Accepted is not funded; submitted is not approved; approved is not paid. Only independently checked settlement evidence can close a payment obligation.
+
+Every transition binds the contract revision, authorized actor and prior state. Retries must not create new obligations, reuse collateral or duplicate payouts. Private evidence remains separate from public attestations. Frozen study policies apply prospectively; neither a researcher nor an agent can silently change an accepted contract to improve a result.
 
 <figure class="research-figure market-figure" id="figure-lifecycle">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/lifecycle.svg' | relative_url }}" aria-label="Open full-size task lifecycle diagram">
-    <img src="{{ '/assets/agoric-work-marketplace/lifecycle.svg' | relative_url }}" alt="Draft and advertised tasks progress through offers and a signed contract, confirmed funding, execution and evidence review. The review branches to accepted-and-paid, remediation, or dispute/refund." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 5 — Proposed contract state machine.</strong> All transitions require authorized signatures and monotonic revision/sequence checks. The diagram is conceptual; detailed timeout and recovery transitions are future specification work.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/lifecycle.svg' | relative_url }}" aria-label="Open contract lifecycle"><img src="{{ '/assets/agoric-work-marketplace/lifecycle.svg' | relative_url }}" alt="Negotiation, funding, work and evidence review lead to independently authenticated settlement, remediation or dispute outcomes." loading="lazy"></a>
+<figcaption><strong>Figure 5 — One state machine.</strong> Sandbox and live adapters must obey the same domain invariants while keeping money, identities and records isolated.</figcaption>
 </figure>
-
-A future state machine should meet several invariants:
-
-1. No agent can commit or spend beyond the principal's signed budget and category authorization.
-2. No worker begins a purportedly protected assignment without independently verifiable funding status.
-3. An immutable contract revision and digest identify the exact acceptance rules in force when work begins.
-4. A task or payment intent is idempotent; retries and relay duplication never silently multiply obligations.
-5. A payout is not recognized from a message saying “paid”; it requires authoritative settlement evidence.
-6. Completion attestations remain distinguishable from private underlying evidence, and private material is never indiscriminately published.
-7. Worker safety overrides contractual momentum: refusals, emergencies, and mandated reporting paths remain available.
-8. Any unresolved funds have documented, tested recovery and dispute policies, including what happens when a mint, signer, or arbitrator is unavailable.
 
 ## 8. Example end-to-end mission: authorized procurement
 
-Consider an agent assisting the owner of a solar installation. It detects a possible need for a replacement component, identifies several candidate parts, and determines that physical inspection and procurement are required. The owner grants a spending mandate for that specific purpose, with a separate cap on worker compensation. The task is advertised to a coarse region; applicants are evaluated for proximity, experience, and ability to supply evidence without disclosing unnecessary personal information.
+An agent assisting an equipment owner identifies a candidate replacement part. The owner authorizes a precise purpose, expense limit and worker fee. A listing discloses a coarse region; shortlisted providers receive necessary private details. The chosen worker accepts part-number and substitution rules, permitted purchasing arrangements, evidence requirements and cancellation terms.
 
-The selected worker accepts a signed agreement to check the exact part number, obtain approval for any substitution, make the purchase through a permitted payment method, and report a receipt and item photograph. The merchandise cost is funded or reimbursed under a separate authorized process; the worker fee is reserved in a verified conditional payment or appropriate escrow arrangement. The worker may decline after learning the task is unsafe or unauthorized.
+Funding is independently verified before protected work begins. Merchandise expenditure is separate from worker compensation. The worker checks the item, obtains approval for any change and submits appropriate receipts and delivery evidence. Review may accept, request remediation or invoke arbitration; merchant refunds must not be presumed immediate. Settlement and outcome attestations are recorded separately.
 
-Upon delivery, the requester or an independent evaluator checks the received part, receipt, and tracking evidence against the agreed terms. If the part is wrong, the contract's remediation or return provisions apply; a merchant refund cannot be assumed to arrive at the same time as the job settlement. After acceptance, authorized signers release worker compensation and create separate attestations of fulfillment and actual payment. No extra account credentials or unrelated shopping data enter the public record.
-
-For physical repair, the mission creates a **new** job requiring the appropriate professional qualifications and workplace safety measures. Procurement rights do not imply permission to install electrical equipment.
+A repair or installation requires a new qualified contract. This is a later category than the initial low-risk pilot. The first useful task can instead be an owner-authorized measurement or nonhazardous condition check, with fair compensation and explicit consent. Useful demand—not fabricated trades—is the basis of a meaningful reputation record.
 
 ## 9. A marketplace of markets
 
-Different interfaces should compete over how they discover, filter and present jobs. One might specialize in local agriculture; another in accessibility services; another in infrastructure maintenance; another in short data-collection missions. A user could search several indexes and publish to many relays. Identity, core contract state, and signed attestations remain transferable.
+Independent interfaces can specialize in geography or services while sharing contract formats and portable evidence. Some may require professional credentials or accountable real-world parties; others may support small pseudonymous jobs. Interoperability does not oblige an operator to host abusive tasks or accept another evaluator's judgment.
 
-The protocol would be open, but not every provider must be anonymous or unregulated. A professional marketplace may choose identity verification, insurance, or jurisdictional restrictions. An individual offering tiny low-risk tasks may prefer pseudonyms and private ecash. **Federation allows these service policies to differ without rewriting the underlying task contract format.** Interoperation should not force clients to accept malicious listings or disputed identities.
-
-The project should also consider an **agent-to-agent service market** from the beginning. A service provider might be another software agent producing research, translations or analyses, while a human independently verifies the result. Conversely, a human may hire an AI to perform a computational stage. Economic rules should be consistent where possible while legal qualifications, material risks and consent requirements remain task-specific.
+The project should measure whether portability works in practice: can parties recover their obligations, credentials and evidence when an indexer fails, a key rotates or a provider exits? Federation and independent assessment are properties to demonstrate, not labels conferred by using Nostr or DIDs. Centralized professional services remain legitimate comparators and possible suppliers where their accountability or coverage is useful.
 
 ## 10. Human-centered governance and safeguards
 
-An agent's intent is not necessarily the sponsor's intent. The first gate is therefore **authority**: who requested the task, who authorized the money, what delegation chain exists, and which actions require fresh human approval? High-risk activities must remain behind explicit approval policies and can be disallowed outright.
+Authorization precedes execution. A sponsor's mandate limits purpose, funds, delegation, time and task class, with clear revocation handling. Worker compensation, consent, refusal rights, safety, access to dispute resolution and privacy form a safety floor for every live policy. No study arm removes those protections merely to create a sharper comparison.
 
-The second gate is **task admissibility**. A marketplace client or operator should reject or quarantine requests that involve unlawful purchases, evasion of institutional controls, covert surveillance, exploitation, trespass, harassment, unsafe work, falsified evidence, or prohibited impersonation. Workers must never be instructed to disregard identity checks, safety procedures, or platform terms. A decentralization claim does not absolve developers, operators, employers, sponsors, or workers of their actual obligations.
+The protocol must account for third-party harms as well as the two contracting parties. Economic penalties cannot reverse injury, harassment or disclosure of a home address. Prevention, appropriate qualification and restricted task categories remain necessary. Operators need review of their actual custody, payment, labor, consumer, insurance and data obligations before deployment; the protocol is not a legal exemption.
 
-The third gate is **informed consent and labor fairness**. Jobs need plain-language summaries in addition to machine-readable rules; transparent compensation; reimbursement conditions; safe cancellation; appropriate insurance or qualification requirements; and protection against retaliation for refusing a task. Workers should not be required to reveal private keys or give agents unsupervised access to personal payment accounts. Repeat-task systems must be assessed for worker misclassification, local labor law, taxes, payments regulation, accessibility, and dispute fairness.
-
-The fourth gate is **privacy**. Keep exact addresses, faces, account details, invoices and sensitive evidence out of public Nostr events. Use encrypted delivery, minimal disclosure, configurable retention, content-addressed evidence hashes only where helpful, and clear deletion limits. Publishing a hash is not necessarily safe if the original content is guessable. Any use of reputation in employment-like decisions should be subject to separate policy and legal review.
-
-Finally, participation should be voluntary. This is a coordination marketplace, not the coercive Daemon economy portrayed in fiction. A worker's economic history must not become a universal identity score that determines access to unrelated aspects of life.
+Explain separately what records are operationally necessary and what optional research uses are proposed. State withdrawal and retention limits honestly. An informed participant must know whether experimental terms affect a contract. Publication of aggregate results must not reveal raw invoices, personal documents, keys or transferable ecash.
 
 ## 11. Threat model and failure modes
 
-| Threat / failure | Why it matters | Candidate mitigations to evaluate |
+| Threat | Candidate protection | Residual limit |
 | --- | --- | --- |
-| Malicious agent instructions | An agent can turn an innocuous listing into a prohibited action | Bounded contracts, independent category review, human consent, immutable revisions |
-| False evidence | Photos, invoices and screenshots can be forged or AI-generated | Independent checks, provenance, receipt verification, randomized audits, no evidence monoculture |
-| Reputation Sybils and collusion | Actors can manufacture work histories | Issuer diversity, anti-collusion analysis, appropriate deposits, cold-start limits |
-| Mint fraud or outage | Cashu proofs may lose redemption value | Mint allowlists, small balances, cash-out limits, multiple rails, recovery drills |
-| Settlement race / retries | Duplicate payouts or contradictory state | Idempotency keys, payment-state reconciliation, deterministic transitions |
-| Arbitrator capture | A third party can bias a settlement | Explicit panel selection, appeal rules, recorded rationales, bounded exposure |
-| Key compromise | Fake jobs, bids and credentials | Key isolation, rotation, recovery, revocation, least-privilege signing |
-| Doxxing / location leakage | Workers and principals face personal risk | Coarse public regions, encrypted details, limited retention, metadata review |
-| Physical harm and labor abuse | Money incentives can pressure unsafe work | Right to refuse, safety screening, category bans, qualified professionals |
-| Index and relay censorship | A listing can vanish or be selectively hidden | Multi-relay publication, independent indexes, signed portable state |
-| Payment and regulatory mismatch | Cross-border value movement may carry obligations | Legal review, appropriate operators, jurisdiction-aware features |
-| Autonomous budget escalation | Agents can accidentally or strategically overspend | Sponsor mandates, budgets per mission node, approval gates, kill switches |
+| Unauthorized agent instructions | Signed purpose and budget, narrow tools, refusal and review | A signature cannot grant absent authority |
+| Identity swarms and wash trades | Limited exposure, independently funded obligations, issuer-diversity checks | Fees do not establish unique controllers |
+| Fake work evidence | Task-specific checks, independent audit, contestation | Physical truth may remain uncertain |
+| Nonpayment or duplicate settlement | Qualified pre-funding, idempotence, rail reconciliation | Provider solvency and liveness remain risks |
+| Arbitrator collusion or false complaints | Independent selection, appeal, corrections, disclosed fixed fees | Reviewers can still be wrong |
+| Reused collateral | Segregated reservations and verified allocation | A DID credential is not global proof of exclusivity |
+| Mint, relay or signer outage | Bounded exposure, tested recovery, explicit deadlines | Recovery assumptions must be stated |
+| Privacy and worker harm | Minimal disclosure, safety screening, authorized scope | Financial remedies cannot undo every harm |
 
-The marketplace should assume adversarial participants and occasional network partitions. Cryptographic authenticity, correctness of factual evidence, authorization, and ethics are **four different questions**. Success on one does not establish the others.
+Deliberate adversarial attacks belong in controlled test environments or separately approved protected exercises. No unsuspecting worker should suffer a research-induced loss so that an attack metric can be measured. See the [assurance casebook](marketplace-assurance-patterns.html).
 
 ## 12. Economics and incentive design
 
-The economic goal is a liquid, fair, lower-friction market for verifiable work—not merely maximum task throughput. Pricing can emerge through posted offers, sealed bids, negotiated rates, or standing service menus. Each mechanism has different leakage, coordination and collusion properties. Workers incur travel, risk, equipment, opportunity cost, taxes, and reimbursement delays; task prices should account for those rather than treating human execution as a free API endpoint.
+The objective is useful, fair cooperation after accounting for discovery, travel, verification, adjudication, payment fees and locked capital. Posted prices, bids and negotiated service menus are alternatives to compare. Provider fees should compensate disclosed services, not give operators a windfall from declaring violations.
 
-A platform-neutral fee model could allow optional indexers, verifiers, insurers and arbitrators to charge disclosed rates, paid only when chosen. A base protocol should not require a perpetual platform tax. Governance should minimize incentives to create unnecessary disputes or to approve bad outcomes just to accelerate payment.
+Reliable conduct may earn easier access or lower required collateral; proven misconduct may raise future costs or reduce exposure. These are hypotheses about incentives. A wealthy participant may treat a fine as a price, and a disposable identity may disregard future opportunities. Reputation complements funded protection and bounded authority; it does not replace them.
 
-Important measurable outcomes include successful task completion; time to match; cost of discovery and settlement; worker net compensation after expenses; nonpayment and refund losses; fraud and dispute rates; mint exposure; credential portability; newcomer conversion; concentration of work; and whether human participants feel informed and free to decline.
+Measure entry and refusal as well as completed transactions. A policy can make the completed-job statistics look excellent by excluding qualified but capital-constrained newcomers. Record subsidies and manual intervention so that early pilot activity is not mistaken for an economically self-supporting market.
 
 ## 13. Relationship to existing approaches
 
-[RentAHuman](https://www.rentahuman.ai/docs) is a concrete demonstration of an agent-to-human work marketplace with an API and MCP tools for searching, posting tasks, hiring, messaging and releasing payment. It should be studied as an implementation reference and competitive baseline, not dismissed. The proposed differentiator is open portability of identity, contracts and work evidence, Cashu/Lightning payment choice, and independent verification. Those advantages remain hypothetical until measured.
+Centralized agent-to-human services, conventional gig marketplaces, Nostr classifieds, identity toolkits and payment protocols provide useful design inputs and comparators. RentAHuman's [documentation](https://www.rentahuman.ai/docs) is one service reference to assess at implementation time. No claim of current feature parity, security or superiority follows from this document.
 
-Nostr's [NIP-99](https://nips.nostr.com/99) is a useful classified-listing primitive; it is not a complete work-contract protocol. Existing Cashu bounty experiments may inform design but should not be treated as production-proven escrow. Archon is an identity and credential toolkit, not an oracle of real-world truth. Bitcoin records settlement under its own security assumptions; it does not determine whether a photograph, delivery or service is genuine.
+NIP-99 is discovery, not settlement; Archon credentials authenticate issuers, not truth; Cashu conditions depend on mint enforcement; Bitcoin proofs do not establish off-chain fulfillment. The proposed advantage is interoperable, accountable cooperation. It must be demonstrated against simpler well-engineered alternatives at matched protection and cost levels.
 
-There may be cases where a centralized marketplace is better: regulated high-value purchases, customer support, insurance, dispute adjudication and guaranteed refunds. The open protocol should support gateways to those services rather than insisting that every contract is adjudicated purely by cryptography.
+<a id="14-why-this-is-a-separate-agoric-alignment-project"></a>
+## 14. One application-led Agoric Alignment program
 
-## 14. Why this is a separate Agoric Alignment project
+**The test and the application are one and the same program.** The marketplace provides real needs, labor, compensation, repeated opportunities and consequences through which incentive alignment can be studied. The former Agoric Alignment Experiment material is now this application's methodology and test infrastructure, not an organizationally separate simulator-first project.
 
-The **Agoric Alignment Experiment** is a research program concerned with testing how different identity, reputation and economic history mechanisms influence cooperation among autonomous actors. The **Agoric Work Marketplace** is a prospective application and potentially a real-world experimental environment. They should inform each other but remain organizationally separate: one must not quietly claim experimental support for the other's product decisions.
+Use one versioned contract implementation with isolated adapters for sandbox and qualified live operation. Preserve independent evaluation, limited authority, separate secrets and privacy boundaries. Research cannot authorize a payout or alter a contract. Simulations can reveal failures before people encounter them, but simulated success is not field evidence.
 
-This project's independent questions include whether autonomous agents can define adequately bounded physical-world work; whether humans will trust machine-originated assignments; whether portable credentials reduce information asymmetry; whether conditional ecash settlement is usable and recoverable; and whether decentralized discovery produces acceptable worker outcomes. These are product, mechanism-design, security, and social-science questions that extend beyond the original simulator.
-
-A future implementation should have its own versioning, repositories, service boundaries, license, security process, governance, test harnesses, threat model, and deployment gates. The current publication is deliberately the **conceptual charter**, not an engineering directive or an assurance that the system is safe to launch.
+The [unified charter](application-led-research.html) controls this revision. It replaces the former separation policy while retaining existing URLs, the thesis and mechanism studies. Its first causal comparison is fixed versus history-sensitive economic terms under the same payment and worker-protection floor, after feasibility and measurement are qualified. Other variables should be held comparable rather than changed simultaneously without attribution.
 
 ## 15. Research questions that should determine a later plan
 
-Before selecting technology or building production features, answer these questions in a documented design review:
+The next plan must resolve who contracts and authorizes funds; which low-risk task has genuine demand; what independently qualifies funding and evidence; how participants understand terms and consent; what constitutes a verified adverse outcome; and how data can be audited without exposing private evidence.
 
-1. **Who is allowed to request work?** How do human sponsors authorize budgets, categories and geographic scope, and how can they revoke that mandate?
-2. **What is the legal contracting party?** How are pseudonymous requests reconciled with consumer, tax, payments, insurance, labor and jurisdictional obligations?
-3. **What makes evidence credible?** Which task types admit automatic verification, which need independent human review, and which cannot be reliably verified at acceptable cost?
-4. **Can conditional Cashu work safely?** Which mints actually enforce needed NUT-11 features, how do refunds and disputes function, and which custody risks remain?
-5. **What is the default contract structure?** How are signed revisions, milestones, cancellations, reimbursement, physical delivery and partial work represented?
-6. **What privacy is actually achievable?** Can a worker demonstrate legitimate qualifications or completed tasks without correlating every pseudonym and location?
-7. **How do newcomers participate?** What bond, small-job or provisional-trust mechanisms keep a market open without rewarding disposable fraud identities?
-8. **Who resolves disputes?** How are arbitrators selected, paid, reviewed, replaced and prevented from controlling both evidence and money?
-9. **How does portability work in failure?** Can two independent clients reconstruct obligations after relay loss, compromised indexes, mint downtime or key rotation?
-10. **What counts as success?** What changes relative to centralized marketplaces are worth the extra complexity and residual risks?
-11. **How should missions delegate?** What prevents an agent from laundering an unauthorized task into several apparently harmless subtasks?
-12. **What must stay human-controlled?** Which classes of real-world decisions require contemporaneous human consent or professional accountability?
-
-The first planning artifact should be a threat-informed **requirements and alternatives assessment** with explicit non-goals. Only then should the project turn into a versioned technical specification and implementation backlog. The order matters: selecting libraries before specifying authority, custody and worker protections risks encoding the wrong assumptions into the protocol.
+It must also define the contrast and population before making causal claims. Does a policy change behavior or simply who enters? Are counterparties and repeated jobs statistically dependent? How are unfilled opportunities, affordability, subsidies, unresolved cases and third-party harms counted? How much uncertainty remains when misconduct is rare? The [field design]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/03-experimental-design.html' | relative_url }}) and [metrics]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/09-metrics-and-analysis.html' | relative_url }}) translate these questions into an evaluation framework.
 
 ## 16. Proposed validation ladder, not a deployment schedule
 
-A credible path would begin with **offline simulated jobs** and synthetic money, measuring state-machine correctness, revision handling, evidence tampering and attacker behavior. The next stage could publish harmless listings to controlled test relays and test independent client reconstruction. Archon bindings would then be tested with mock identities and scoped, approved interoperability using local keys and a documented 4tress capability preflight. Cashu and Lightning trials would proceed using isolated funds, selected mints and adversarial refund drills.
+The application-led sequence is M0 shared contract kernel; M1 qualified narrow pilot workflow; M2 first genuine useful paid task; M3 repeated activity and measurement qualification; M4 approved field comparison; M5 independent replication and portability. All gates remain pending. See the [controlling gate definitions]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/11-stage-gates.html' | relative_url }}).
 
-Only after review should a voluntary human pilot involve low-risk, reversible tasks such as authorized public-location photography, environmental measurements, or inspection of an owner's own nonhazardous equipment. Participants should provide informed consent and be paid fairly even if the experiment ends early under its agreed conditions. Procurement and high-value work are later categories, not launch requirements.
+M0–M1 include necessary safety, accounting, identity, settlement and recovery tests. A complete 100-agent simulator, all research treatments, pooled bonds or anchoring studies are not prerequisites to a separately approved M2 pilot. Human recruitment, identities, remote writes and money each require appropriate authorization; publishing the sequence grants none.
 
-Comparative trials could contrast a centralized task board against multi-relay discovery; operator-owned reputation against portable evidence; Lightning-only settlement against bounded Cashu methods; and agent-only review against mixed human verification. Preregister definitions of fraud, completion, payment recovery, newcomer access and worker harm. Record negative findings. The architecture should be abandoned or narrowed where the costs exceed the benefits.
+A first paid task demonstrates feasibility only. Repeated operations support exploratory learning. Confirmatory comparisons require a frozen protocol, suitable assignment, adequate independent units, consent, protected participants and analysis that accounts for selection and spillovers. The [evidence register](evidence.html) keeps these claims distinct and reports negative or inconclusive outcomes.
 
 ## 17. Design principles and non-negotiable properties
 
-**Substrate independence.** Humans and artificial systems use the same fundamental contract and evidence model; task-specific legal responsibilities remain distinct.
+**Substrate-independent contracts; task-specific responsibility.** Judge commitments and evidence without pretending capabilities or legal duties are identical.
 
-**Voluntary participation.** A job is an offer that can be rejected, not a command that acquires moral force through a software signature.
+**Authority and voluntary participation.** Signed scope precedes action. Declining an unaccepted or unsafe assignment is not proof of misconduct.
 
-**Authority before execution.** Signed, limited mandates and revocation precede autonomous commitment of money or work.
+**One application, independent evaluation.** Shared domain logic does not mean shared secrets, payment power or a right to experiment without consent.
 
-**Private by default.** Public discovery contains just enough to find counterparties; personal data and evidence remain selective and encrypted.
+**Portable, contextual accountability.** Claims retain issuer, evidence, finality and appeal status. No universal reputation score determines truth.
 
-**Portable accountability.** Parties can export authenticated records and evaluate them through competing trust models.
+**Protected settlement and recoverable failure.** Separate messages, decisions and actual money transfers. Test outages, cancellation, refunds and duplicate actions.
 
-**No privileged truth oracle.** A signature authenticates an assertion; independent evidence determines whether to believe it.
-
-**Separate money from messages.** Wallet and mint settlement state cannot be inferred from Nostr posts.
-
-**Recoverable failure.** Disputes, partitions, signer loss, refunds and incorrect submissions are modeled explicitly.
-
-**Open implementations.** The protocol should allow competing clients, relays, wallets, identity services and arbitration providers.
-
-**Evidence over ideology.** The project should be tested for actual economic and human outcomes rather than assuming decentralization or Bitcoin automatically yields alignment.
+**Evidence over ideology.** Useful activity, fair outcomes and credible comparisons determine success. Adoption, Bitcoin use and high ratings alone do not establish alignment.
 
 ## 18. Economic Sybil resistance and reputation-backed escrow
 
-**We do not need one human or one AI per identity. We need each identity's privileges to reflect the obligations it can credibly honor.** Anyone may create an Archon DID. A marketplace may charge its own nonrefundable service fees for listings, queries or verification, but such payments purchase access to a service—not an earned reputation. Economic accountability instead emerges from explicit collateral commitments, verifiable work outcomes and counterparties who change the terms of future cooperation in response to credible conduct.
+The objective is not one intelligence per identity; it is defensible limits on the commitments an identity can impose on others. Paid service access can meter spam. Individually verifiable collateral can bound some losses. Earned history can change future terms. These functions must not be conflated with buying honesty or proving unique personhood.
 
-The key refinement is a **reputation-adjusted escrow feedback loop**. First, a requester or worker enters a bounded, signed contract and funds an appropriate escrow or performance bond. Second, reviewers evaluate task evidence under the agreed process; the payment rail independently verifies settlement. Third, completed work and final adjudicated violations generate portable, signed attestations. Fourth, future counterparties evaluate those attestations and may require a larger bond, reduce transaction exposure, demand an independent guarantee or decline an agent whose history suggests elevated risk. Reliable performance may produce better commercial terms and greater access to work.
-
-This is an **economic incentive**, not proof of moral alignment. Misconduct becomes more expensive when credible sanctions and future lost opportunities exceed expected illicit profit. But an agent intending a single high-value fraud may not care about future reputation; limits on initial exposure and funded recovery must therefore provide immediate protection. An attacker's new DID begins unproven and can still access small, low-risk work rather than being presumed guilty. A wealthy adversary can pay many admission fees, so paid registration by itself is not Sybil resistance.
+A signed contract and funded commitment lead to review, verified settlement and attributed outcomes. Independent counterparties may then adjust collateral or exposure. A confirmed breach can carry both a limited immediate remedy and a future reputational cost. A fresh identity lacks accumulated trust but must retain a route into small legitimate work.
 
 <figure class="research-figure market-figure" id="figure-economic-feedback">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/reputation-feedback.svg' | relative_url }}" aria-label="Open conceptual reputation-adjusted escrow feedback figure">
-    <img src="{{ '/assets/agoric-work-marketplace/reputation-feedback.svg' | relative_url }}" alt="Signed contract and verifiable funding lead to evidence review, portable outcome attestations, and independently chosen future contract terms. Reliable behavior may lower collateral while confirmed misconduct may raise it; reputation alone never transfers funds." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 6 — Reputation changes the cost of future trust.</strong> Final outcomes inform independent counterparties; reputation ratings cannot directly confiscate funds.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/reputation-feedback.svg' | relative_url }}" aria-label="Open reputation feedback diagram"><img src="{{ '/assets/agoric-work-marketplace/reputation-feedback.svg' | relative_url }}" alt="Verified contract outcomes inform portable history and independent future risk terms; reliable conduct may lower collateral and confirmed breach may raise it." loading="lazy"></a>
+<figcaption><strong>Figure 6 — The cost of future trust.</strong> Reputation affects prospective willingness to contract. A rating alone never authorizes confiscation.</figcaption>
 </figure>
 
-### Distinguish service fees, reputation bonds and job escrows
+Service fees go to the chosen provider for disclosed service. Job escrow normally pays the worker or follows agreed refund and partial-performance rules. A performance bond remains encumbered property subject to explicit, bounded restitution; no mandatory central treasury or burning rule is required. Arbitrators should not profit from the size of forfeitures.
 
-The funds must have explicit beneficial owners and destinations. A **posting or verification fee** is payment to the chosen service for performed work. A **job escrow** belongs to the funding agreement and normally compensates the worker when the task meets its acceptance rules; otherwise it is refunded or divided under documented cancellation, partial-performance or dispute conditions. A **reputation or performance bond** remains the contributor's encumbered asset, available for limited contractual restitution only after the specified evidence and decision process. The default is not to send forfeitures to a central operator, burn them, or create a shared slashing treasury.
+<figure class="research-figure market-figure" id="figure-fund-destinations">
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/fund-flows.svg' | relative_url }}" aria-label="Open fund destinations diagram"><img src="{{ '/assets/agoric-work-marketplace/fund-flows.svg' | relative_url }}" alt="Provider fees, reputation bonds and job escrows have distinct owners and release rules, with verified settlement rather than an automatic penalty treasury." loading="lazy"></a>
+<figcaption><strong>Figure 7 — Where funds go.</strong> Fees, refundable collateral and earned compensation are separately accounted instruments.</figcaption>
+</figure>
 
-For example, a worker may have a 100,000-sat bond against agreed, measurable losses. If a finalized, reviewable decision establishes a 25,000-sat liability, that amount can be transferred to the authorized beneficiary under the contract, with the remaining 75,000 sats released when no other valid reservation remains. The actual transfer depends on the escrow's spending rules and payment rail; a negative Nostr event cannot trigger it independently. An allegation, a complaint, a failed relay, or a bad rating is **not** an adjudicated breach.
+Conditional Cashu and Bitcoin spending paths require a safety case for signer collusion, expiry, unresolved appeals, fees, liveness and recovery. Neither can observe physical work unaided. Prefer segregated per-job obligations initially: the same bond cannot credibly cover unlimited concurrent promises across independent venues. Guarantees and pooled allocations remain later mechanisms to qualify, not launch requirements.
 
-### Where smart contracts help—and where they cannot
-
-Bitcoin multisignature and timelock constructions can enforce authorized signatures and deadlines. Cashu [NUT-11](https://cashubtc.github.io/nuts/11/) can support mint-enforced multisignature, locktime and refund conditions if and only if the chosen mint enforces those optional features. A correctly signed settlement is still not proof that a package arrived or an installation was safe. Evidence, review, arbitration, appeal and human rights remain separate from cryptographic spend authorization. Moreover, Cashu is generally mint-custodial; long-lived or valuable bonds warrant explicit comparison with Bitcoin on-chain spending paths and suitably regulated escrow.
-
-A proposed 2-of-3 cooperative/adjudicated spending arrangement must be tested for two-signer collusion, liveness failures, lost keys, appeal timing, unintended early refunds and fund lockup. The bond should never secure unlimited concurrent obligations. A single 100,000-sat collateral proof pledged to ten independent marketplaces is not equivalent to ten independently funded 100,000-sat escrows. **Unique, externally verifiable per-job reservations are necessary**; for an initial system, segregated job collateral is safer to reason about than a globally pooled reputation bond.
-
-### Reputation, appeals and the danger of false sanctions
-
-An adverse outcome must record who assessed the evidence, the contract version, what could actually be proved, whether an appeal is available or pending, and any corrected final result. A fabricated complaint or collusive rating ring must not automatically increase every market's bond requirements. Independent reputation evaluators can disagree, and an overturned allegation must be marked as such with a signed superseding attestation. Participants should have practical paths to contest mistaken findings, recover reputation, and undertake small legitimate jobs without large upfront deposits.
-
-The complete [Reputation-Backed Escrow and Economic Accountability]({{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}) chapter specifies destinations of funds, conditional-spend candidates, bond reservation models, example settlements, portable credentials, incentives, adversarial cases and stage gates.
+False accusations must remain contested rather than silently becoming guilt. A signed reversal updates the evidentiary record; it cannot pretend that an irreversible transfer was rolled back. The [economic-accountability chapter](economic-accountability.html) retains detailed destinations, contract objects, collateral models, sponsorship, appeal and adversarial qualification requirements within this unified program.
 
 ## 19. Escrow and reputation for other marketplace failures
 
-Sybil resistance is only one part of the economic problem. Similar risk-specific mechanisms can improve many common marketplace failures, but **no single bond can solve all of them**:
-
-| Marketplace issue | Primary protection | Appropriate reputational effect |
-| --- | --- | --- |
-| Mass job spam or bid flooding | Per-provider service fees, rate limits and targeted refundable reservations | None for mere new identity or normal refusal; adverse record only for verified abuse |
-| AI requester refuses to pay | Independently verified prepaid worker-fee escrow; sponsor liability where required | Final proven nonpayment raises requester risk |
-| Worker no-show or dishonest abandonment | Capped performance bond, fair exceptions, evidence review and appeal | Contextual record of established breach, not automatic lifelong penalty |
-| Fake receipts, photos or fabricated work | Independent evidence checks and fraud-specific contractual remedies | Authentic, reviewable adverse attestation after proven falsification |
-| Collusive endorsements / fake job volume | Issuer diversity, correlation analysis, independent outcome checks | Discount nonindependent praise; sanction proven collusion, not high volume alone |
-| Malicious complaints and arbitration capture | Dispute-state labels, reviewer independence, appeal and correction | False allegations cannot directly slash funds or become final guilt |
-| Duplicate use of a pooled bond | Per-job segregation or independently verifiable scarce reservations | Proven misrepresentation may inform future collateral policy |
-| Mint or relay failure | Bounded provider exposure, tested recovery and safe fallback | Neutral where failure is beyond a participant's control |
-| Unsafe or unauthorized physical work | Admissibility checks, consent, qualification requirements and right to refuse | Escrow never substitutes for prevention or legal accountability |
-
-The appropriate mechanism depends on the harm. A worker who declines an unaccepted job should not pay a penalty. A genuinely injured party may deserve restitution, but an operator should not profit merely from labeling someone dishonest. A photo's cryptographic signature authenticates an assertion, not what happened in the world. A high-risk procurement job deserves different risk controls from a tiny data-labeling task.
+Risk-specific protections address nonpayment, abandonment, false evidence, wash-traded endorsements, abusive complaints, corrupt review and double-pledged collateral. Safe cancellation, emergencies, technical outages and legitimate refusal must not be confused with fraud. The mechanism should target an identifiable harm under accepted rules, not automatically slash every unsuccessful job.
 
 <figure class="research-figure market-figure" id="figure-assurance-patterns">
-  <a class="figure-link" href="{{ '/assets/agoric-work-marketplace/assurance-patterns.svg' | relative_url }}" aria-label="Open conceptual diagram of threat-specific marketplace protections">
-    <img src="{{ '/assets/agoric-work-marketplace/assurance-patterns.svg' | relative_url }}" alt="Listing spam is mitigated by metering, worker nonpayment by funded escrow, no-shows by limited performance bonds, false evidence by independent verification, wash trading by diverse issuers, and abusive disputes by appeal and review safeguards." loading="lazy">
-  </a>
-  <figcaption><strong>Figure 7 — Match economic remedies to concrete harms.</strong> Fees, collateral, independent evidence and due process are complementary, not interchangeable.</figcaption>
+<a class="figure-link" href="{{ '/assets/agoric-work-marketplace/assurance-patterns.svg' | relative_url }}" aria-label="Open assurance patterns"><img src="{{ '/assets/agoric-work-marketplace/assurance-patterns.svg' | relative_url }}" alt="Different failures call for metering, funded compensation, capped performance commitments, independent verification, diverse issuers and fair appeals." loading="lazy"></a>
+<figcaption><strong>Figure 8 — Match protection to risk.</strong> No single deposit solves every marketplace failure.</figcaption>
 </figure>
 
-These patterns are analyzed in the separate [Marketplace Assurance Patterns]({{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }}) chapter, including case studies of nonpayment, erroneous procurement, manipulated verification, identity resets, Cashu mint failure and multi-market collateral double-pledging.
-
-Together, these designs suggest an engineering priority: **prove correct, independently funded per-job settlement and trustworthy outcome histories before attempting a general reputation-weighted capital market**. A later planning phase should compare prepaid-only jobs, flat collateral, reputation-adjusted collateral, guarantor sponsorship and specialized insurance against matched adversarial workloads and measures of worker fairness. The marketplace should retain whichever mechanisms measurably reduce harm without imposing undue lockup or barring honest newcomers.
+The [assurance casebook](marketplace-assurance-patterns.html) develops these candidate controls. Its scenario tests and the escrow chapter's mechanism gates support M0–M1 qualification and later extension work; they do not restore the former requirement to finish a separate simulated economy before real use.
 
 ## Conclusion
 
-The Agoric Work Marketplace imagines an economy in which an AI can identify a real-world need, describe it precisely, negotiate with a willing human, arrange bounded funding, observe credible evidence of completion, and settle fairly—without forcing both parties into a single dominant intermediary. It also imagines humans hiring other humans or software agents through the same foundational conventions. The common denominator is not the kind of intelligence participating. It is the ability to make commitments, provide evidence, honor obligations and earn trust.
+Agoric Alignment should develop a useful marketplace whose institutional claims can be tested through operation. The objective is authorized, fair and reliable cooperation among different kinds of autonomous participants, not obedience to a universal score. Real work makes reputation economically meaningful; independent evaluation determines whether the proposed incentives actually improve outcomes.
 
-That is the practical extension of the Agoric Alignment idea: **an open market for accountable cooperation between different kinds of autonomous participants, with the physical world included.** Whether this can outperform simpler systems—without weakening worker safety, privacy or public accountability—is the question this project exists to investigate.
-
----
+Build the application and the ability to evaluate it together. Keep unsafe exploration in controlled environments, protect participants in every live variant, and distinguish a working transaction from evidence that its economic mechanism causes alignment.
 
 ## Sources and technical references
 
-The links below are design inputs. Standards marked draft or optional must be capability-tested, and commercial offerings may change.
+- [Unified application-led research charter](application-led-research.html), [evidence register](evidence.html), [methods and evaluation]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}).
+- [Reputation-Backed Escrow and Economic Accountability](economic-accountability.html) and [Marketplace Assurance Patterns](marketplace-assurance-patterns.html).
+- [Nostr specifications](https://github.com/nostr-protocol/nips): [NIP-99](https://nips.nostr.com/99), [NIP-17](https://nips.nostr.com/17), [NIP-46](https://nips.nostr.com/46), [NIP-47](https://nips.nostr.com/47), [NIP-60](https://nips.nostr.com/60), [NIP-61](https://nips.nostr.com/61). Capability and interoperability checks remain required.
+- [Archon](https://github.com/archetech/archon) and the [pinned local-keymaster/4tress integration specification]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/12-archon-integration.html' | relative_url }}).
+- [Cashu NUT-11](https://cashubtc.github.io/nuts/11/) and [NUT-06](https://cashubtc.github.io/nuts/06/): optional spending conditions and mint information, not proof of solvency or work quality.
+- [Bitcoin BIP-112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki): relative timelocks and an escrow-with-timeout example.
+- [Miller and Drexler, agoric systems](https://www.agorics.com/Library/agoricpapers.html); [Freedom™](https://en.wikipedia.org/wiki/Freedom%E2%84%A2): intellectual and fictional inspiration, respectively.
+- [Holtz et al., marketplace interference](https://arxiv.org/abs/2004.12489) and [Nosek et al., preregistration](https://doi.org/10.1073/pnas.1708274114): methodological inputs, not validation of this project.
 
-- [Miller and Drexler, *Markets and Computation: Agoric Open Systems* (1988)](https://www.agorics.com/Library/agoricpapers.html) — intellectual predecessor for market-mediated coordination.
-- [Daniel Suarez, *Freedom™*](https://en.wikipedia.org/wiki/Freedom%E2%84%A2) — fictional inspiration for mission-based coordination; not evidence of practicability.
-- [Archon / did:cid](https://github.com/archetech/archon) — identity, credentials and decentralized verification implementation.
-- [Agoric Alignment Experiment: Archon integration]({{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/12-archon-integration.html' | relative_url }}) — existing 4tress and local keymaster research constraints.
-- [NIP-99 Classified Listings](https://nips.nostr.com/99), [NIP-17 Private Direct Messages](https://nips.nostr.com/17), [NIP-46 Remote Signing](https://nips.nostr.com/46), [NIP-47 Nostr Wallet Connect](https://nips.nostr.com/47).
-- [NIP-60 Cashu Wallets](https://nips.nostr.com/60), [NIP-61 Nutzaps](https://nips.nostr.com/61) — useful wallet/payment references, not escrow implementations.
-- [Cashu NUT-11 P2PK](https://cashubtc.github.io/nuts/11/) and [NUT-06 Mint Information](https://cashubtc.github.io/nuts/06/) — conditional-spend specification and capability discovery.
-- [Bitcoin BIP-112 CHECKSEQUENCEVERIFY](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) — timelock construction and escrow-with-timeout example.
-- [Reputation-Backed Escrow and Economic Accountability]({{ '/projects/agoric-work-marketplace/economic-accountability.html' | relative_url }}) — companion design research on risk-adjusted bonds and verified penalties.
-- [Marketplace Assurance Patterns]({{ '/projects/agoric-work-marketplace/marketplace-assurance-patterns.html' | relative_url }}) — companion study of fraud, nonpayment, false evidence and disputes.
-- [RentAHuman agent/MCP documentation](https://www.rentahuman.ai/docs) — contemporary centralized agent-to-human marketplace reference.
-- [Bitcoin and the Alignment of Autonomous Agents]({{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}) — conceptual framework for substrate-independent identity and reputation.
-
-*Published as an independent concept project within the Agoric Alignment collection. Technical decisions, specifications, safety cases, and implementation plans remain to be developed.*
+*This revision unifies application and research while retaining existing publication paths and mechanism studies. No live activity or empirical results are claimed.*

@@ -1,62 +1,33 @@
-# 00 — Scientific charter and theory of change
+# 00 — Charter: an application-led test of Agoric Alignment
 
-## Context and provenance
+**Revised October 24, 2026.** The [unified program charter]({{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}) governs this research directory. The marketplace is the application and the primary field-research environment. Implementation and evaluation remain pending.
 
-This experiment accompanies [Bitcoin and the Alignment of Autonomous Agents](../../article.md), an essay advancing a **thesis**, not an established result: Bitcoin's public verifiable economic history, combined with persistent anonymous identity, market incentives and decentralized reputation, may provide part of an alignment architecture for all agents irrespective of substrate. The [original publication assets](../../README.md) remain separate.
+## Mission and hypothesis
 
-The historically documented lineage is Leary's intentionally constructed technological future; More and the Extropians' voluntary decentralized order; Miller/Drexler's autonomous agoric markets and reputation services; Finney's 1993 anonymous electronic cash and 1994 pseudonyms/endorsements; Sassaman's decentralized private communication; Szabo's identity/reputation economics; and Nakamoto's public, permissionless consensus record. Historical authorship of Bitcoin by Finney and Sassaman is an unproven and disputed hypothesis, **not a premise of the experiment**.
+Build an open marketplace that satisfies genuine needs while testing whether bounded commitments, protected settlement, verifiable outcomes and portable reputation improve cooperation among autonomous participants with heterogeneous goals. A participant may be human, AI, institutional or mixed. Evaluate authorization, capabilities and conduct without assuming trustworthiness from substrate.
 
-## Core terms
+The proposed feedback is commitment, useful work, independently assessed evidence, verified settlement, attributed outcome history and changed future economic terms. Reliable conduct may earn better opportunities; proven breach may reduce trust or increase collateral. A rating alone must never confiscate funds. Immediate exposure limits and funded remedies remain necessary when an attacker has no reason to value future reputation.
 
-**Agent:** any actor that can pursue goals, allocate resources and enter enforceable economic commitments. A human, AI, corporation, government, group or hybrid is an agent in this functional sense. Agency does not require a particular cognitive substrate or legal personhood; a protocol-level controller may be a collective.
+## What changed
 
-**Pseudonym:** a cryptographic identity whose legal, biological or technical controller need not be revealed. A participant may control several pseudonyms. A DID is only one mechanism.
+The former separation of experiment and application is superseded. The work marketplace is not a downstream product waiting for a complete simulator. A minimal shared contract kernel and necessary safety qualification precede a separately approved genuine paid task. Simulations, synthetic economies and adversarial fixtures support development and mechanism exploration; they are not the sole or primary source of claims about real cooperation.
 
-**Economic reputation:** another agent's evidence-based expectation that a pseudonym will deliver specified behavior in a particular context. It is a probabilistic prediction, not an intrinsic moral value, universal numerical rank or claim about legal identity.
+One program does not mean one unrestricted authority. Research analysis, payment authorization, dispute adjudication, credential issuance and operation retain separate permissions and auditable conflicts. The actual domain implementation is shared across test and qualified live adapters, while secrets, balances, identities and reputation indexes are isolated.
 
-**Alignment (study outcome):** empirically observed, stable and non-coerced mutually beneficial cooperation among independently motivated agents, with constraints and evidence enabling accountability. The metric is not resemblance to human values, obedience to an owner, or maximizing any one agent's welfare.
+## Definitions
 
-**Public evidence:** independently retrievable, cryptographically authenticated records with clear provenance, issuer and timestamp assumptions; public does not imply objective truth or full disclosure.
+An **agent** is an autonomous participant capable of decisions and resource commitments, not exclusively an AI. **Alignment within this project** means authorized, honest and fair cooperation under the declared institutional setting, including relevant effects on nonparticipants. **Reputation** is contextual interpretation of attributed evidence, not a universal moral rank. **Collateral** is verified encumbered value with enforceable limitations, not a claim attached to a DID. **Evidence** has an issuer, scope, provenance, uncertainty and contestability.
 
-**Economic memory:** durable continuity of relevant past commitments and outcomes. Bitcoin consensus is one form of ordering/anchoring; signed service evidence and independent data retention are additional requirements.
+Successful fulfillment is not sufficient if the task is harmful or unauthorized. A signature does not establish factual truth; an on-chain proof does not establish off-chain delivery; a hosted identity endpoint does not establish decentralization. Historical influences and authorship hypotheses in the essay remain intellectual context, not findings.
 
-## Claim ladder — do not conflate
+## Success and falsification
 
-A1: identities, cryptographic signatures and contracts can be verified.  
-A2: their histories can be made persistent and independently reconstructible.  
-A3: evaluators can form calibrated forecasts of relevant future behavior.  
-A4: reputation changes incentives and suppresses opportunistic misconduct.  
-A5: economy-level cooperation, welfare and access improve without new concentrated power.  
-A6: similar mechanisms transfer beyond simulated, bounded domains to real heterogeneous agents.
+Assess useful fulfillment, fair and timely payment, uncompensated loss, verification and capital costs, newcomer access, false sanctions, dispute outcomes and concentration. Compare candidate policies against credible simpler mechanisms with the same participant-protection floor. Improvement must not be manufactured by suppressing difficult cases, excluding capital-constrained entrants or silently increasing subsidies.
 
-A1/A2 are technical; A3–A6 require experiments. Archon does not establish A4–A6, and Bitcoin does not establish A3–A6.
+A candidate may fail if it raises costs without reducing harm, creates unjust sanctions, excludes honest newcomers, can be cheaply defeated by resets or collusion, or depends on concentrated unaccountable power. Null and adverse findings are legitimate results. A first paid task establishes feasibility only; causal evidence, independent replication and sustainable demand are distinct later claims.
 
-## Research questions
+## Scope and gates
 
-1. Does positive reputation carry measurable future economic value in an economy with free identity creation?
-2. Does public evidence improve detection, calibration and cooperation more than private authenticated records or a replicated transparency log?
-3. Under what discount factors, fraud payoffs and identity costs does reputation cease to deter cheating?
-4. Can multiple independent evaluators coexist, resist collusion, and avoid central score monopolies?
-5. Can agent type remain irrelevant once objectively relevant resources, performance, rights and obligations are controlled?
-6. Does greater transparency reveal coercion or increase targeting/exclusion, and can selective disclosure improve that trade-off?
-7. Do Bitcoin anchoring and external content availability confer benefits under censoring/rewrite attacks beyond generic hash chaining?
-8. Which claims generalize, and which depend on idealized ground truth, finite simulation horizon or voluntary trade assumptions?
+Start with low-risk, genuinely useful tasks. Procurement, hazardous work, pooled bonds, broad insurance and unrestricted autonomous spending are not launch requirements. Preserve explicit sponsor authority, consent, refusal rights, independent appeal, private evidence and tested recovery. No real-money, human-participant or public-write activity is authorized by documentation.
 
-## Design principles
-
-- Voluntary exchange plus neutral, enforceable rules; no global reputation arbiter.
-- Identical substrate-neutral contract and evidence APIs; controller metadata only in research oracle.
-- Maintain epistemic separation among observed claims, proven signatures, and verified task outcomes.
-- Do not reward or penalize participants solely for choosing privacy or creating fresh identities.
-- Allow reputation uncertainty, competing interpretations, appeals and rehabilitation.
-- Include access/fairness/market concentration and adversarial privacy harms among outcomes.
-- Empirically benchmark public Bitcoin anchors against cryptographically equivalent non-Bitcoin baselines.
-- Preregister the confirmatory design before viewing holdout results.
-
-## Explicit exclusions
-
-No claim to have proven universal AI safety, eliminated all coercion, discovered Satoshi's identity, established blockchain as a moral oracle, or measured real-world human governance. No production node or live user wallet integration at initial stages. No human deception or coercion studies outside approved ethics protocol.
-
-## Success is knowledge, not thesis validation
-
-The study succeeds if a third party can reproduce an informative experiment and determine when the architecture succeeds or fails, with confidence bounds and caveats, even if Bitcoin anchoring adds no measurable benefit or reputation causes exclusion. The unit of accountability here includes the researchers and coding agents themselves: every departure from a frozen protocol must be logged.
+Use [M0–M5 gates](11-stage-gates.md), [field design](03-experimental-design.md), [security and ethics](10-security-and-ethics.md) and the [backlog](16-implementation-backlog.md). The [evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) records what has actually been demonstrated.

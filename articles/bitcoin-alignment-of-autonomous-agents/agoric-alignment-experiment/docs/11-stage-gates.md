@@ -1,45 +1,57 @@
-# 11 — Milestones S0–S6 and evidence-based promotion gates
+# 11 — M0–M5: application-led delivery and evidence gates
 
-Every stage has a working code deliverable, tests, empirical artifacts and a gate report. A coding agent may plan the next stage but must not silently execute a stage requiring new external permissions. Use [16 — Implementation backlog](16-implementation-backlog.md).
+**Controlling sequence, revised October 24, 2026. All gates are pending.** The former S0–S6 simulator-first sequence is superseded. Historical labels and documents are not evidence of completion or approval. The [unified charter]({{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}), [AGENTS](../AGENTS.md) and [backlog](16-implementation-backlog.md) govern the one marketplace program.
 
-## S0 — Local reproducible skeleton (offline)
+## M0 — Shared contract kernel and offline vertical slice
 
-Deliver `pyproject.toml`, `src/agoric_alignment` with CLI, deterministic RNG, experiment-config loader and validation, JSONL event writers, schema checks, sample config, CI/test command docs and basic reporting. Demo: create two agents, post/accept/fund/deliver/settle one contract in simulated sats. Reject invalid state transitions; conservation holds; exact same seed/config/software gives byte-identical canonical output. **Gate:** tests green, README commands reproducible on another Linux machine; no network dependency. Prefer Python 3.12+ for eventual archon-keymaster integration, or keep that optional worker in a separate compatible environment.
+Implement one genuine-task-shaped workflow in the intended application domain: sponsor mandate, listing/offer, signed versioned agreement, isolated simulated funding, evidence, review, payment/refund and outcome attestation. Use explicit environment boundaries and deterministic replay. Reject unapproved action, stale revisions, duplicate settlement, double allocation, forged authority and accidental oracle/public-data mixing.
 
-## S1 — Core economy and agent baselines (offline)
+**Gate:** reproducible tests demonstrate conservation, idempotence, refusal/cancellation, dispute and recovery behavior for the narrow workflow. The sandbox and proposed live ports use the same transition/accounting implementation. No external network, funds or personal credentials are needed. A complete 100-agent economy, A–F tournament or sophisticated evaluator is not required.
 
-Deliver 100-agent experiments with deterministic compute/forecast tasks, dynamic endowments, bid/offer market, budgets, scheduled events, reputation-free A and local-memory B arms, cooperative/opportunistic/newcomer strategies and oracle/evidence/belief separation. Fixtures: honest fulfillment, missed deadline, competent newcomer, incompetent incumbent, strategy endgame. **Gate:** 1,000+ contracts/run, no illicit oracle access, no negative balance or unexplained money creation, matched-arm seeded workload.
+## M1 — Qualify the narrow real-work pilot
 
-## S2 — Reputation and economic incentives (offline)
+Build the minimal worker interface and bounded agent interface around that kernel. Qualify actual required identity, evidence, signing and payment adapters under explicitly scoped permissions. Preserve local-keymaster/4tress constraints and independent credential verification. A mock funding check must never be displayed as live escrow. Cashu preference does not waive enforcement, redemption, custody or recovery requirements.
 
-Add signed-endorsement C, private D and public-log E evidence visibility, independent evaluator interface, Bayesian baseline, false testimony and appeals, identity resets, collateral, policies conditioning on future reputational value. Deliver pilot seed matrix, effect-size variance, provisional parameter windows and frozen procedure for choosing confirmatory sample size. **Gate:** posterior calibration tests, E/B/C/D contrast reproducible, false allegations distinguishable from actual defaults, honest entrants retain access.
+Choose a genuinely needed, low-risk task and a responsible sponsor. Document task admissibility, exact permitted action, participants, contract/acceptance policy, worker compensation and expenses, custody and permitted beneficiaries, individual/aggregate exposure, maximum pending duration, incident contacts, consent, retention, independent review and dispute/appeal. Obtain appropriate legal/security/ethics review for the actual pilot; this specification cannot supply it.
 
-## S3 — Adversarial matrix and preregistration freeze (offline)
+**Gate:** relevant failure/recovery drills pass, required evidence can be independently reconstructed, no production-wallet access or secret leakage exists, participants can understand/refuse terms, and an authorized decision maker approves the specific pilot scope. Missing safe settlement, recovery or consent is a block. Publication, a passing sandbox or an available mint is not pilot approval.
 
-Implement all AT01–AT16 fixtures with permanent minimized regression traces and privacy/institutional capture measures. Prepare holdout seeds under digest and frozen config/software SHA. Produce machine-readable hypothesis/metric registry, confidence/multiplicity plan and preregistration commit. **Gate:** no known invariant violations, power plan approved, adversarial stress results labeled exploratory, owner approves freeze and/or adjustments before accessing holdouts.
+Optional Bitcoin-anchoring research, global pooled collateral, sponsorship/insurance and large strategic tournaments are not all M1 requirements. Qualify only what the narrow safety case actually depends on, without omitting required controls.
 
-## S4 — 4tress / archon-keymaster and independent verification (opt-in)
+## M2 — First genuine useful paid task
 
-**S4a — Client interoperability:** pin the Python archon-keymaster client and use https://4tress.org as the selected remote node. A local full stack and JavaScript MCP are not prerequisites. Begin with approved, rate-limited reads; record readiness, registries, missing capabilities and independently observed server metadata. After separate write approval, use no more than the configured small synthetic identity/credential budget. Demonstrate local signing, explicit wallet isolation, create/resolve/rotate/revoke and correct claim-versus-truth handling. **Gate:** no secrets/oracle metadata leave the adapter, no implicit payments or unsupported registry fallback, public interaction stays within scope.
+After separate permission for participants and real value, execute a small task someone actually needs. The requester operates within a sponsor mandate; the human provider can negotiate and decline; evidence is independently reviewed; actual funding and settlement are verified; an attributed outcome record follows. A bounded AI requester should be represented in the early feasibility program, with supervision disclosed.
 
-**S4b — Reconstructible evidence:** independently check issuer authority, historical signatures, content hashes/availability, revocation and retained evidence with the original client offline. Use an independently operated verifier or approved owned node; repeated requests to 4tress alone are not independent verification. **Gate:** independent reconstruction succeeds or incomplete/unknown evidence is accurately reported.
+**Gate:** the accepted task produced a useful verified result and fair payment, or the report honestly documents failure and remedy. Retain consent, scope, incident and rail evidence privately; publish only appropriate aggregates and provenance. Declare subsidy, project-origin demand, manual assistance and whether actions were automated. A failed pilot is a finding to investigate, not a reason to fabricate completion.
 
-**S4c — Bitcoin and faults:** explicitly discover and request BTC:signet only when supported and approved. If absent, mark this part blocked rather than substituting mainnet or relabeling Hyperswarm. Verify actual anchor chain/network, batch membership, depth and reorg status. Compare with a matched transparency log. Run partitions, deliberate data loss, reorgs, adversarial signatures and load tests only in owned/local environments, never against 4tress. **Gate:** no false-finality/availability claims; receipts reconstructible, costs and assumptions explicit.
+**Claim limit:** operational feasibility under stated conditions. No causal proof of reputation's effect, durable market demand or general AI alignment.
 
-See [12 — selected interface](12-archon-integration.md). S4 completes only when its applicable verification and adversarial requirements pass; a successful hosted smoke test is not a proof of decentralization or alignment.
+## M3 — Repeated activity and measurement qualification
 
-## S5 — Isolated payments and economic attestation (opt-in)
+Develop repeat opportunities and independent counterparties without manufacturing work histories. Measure the recruitment/eligibility/offer/refusal/acceptance/completion/settlement flow, compensation, loss, disputes, affordability, newcomer access, operator cost and subsidy. Establish task-specific independent audit procedures and calibration, including uncertain and adverse outcomes.
 
-Connect sandbox LNbits, CLN and Archon mediator with bounded wallet identities; issue/verify BOLT11 invoices, L402 authorizations, simulate/payment receipt linking contract and DID, test replay/timeout/refund and closed channels. Keep payment-hash receipt proof separate from contractual outcome evidence. Every payment proposal goes through scoped external authorizer. The 4tress identity profile does not authorize or imply payment support. **Gate:** no unauthorized spending, no production configs or mainnet, replay evidence reproducible, all negative cases handled and teardown verified.
+Define a feasible safe policy comparison, assignment/exposure map, follow-up, sample and cluster-aware power or precision rationale, outcomes and analysis. Freeze a confirmatory registration before the relevant data are inspected. If independent units are too few or evidence unreliable, stay with exploratory/descriptive findings rather than lowering evidentiary standards.
 
-## S6 — Independent/heterogeneous evaluation (separately approved)
+**Gate:** measurement is credible, permissions and privacy are reviewed, the proposed comparison is independently scrutinized, and registration/analysis plans are approved. Genuine participation rather than staged wash trades supports the study population.
 
-Bounded LLM-agent participants with logged model/version/prompts, structured actions, seeded task opportunities and strict token/monetary limits. Optional voluntary human study under separate ethics protocol; blinded substrate-label comparisons, matched capability histories and adverse event handling. Independent replication by a second agent/team; final report includes negative results, confounds, power and limitations. **Gate:** independent reviewer reruns specified fixtures, effect sizes and CIs reproduce, no overclaim of general AI safety.
+## M4 — Approved field comparison
 
-## Gate report template
+Compare fixed and history-sensitive terms, or another specifically approved contrast, inside the same application. Retain the protection floor in every arm and keep unrelated factors comparable. Account for repeat identities, shared counterparties, carryover, selection and spillovers. Assignment, policy versions and consent remain auditable; frozen terms cannot be changed retroactively.
 
-For each stage record (1) frozen requirements and version, (2) files changed, (3) exact commands/environment, (4) test results, (5) artifact hashes/run IDs, (6) scientific interpretation, (7) deviations, (8) unresolved risks, (9) next-stage decision/authorization. For S4 include the local package pin, profile hash, observed remote version or unknown status, registry, request counts and separate read/write/payment scope. A gate cannot be cleared solely by an agent claiming completion.
+**Gate:** independent analysis reports every specified outcome, uncertainty, inclusion and exclusion, attrition, unresolved cases, harm, costs, subsidy, deviations and limitations. Show intention-to-treat and selection-sensitive analyses as appropriate. Pause unsafe variants and disclose any design break. Report null/adverse findings as fully as improvements.
 
-## Stop or change criteria
+**Claim limit:** bounded causal evidence only if the actual design and execution support it. A dashboard, large transaction count or internal reputation score is insufficient.
 
-Leakage, inconsistent accounting, forged proof accepted, secret exposure, cross-run contamination or nondeterministic replay blocks promotion. Missing public-node capability is a documented block, not license to change scientific conditions. If confirmatory tests falsify the hypothesis, publish and continue diagnostic studies under a new preregistration; do not secretly redefine thresholds. Document scope changes and request approval instead of deleting baselines.
+## M5 — Replication, portability and sustainability
+
+Seek replication across independent evaluators/operators and additional approved task contexts. Test identity/evidence export, key recovery and provider exit without synthetic reputation contamination. Compare full operating costs and subsidies with genuine repeat demand. Qualified later work can examine sponsorship, pooled reservation schemes, alternative settlement or Bitcoin anchoring without declaring them necessary conclusions.
+
+**Gate:** independently reproducible artifacts, context-specific findings, documented failure limits and honest sustainability analysis. Do not generalize beyond the evidence or erase unsuccessful replications.
+
+## Permission model and stop rules
+
+Every stage report records requirements, software/schema/policy revisions, files, executed commands/tests, artifacts, actual observations, limitations, incidents, approvals and the next blocked action. Permissions are scoped capabilities, not inherited from an earlier stage number. Remote reads do not authorize writes; identity writes do not authorize money; payment tests do not authorize recruitment or experimentation.
+
+Stop new commitments on accounting corruption, duplicate payment, forged authority, consent/privacy failure, unsafe tasks or material unexpected harm. Preserve earned pay and existing claims during containment. Missing upstream capabilities block the relevant function; no silent host/chain/mint substitution or production credential reuse. A safety amendment requires transparent requalification and treatment of affected research data.
+
+The [evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) must separate publication, software tests, feasibility, exploratory activity, causal evidence, replication and sustainable operation. A gate is not passed by an agent asserting success.

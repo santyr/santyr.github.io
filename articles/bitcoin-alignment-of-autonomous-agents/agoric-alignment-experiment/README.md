@@ -1,65 +1,71 @@
-# The Agoric Alignment Experiment
+# Agoric Alignment — Research and Evaluation
 
-**Status:** research specification and coding-agent handoff; no experiment results claimed.  
-**Date:** 2026-10-17  
-**Canonical context:** [Bitcoin and the Alignment of Autonomous Agents](../article.md) · [Summary](../summary.md) · [original publication directory](../).
+**Status:** one application-led research program; implementation and field evaluation pending. **Revised October 24, 2026.** The historical `agoric-alignment-experiment` URL is retained for continuity.
+
+[The marketplace is the experiment]({{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}) · [System design]({{ '/projects/agoric-work-marketplace/' | relative_url }}) · [Evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) · [Original thesis](../article.md)
 
 ## Mission
 
-Empirically test whether **persistent pseudonymous identity, independently verifiable economic history, and earned, decentralized reputation** promote cooperation among autonomous agents with heterogeneous objectives, without a central moral authority or special privileges based on substrate. An *agent* is any accountable actor capable of decisions and resource commitments: a person, AI system, organization, institution, or hybrid. The identity layer **must not require** the observer to know the agent's substrate.
+Build a useful open marketplace and evaluate whether bounded authority, verifiable conduct, protected settlement and portable reputation improve real cooperation among human, artificial and organizational participants. **The Agoric Work Marketplace is the application and the primary research environment—not a separate project waiting for simulator results.** This directory supplies its scientific methods, test infrastructure, safety constraints and coding-agent handoff.
 
-This project takes inspiration from Leary and the Extropians' active construction of future institutions; Miller and Drexler's agoric markets for software agents; Finney's pseudonymous credentials; Sassaman's privacy-preserving communication; Szabo's reputation economics; and Bitcoin's public consensus history. These are intellectual precedents, **not proof of a historically coordinated plan or proof that Bitcoin solves all alignment**. See [intellectual lineage](docs/01-intellectual-lineage.md).
+A first genuine low-risk paid task is an early operational milestone after appropriate qualification. A complete 100-agent simulated economy is not a prerequisite. Simulation remains essential for reproducible fault tests, strategic attacks and exploring unsafe alternatives, using the same contract domain as the application with isolated data and money adapters.
+
+A useful transaction establishes feasibility, not causal alignment. Controlled field comparisons, independent outcome checks, fair participation and honest uncertainty are required for stronger claims. Adoption, subsidy-funded activity or a favorable internal rating cannot substitute for that evidence.
+
+## Controlling documents and changed sequence
+
+Read the [unified charter]({{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}), [AGENTS.md](AGENTS.md), [stage gates](docs/11-stage-gates.md), [backlog](docs/16-implementation-backlog.md), [field design](docs/03-experimental-design.md) and [handoff](docs/18-agent-handoff.md). **M0–M5 replaces S0–S6 and the old mandatory AAE-001–023 dependency chain.** No historical stage is automatically completed or mapped to a new approval.
+
+The retained A–F treatment labels, AT attack scenarios, synthetic oracle records and existing simulator configuration/schema samples are supporting research assets. They must not be executed as unprotected live policies, used to fabricate real reputation or represented as a complete field-study registration. The original comparative questions remain useful, but the next build serves a genuine task workflow.
+
+## Application-led gates
+
+| Gate | Objective |
+| --- | --- |
+| M0 | Shared contract kernel, one offline end-to-end job, authorization/accounting/replay invariants |
+| M1 | Narrow agent and worker workflow, qualified identity/payment adapters, recovery, consent and pilot safety case |
+| M2 | Separately approved useful low-risk paid task with genuine demand and independent outcome/settlement checks |
+| M3 | Repeat opportunities, independent counterparties, audit quality, subsidy accounting and qualified study design |
+| M4 | Approved preregistered field comparison with a common protection floor and independent analysis |
+| M5 | Replication, portability, additional contexts and sustainability analysis |
+
+All are pending. Real funds, public identity writes, human recruitment and research assignment each require explicit scope and approval. The researcher cannot spend funds or alter accepted contracts merely by controlling the analysis process.
 
 ## Selected Archon interface
 
-Use **[4tress](https://4tress.org/) with the local Python `archon-keymaster` package** for Archon identity and credential operations. Keys and signing remain local; the `keymaster` CLI is available for operator setup. Read [the full interface guide](docs/12-archon-integration.md) and [disabled-by-default configuration profile](configs/archon-4tress.json). The pinned client requires Python 3.12+; a full local node or JavaScript MCP server is not a prerequisite for initial interoperability.
+Retain [4tress](https://4tress.org/) with local Python `archon-keymaster`, local key custody and the disabled-by-default [profile](configs/archon-4tress.json). The documented historical source pin requires Python 3.12+; local client provenance and actual server observations remain separate. See [integration requirements](docs/12-archon-integration.md).
 
-4tress is not a reputation authority or proof of Bitcoin anchoring. Actual capabilities, registry support, fees, availability and version must be checked in a bounded preflight. Independent verification and owned-node adversarial tests remain part of the research. This update configures the plan; it does not claim a live connection or authorize publishing identities or sending payments.
-
-## Starting instruction for an AI coding agent
-
-**Read [AGENTS.md](AGENTS.md) in full.** Then read [the implementation backlog](docs/16-implementation-backlog.md), [scientific protocol](docs/03-experimental-design.md), [data contracts](docs/17-data-contracts.md), [Archon interface](docs/12-archon-integration.md) and [stage gates](docs/11-stage-gates.md). Begin with S0 (repository scaffolding and deterministic no-network experiment). Do not deploy or fund anything until the corresponding gate is explicitly approved.
+Bounded adapter qualification moves into M1; it does not await a large simulator study. Bitcoin anchoring, pooled collateral, large-scale attacks and broad replication are not all required for a narrow pilot. Any missing feature needed for its safety case remains a block, not permission to improvise custody or use production wallets.
 
 ## Documentation map
 
-| Document | Purpose |
+| Document | Role in the unified program |
 | --- | --- |
-| [AGENTS.md](AGENTS.md) | Mandatory agent contract, workflow, safe boundaries and definition of done |
-| [00 — Charter](docs/00-charter.md) | Research question, theory of change, definitions and what we will not claim |
-| [01 — Intellectual lineage](docs/01-intellectual-lineage.md) | Historical antecedents and what each implies experimentally |
-| [02 — Preregistration](docs/02-preregistration.md) | Falsifiable hypotheses and primary/secondary outcomes |
-| [03 — Experimental design](docs/03-experimental-design.md) | Treatments, causal contrasts, confounds, sample unit and blinding |
-| [04 — Economy and agents](docs/04-economy-and-agents.md) | Tasks, actors, markets, economics and substrate masking |
-| [05 — Architecture](docs/05-architecture.md) | Components, trust boundaries, interfaces and deployment |
-| [06 — Evidence and identity](docs/06-evidence-and-identity.md) | DIDs, signed observations, auditability and revocation |
-| [07 — Reputation and incentives](docs/07-reputation-and-incentives.md) | Multiple evaluators, incentive modeling and cold start |
-| [08 — Adversarial suite](docs/08-adversarial-suite.md) | Attacks, threats, privacy and economic capture |
-| [09 — Metrics and analysis](docs/09-metrics-and-analysis.md) | Formulas, statistical methods and reporting |
-| [10 — Security and ethics](docs/10-security-and-ethics.md) | Isolation, human trials, threat model and stop rules |
-| [11 — Stage gates](docs/11-stage-gates.md) | S0–S6 deliverables, acceptance and promotion approvals |
-| [12 — Archon integration](docs/12-archon-integration.md) | 4tress, local archon-keymaster, version pinning, preflight and independent verification |
-| [13 — Operations](docs/13-operations.md) | Reproduction, data provenance, fault injection and runbook |
-| [14 — References](docs/14-references.md) | Original historical, technical and methodological sources |
-| [15 — Open questions](docs/15-open-questions.md) | Design decisions and falsification-sensitive unknowns |
-| [16 — Implementation backlog](docs/16-implementation-backlog.md) | Work packages with acceptance tests and dependencies |
-| [17 — Data contracts](docs/17-data-contracts.md) | Required record layouts, events, evidence and results |
-| [18 — Agent handoff](docs/18-agent-handoff.md) | Complete launch prompt and reporting format |
-| [Scenarios](docs/19-scenarios.md) | Controlled scenarios, seed families and adversarial fixtures |
+| [00 — Charter](docs/00-charter.md) | Scope, claim boundaries and application-led theory of change |
+| [01 — Intellectual lineage](docs/01-intellectual-lineage.md) | Historical foundations; not empirical validation |
+| [02 — Preregistration](docs/02-preregistration.md) | Field-study registration, safe contrasts and analysis commitments |
+| [03 — Experimental design](docs/03-experimental-design.md) | Feasibility, field comparisons, interference and supporting sandbox arms |
+| [04 — Economy and agents](docs/04-economy-and-agents.md) | Synthetic economy/reference models for controlled mechanism tests |
+| [05 — Architecture](docs/05-architecture.md) | Shared application kernel, separate authority and environments |
+| [06 — Evidence and identity](docs/06-evidence-and-identity.md) | Authenticity, claims, revocation and truth boundaries |
+| [07 — Reputation and incentives](docs/07-reputation-and-incentives.md) | Contextual evaluation and economic mechanisms |
+| [08 — Adversarial suite](docs/08-adversarial-suite.md) | Synthetic/owned-environment attacks, not unsuspecting live targets |
+| [09 — Metrics and analysis](docs/09-metrics-and-analysis.md) | Useful outcomes, loss, newcomer access, costs and inference |
+| [10 — Security and ethics](docs/10-security-and-ethics.md) | Common protection floor, consent, privacy and stop rules |
+| [11 — Stage gates](docs/11-stage-gates.md) | Controlling M0–M5 delivery and approval gates |
+| [12 — Archon integration](docs/12-archon-integration.md) | Local-keymaster/4tress qualification and independent verification |
+| [13 — Operations](docs/13-operations.md) | Environment separation, incidents, evidence and recovery |
+| [14 — References](docs/14-references.md) | Historical and technical sources; see charter for field-method sources |
+| [15 — Open questions](docs/15-open-questions.md) | Decisions needed for a useful, safe pilot and later inference |
+| [16 — Implementation backlog](docs/16-implementation-backlog.md) | Application-led work packages and dependencies |
+| [17 — Data contracts](docs/17-data-contracts.md) | Operational records, optional consented research metadata and provenance |
+| [18 — Agent handoff](docs/18-agent-handoff.md) | Unified coding-agent goal, beginning at M0 |
+| [19 — Scenarios](docs/19-scenarios.md) | Genuine tasks, qualification cases and sandbox studies |
 
-## Evidence standard
+## Scientific standard
 
-The simulator possesses hidden ground truth, the protocol publishes a restricted authenticated evidence view, and each participant has only its own belief state. Those three **must never be conflated**. A signed credential proves who asserted something, not that the assertion is correct. Bitcoin anchoring attests to existence/ordering under chain assumptions; it does not ensure IPFS availability, wallet completeness, service quality or moral truth.
+Separate operational judgments, independent audited outcomes and synthetic hidden truth. Live work has no omniscient oracle. Record allegations, uncertainty, missing evidence, appeals and corrections. Measure eligibility, entry, refusal and affordability as well as completed jobs; distinguish changed selection from changed behavior.
 
-## Required research sequence
+Use the same payment/worker protections in safe policy comparisons. Freeze confirmatory definitions before observing the relevant outcomes, account for repeated participants and market spillovers, report null/adverse results and disclose subsidy/manual supervision. Protect third parties: cooperative harmful work is not alignment success.
 
-1. S0–S2: deterministic simulator, baselines, reproducible data and unit/invariant tests.
-2. S3: adversarial fixtures, competing reputation services, preregistration freeze and holdout protocol.
-3. S4: pinned local archon-keymaster connected to 4tress for bounded interoperability; independently verified history and optional supported/approved Bitcoin signet anchoring. Use owned nodes for fault injection.
-4. S5: isolated Lightning/LNbits/CLN receipts and cross-verifier reconstruction; not enabled by the hosted identity profile.
-5. S6: bounded LLM agents and voluntary human studies (separately approved).
-
-The work is a research program: neither results nor real-world security claims are implied by the presence of these documents.
-
-## GitHub location
-
-Documentation lives beside the original article rather than introducing a separate repository because this preserves the historical context and existing publication. Executable software can later be extracted to a dedicated project if scale, licensing, or CI needs justify it; record that as an ADR and maintain links both ways.
+This is one program with independent evaluation, not a promise of working software or permission to deploy. The [evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) explicitly separates publication, feasibility, causal evidence and sustainability.

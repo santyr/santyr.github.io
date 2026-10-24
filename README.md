@@ -1,16 +1,17 @@
-# Sat Antyr — essays and experiments
+# Sat Antyr — essays, open systems and Agoric Alignment
 
 Public website: **[santyr.github.io](https://santyr.github.io/)**.
 
-The site presents [Bitcoin and the Alignment of Autonomous Agents](articles/bitcoin-alignment-of-autonomous-agents/article.md) and [The Agoric Alignment Experiment](articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/README.md), plus the separate [Agoric Work Marketplace](projects/agoric-work-marketplace/README.md) concept project, plus a growing [Explorations of Consciousness](explorations/consciousness/README.md) collection, followed by links to Lightning Goats and LNbits-related work.
+The site presents [Bitcoin and the Alignment of Autonomous Agents](articles/bitcoin-alignment-of-autonomous-agents/article.md) and **one application-led Agoric Alignment program**. The [Agoric Work Marketplace](projects/agoric-work-marketplace/README.md) is the proposed operating implementation and field-research environment. The former [Agoric Alignment Experiment directory](articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/README.md) now contains its methods, evaluation, safety and testing documentation—not a separate simulator-first product.
+
+Read [The Marketplace Is the Experiment](projects/agoric-work-marketplace/application-led-research.md) for the controlling program charter and [Evidence and Current Status](projects/agoric-work-marketplace/evidence.md) for the distinction between publication, implementation, feasibility, causal results and market sustainability. Implementation and field evaluation remain pending.
+
+The site also retains [Explorations of Consciousness](explorations/consciousness/README.md), Lightning Goats and LNbits-related work. Unrelated files, donations, the original essay and existing publication URLs are preserved.
 
 ## Publication structure
 
-- The existing Markdown files remain the single source of truth; the essay, summary, and artwork remain separate files.
-- GitHub Pages renders Markdown through Jekyll, including documents without YAML front matter.
-- The experiment is published as a research specification, not as completed research or working software.
-- Agoric Work Marketplace is a distinct conceptual project with a core paper, two detailed research chapters on reputation-backed escrow and related marketplace failure modes, nine accessible SVG figures, and no deployed contracts, wallet operations or functioning marketplace.
-- Explorations of Consciousness publishes essays as standalone Markdown, with optional local, accessible SVG diagrams and a linked collection index.
-- Existing unrelated repository files and the legacy node page are preserved.
+Markdown is the source of truth; Jekyll renders the website. The marketplace concept, economic-accountability and assurance chapters, unified charter, evidence register and research methodology describe one program. Nine existing accessible conceptual SVGs remain under `assets/agoric-work-marketplace/`; graphics are not measured results.
 
-See [PUBLISHING.md](https://github.com/santyr/santyr.github.io/blob/main/PUBLISHING.md) for maintenance and verification.
+M0–M5 gates replace the old S0–S6 simulator-first delivery sequence. Retained simulator schemas, A–F contrasts and AT fixtures support testing, not automatic authorization for live experiments. No publishing action authorizes wallet access, public identity writes, human recruitment or expenditure.
+
+See [PUBLISHING.md](PUBLISHING.md) for source, generated-site and deployed-site verification.

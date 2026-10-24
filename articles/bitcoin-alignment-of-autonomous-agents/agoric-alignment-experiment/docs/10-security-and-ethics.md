@@ -1,49 +1,39 @@
-# 10 — Safety, security and research ethics
+# 10 — Security, participant protection and research ethics
 
-## Approval boundaries
+One application-led program does not combine all authority. This document supplies a common protection floor for [M0–M5](11-stage-gates.md). It is not legal approval, an ethics-board decision or permission to deploy.
 
-**S0–S3:** completely offline, simulated sats, simulated identities and no real keys or human participants. This is the authorized default.
+## Bound authority and funds
 
-**S4:** use local **archon-keymaster** with **https://4tress.org** for the preferred initial interoperability test. Begin with bounded, explicitly approved public reads. Publishing synthetic DIDs/credentials requires separate write approval and a request/data budget. Keys and passphrases remain local. The selected node is the only public-service exception to the default isolation policy; no production wallet access is authorized. Owned independent nodes, local fault injection and Bitcoin signet require their own explicit scope and approval. See [12 — interface contract](12-archon-integration.md).
+A responsible sponsor authorizes purpose, task categories, maximum commitments, deadlines and any delegation. Agents receive narrow structured actions, never raw wallet administration or arbitrary Keymaster/CLI control. Contract revisions, beneficiaries, fees and permitted remedies are fixed by authenticated agreement. Unapproved spending, reused collateral and ambiguous settlement must fail closed and trigger reconciliation.
 
-**S5:** isolated CLN/LNbits/regtest or approved signet Lightning integration with disposable funds, hard payment caps and preauthorized action scope; approval is separate from S4. A 4tress L402 response never grants permission to spend.
+Default offline. Never use the user's production CLN/LNbits/Nostr/OpenHAB infrastructure or personal wallets under this plan. External reads, public identity/credential writes, isolated test funds, real-value custody and human recruitment require separately documented scopes. Keep environment-specific keys, wallets, databases, event namespaces and reputation indexes isolated. Do not export secrets, bearer ecash or raw participant evidence.
 
-**S6:** bounded LLM external calls and/or human participants require explicit owner permission, privacy review, and informed-consent procedures. Do not recruit humans or collect identifying financial histories by default.
+## Protect participants in every live comparison
 
-Mainnet payments, personal identity disclosures and connected personal wallets are not authorized by this research plan. An approved small synthetic DID write may still be permanently public; disclose only the agreed fixture data.
+Every live policy preserves intelligible terms, protection for earned compensation, evidence review, appeal, safe refusal, privacy and bounded exposure. No unprotected control group, secretly changed contract or automatic reputation-based confiscation is permitted. Bonds cannot force unsafe performance; declining an unaccepted task is not a breach.
 
-## Secrets and permissions
+Select genuinely useful, low-risk initial work. Hazardous installation, restricted procurement and other high-consequence categories need their own qualification and may remain prohibited. Prevent harms to nonparticipants; agreement between requester and worker does not make abusive work acceptable. Obtain appropriate review of actual labor, escrow, custody, payments, insurance and privacy obligations before any pilot rather than assuming a decentralized protocol removes them.
 
-The simulator uses fake signing keys and never writes credible-looking real mnemonics. Actual local archon-keymaster secrets must remain in protected local storage or a secret manager. No password, LNbits admin/invoice key, CLN rune, seed phrase or API token should appear in Git, test fixtures, output logs, model prompts, MCP tool arguments, network payloads or telemetry.
+## Service use and research participation
 
-Use explicit per-worker wallet paths under ignored private run directories; never inherit the personal ~/.archon wallet. Enforce mode 0700 on private directories and 0600 on secret files. Reject conflicting node URL variables and unexpected wallet paths. Do not transmit a passphrase or wallet file to 4tress, and do not attach a Gatekeeper admin credential intended for a different node.
+Distinguish data required to operate a job from optional research collection or policy experimentation. Explain research scope, allocation, relevant terms, compensation, foreseeable risks, data access/retention and withdrawal limits. Do not promise a nonresearch alternative that the pilot does not offer; disclose such limitations before enrollment.
 
-Never hand an agent policy the raw SDK object or wallet admin privileges. Use a narrow capability-scoped adapter with allowlists, request/transaction/cumulative limits, destination validation and separate approval for irreversible writes. A policy's proposed action and the authorized execution are distinct events. This applies equally to every controller substrate.
+Research withdrawal must not forfeit earned compensation or create an adverse reputation label. Existing lawful contractual obligations and irreversible public-record limits must be described accurately. Research incentives, subsidies and operator support are disclosed separately from ordinary service economics. No deception about the nature of a human or AI participant without a specifically approved protocol; no fabricated public credentials or work histories.
 
-For the hosted client, keep TLS verification enabled, reject cross-host redirects and automatic host/registry fallback, impose finite timeouts, and report missing permissions or payment requirements without bypassing them. Do not use the SDK's indefinite readiness loop for unattended work. A timed-out write is ambiguous; reconcile its operation ID rather than automatically retrying or recreating an identity.
+## Independent evaluation and due process
 
-All owned service deployments default to localhost binds, strict CORS, no unsolicited internet routes, quotas, outbound restrictions and fail-closed auth. The [August 2026 security audit](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/SECURITY_AUDIT.md) is historical: confirm relevant findings against the pinned code. A source pin describes the local client, not the deployment running at 4tress.
+Researchers cannot authorize payouts or modify accepted contracts. Operational adjudication, payment signing and independent outcome audit have separate permissions. Pay reviewers for declared services, not favorable conclusions or the amount confiscated. Declare operator, sponsor, issuer and arbitrator conflicts; document appeals and signed superseding outcomes.
 
-## Privacy architecture
+Alleged, contested, final and overturned findings must be distinguishable. Do not convert uncertain physical evidence into categorical fraud to make a model easier to score. Real field auditing has no omniscient oracle, and the operational reputation score cannot be its own ground truth.
 
-Economic visibility can improve accountability but may enable targeting, extortion or other abuses. Separate cryptographic pseudonym from real-world identity. Experimental controller links, substrate labels, strategies and oracle outcomes belong exclusively in restricted state, never in published trial records or remote node uploads. Prefer aggregate reporting and synthetic datasets. Real transaction graphs or contact data require explicit consent.
+## Safe adversarial work
 
-Test selective disclosure as a legitimate alternative. Honest newcomers need a path to transact without institutional identification; negative allegations must allow contestation and counterproof. Public claims may remain permanently retrievable, so prepublication review is essential. Pseudonymous DIDs do not hide client IPs or traffic correlations from a gateway operator.
+Fraud, Sybil swarms, forged evidence, compromised reviewers, double pledges, denial of service and destructive failure tests stay in owned isolated environments or separately approved protected exercises. Never expose unsuspecting participants to intentional losses or inject artificial sanctions into real reputations. Never flood, fault-inject or attack 4tress or public relays.
 
-## Simulated adversarial behavior
+Synthetic identities and traces remain marked and cannot establish real commercial history. An actual pilot needs prior recovery drills for relevant mint/rail, signer, network and operator failures. Unsupported Cashu conditions or missing Archon capabilities block the claimed function; they are not permission for automatic fallback spending.
 
-All coercion, fraud, censorship and threat scenarios are fabricated worlds with bounded simulated harm. Do not issue threats, attack public infrastructure, impersonate real people or scrape real transaction associations for this experiment. Use local fixtures or owned isolated nodes for forged requests, Sybil fleets, partitions, reorgs, heavy workloads and deliberate outages. **Do not attack or load-test 4tress.** Coordinate with its operator before expanding the small smoke budget.
+## Monitoring, stopping and remediation
 
-## Trust model and residual risk
+Before launch set task/participant and aggregate exposure caps, incident contacts, escalation rules, maximum pending liabilities, review deadlines, compensation/reserve arrangements and monitoring responsibilities. Pause new commitments on secret exposure, duplicate settlement, accounting failure, unsafe instructions, coercion, consent failure or material unexpected harm. Protect already earned pay and existing claims while containing the incident.
 
-Bitcoin confirms monetary ordering/integrity under consensus assumptions, not contract terms, consent, complete attribution or content availability. Archon verifies DID operations and signatures; factual assertions remain independently contestable. Hyperswarm is not Bitcoin anchoring, and a remote `confirmed` flag is insufficient chain proof. Preserve explicit uncertainty for unconfirmed/reorged anchors and hidden controller keys.
-
-4tress is a convenient interface provider, not the oracle or global reputation authority. Independent evidence/chain validation, retained content and an independently operated verifier are required for claims beyond successful API access. Unavailable proofs or incomplete evidence must not be converted into successful verification.
-
-## Stop rules and incident workflow
-
-Stop and freeze logs on secret leakage, unapproved host access, real monetary transfer, unauthorized oracle reads, cross-economy contamination, unauthorized disclosure, excessive resource use or compromised verification. Also stop hosted writes on unsupported registries, permission/payment demands, rate limiting or ambiguous write outcomes. Preserve a redacted trace, isolate/revoke disposable secrets where appropriate and request reapproval before restart.
-
-## Human trials
-
-If approved later, submit recruitment, compensation, consent and withdrawal procedures; no deception except specifically reviewed design; no real losses or involuntary sharing of financial information. Treat humans and AI equally under economic protocol rules without pretending their consent needs and vulnerabilities are identical. Do not claim institutional-review approval where none exists.
+Safety review is separate from statistical significance. A necessary emergency change may invalidate a frozen comparison; record it, explain affected observations, obtain new approval and requalify. Do not collect additional risky observations merely to reach a target sample. Publish privacy-safe incident and correction summaries, including null/adverse study findings.

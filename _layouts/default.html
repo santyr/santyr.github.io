@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="publication-revision" content="consciousness-20261018-r2">
+  <meta name="agoric-publication-revision" content="agoric-unified-20261024-r1">
   <title>{{ page.title | default: site.title | escape }} · {{ site.title | escape }}</title>
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
   <meta name="theme-color" content="#102b44">
@@ -26,9 +27,10 @@
     <div class="header-inner">
       <a class="wordmark" href="{{ '/' | relative_url }}">SAT ANTYR <span>open systems / open futures</span></a>
       <nav aria-label="Main navigation">
-        <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}">Essay</a>
-        <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}">Experiment</a>
-        <a href="{{ '/projects/agoric-work-marketplace/' | relative_url }}">Work marketplace</a>
+        <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/article.html' | relative_url }}">Thesis</a>
+        <a href="{{ '/projects/agoric-work-marketplace/' | relative_url }}">Marketplace</a>
+        <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}">Research</a>
+        <a href="{{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}">Evidence</a>
         <a href="#related-work">Other work</a>
         <a href="#support">Support</a>
         <a href="https://github.com/santyr">GitHub ↗</a>
@@ -36,17 +38,18 @@
     </div>
   </header>
   <div class="page-shell {% if page.section == 'experiment' %}with-guide{% endif %}">
-    {% if page.section == 'experiment' %}<aside class="desktop-guide" aria-label="Experiment documents">{% include research-guide.html %}</aside>{% endif %}
+    {% if page.section == 'experiment' %}<aside class="desktop-guide" aria-label="Agoric Alignment research documents">{% include research-guide.html %}</aside>{% endif %}
     <main id="main-content" class="main-content" tabindex="-1">
       {% if page.marketplace %}
-      <nav class="exploration-breadcrumb" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true"> / </span><a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/' | relative_url }}">Agoric Alignment</a><span aria-hidden="true"> / </span><span aria-current="page">Work Marketplace</span></nav>
+      <nav class="exploration-breadcrumb" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true"> / </span><a href="{{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}">Agoric Alignment</a><span aria-hidden="true"> / </span><a href="{{ '/projects/agoric-work-marketplace/' | relative_url }}">Marketplace</a></nav>
+      <p class="status-note">One application-led research program. Read the <a href="{{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}">unified charter</a> and <a href="{{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}">current evidence status</a>. Design and mechanism studies are not deployed services.</p>
       {% endif %}
       {% if page.exploration == 'consciousness' %}
       <nav class="exploration-breadcrumb" aria-label="Breadcrumb"><a href="{{ '/' | relative_url }}">Home</a><span aria-hidden="true"> / </span>{% if page.url == '/explorations/consciousness/' %}<span aria-current="page">Explorations in Consciousness</span>{% else %}<a href="{{ '/explorations/consciousness/' | relative_url }}">Explorations in Consciousness</a>{% endif %}</nav>
       {% endif %}
       {% if page.section == 'experiment' %}
-      <p class="eyebrow">THE AGORIC ALIGNMENT EXPERIMENT</p>
-      <p class="status-note">Research specification · Implementation and evaluation pending. No experimental findings are claimed.</p>
+      <p class="eyebrow">AGORIC ALIGNMENT / RESEARCH &amp; EVALUATION</p>
+      <p class="status-note">The marketplace is the experiment. This directory provides methods and test infrastructure for one application-led program. <a href="{{ '/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/11-stage-gates.html' | relative_url }}">M0–M5 gates</a> replace the former simulator-first sequence. Retained A–F, AT and simulator fixtures are research tools, not unprotected live policies. No experimental findings are claimed.</p>
       <details class="mobile-guide"><summary>Browse the research guide</summary>{% include research-guide.html %}</details>
       {% elsif page.section == 'essay' %}<p class="eyebrow">ESSAY / SAT ANTYR</p>{% endif %}
       <div class="prose">{{ content }}</div>

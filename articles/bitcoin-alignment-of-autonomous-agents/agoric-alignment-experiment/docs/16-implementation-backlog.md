@@ -1,73 +1,49 @@
-# 16 — Implementer backlog and task dependency graph
+# 16 — Application-led backlog and dependencies
 
-Read [AGENTS.md](../AGENTS.md), [stage gates](11-stage-gates.md) and [12 — 4tress/archon-keymaster interface](12-archon-integration.md) first. This is an execution plan, not evidence of completed work or permission for live deployments.
+**This backlog supersedes the former AAE-001–023 simulator-first dependency chain.** Read [AGENTS](../AGENTS.md), the [unified charter]({{ '/projects/agoric-work-marketplace/application-led-research.html' | relative_url }}), [gates](11-stage-gates.md), [data contracts](17-data-contracts.md) and [handoff](18-agent-handoff.md). All work packages are planned, not completed. No package grants live authority.
 
-## Stage S0 — offline
+## M0 — Shared kernel
 
-**AAE-001 — Project skeleton.** Create `pyproject.toml`, `src/agoric_alignment`, `tests`, `configs`, `scripts`, `schemas`, `reports/README.md` and `.gitignore`. Offline floor Python >=3.11; prefer >=3.12 for the optional archon-keymaster integration, or use a separate >=3.12 worker. Add build/install/test/run commands, type/lint checks and license ADR. Acceptance: a fresh clone runs an offline example without network or installed Archon dependencies.
+**AA-001 — Domain and scope.** Select the narrow useful task category, record implementation-location/architecture decisions and build a small versioned domain package. Define mandate, contract revision, evidence, review, dispute, reservation and settlement objects. Keep optional network dependencies out of offline setup. Acceptance: canonical codec/signature-domain and invalid-record fixtures; explicit environment and policy versions; no secrets or research permission inferred from a field.
 
-**AAE-002 — Data contracts and canonical codec.** Implement versioned Event, RunManifest, Contract, EvidenceRecord, Prediction and AggregateMetric. Add the separate Archon profile contract and manifest 1.1 remote provenance while retaining legacy manifest 1.0 validation. Reject malformed data and cross-run IDs. Acceptance: round-trip/hash tests, 10+ negative fixtures, no oracle fields in public records, no enabled network/payment in shipped profiles.
+**AA-002 — Accounting and authorization.** Implement state validation, budget ceilings, beneficiaries, idempotence, unique reservations, ambiguity reconciliation, cancellation, appeals and refund rules. Acceptance: conservation/property tests; no double allocation or duplicate payout; stale revisions and forged authority rejected; a negative reputation score cannot spend escrow.
 
-**AAE-003 — Event-sourced simulator.** Logical clock, independent RNG streams, append-only events, snapshots and replay. Acceptance: byte-identical canonical events/metrics for fixed inputs; resumed run matches uninterrupted run.
+**AA-003 — End-to-end offline job.** Use the same intended application domain with mock identity, money and evidence adapters. Include successful delivery, disagreement, refusal, cancellation and outage recovery. Acceptance: deterministic replay, clear synthetic labels and prohibited cross-environment/oracle access. No large economic tournament is required.
 
-**AAE-004 — Accounting and contract states.** Endowments, transfers, escrow, prices, delivery, dispute, settle/refund; reject illegal transitions and double spends. Acceptance: conservation, replay, expiration, refund and idempotence properties.
+## M1 — Qualify a narrow pilot workflow
 
-**AAE-005 — Vertical slice.** Two scripted agents with compute/forecast and fulfill/default workflows plus metrics. Acceptance: instrumented offline fixture with a reproduction command.
+**AA-004 — Worker and bounded agent interfaces.** Provide minimal listing, negotiation, consent/scope display, acceptance/refusal, private evidence, review and appeal. Agents use structured authorized actions, not wallet-admin or arbitrary CLI access. Acceptance: user can identify purpose, compensation, risk and dispute route; tests cover scope changes and unsafe instructions.
 
-## Stage S1 — market and controlled actors
+**AA-005 — Required identity and payment adapters.** Qualify local-keymaster/4tress under [12](12-archon-integration.md), Nostr transport and the chosen supported settlement construction. Mock ports are not live escrow. Pin local dependencies separately from observed server capabilities; retain local signing, read/write/payment separation and no auto-pay on 402. Acceptance: independent identity/receipt checks, required condition enforcement, recovery and no accidental production credentials. Only approved network/value scopes may execute.
 
-**AAE-006 — Task market.** Posted-price bilateral matching, heterogeneous costs, buyer value and oracle scoring. Acceptance: identical generated exogenous task streams under paired treatments.
+**AA-006 — Pilot safety and measurement case.** Specify genuine demand, responsible sponsor, task limits, compensation, custody, exposure, consent, data handling, independent review, incident response and appropriate legal/security/ethics review. Prepare operator drills and minimal research/operational separation. Acceptance: required recovery works and a decision maker approves a specific pilot; absent approval remains a block.
 
-**AAE-007 — Strategy interfaces.** Cooperative, opportunistic, newcomer, incumbent, short/long horizon and random policies. Acceptance: ObservationView only, forbidden truth access rejected, actions validated.
+## M2 — Useful paid task
 
-**AAE-008 — A/B arms.** Ephemeral/no-evidence and persistent/local-memory economies with 100 actors and >=1,000 opportunities. Acceptance: reproducible matched baselines, no missing contract/accounting state.
+**AA-007 — Run the separately approved pilot.** Complete a genuine low-risk task with informed participants, real effort, protected compensation, independent outcome check and verified settlement. Include bounded AI-requester feasibility with supervision disclosed. Acceptance: honest report of outcome/remedy, consent and scope evidence, fees/subsidy/manual involvement and limitations. Publish feasibility only; no invented causal conclusion or synthetic reputation history.
 
-## Stage S2 — reputation and identity economics
+## M3 — Repeated operation and study qualification
 
-**AAE-009 — Signer/evidence port.** Clearly labeled simulated signatures, issuer/subject/contract claims, append-only contestation. Acceptance: tampering rejected; authenticated false assertion not treated as fact.
+**AA-008 — Measurement and independent audit.** Develop repeat opportunities and independent counterparties. Instrument eligibility, offers, refusals, accepted work, completion, settlement, costs, loss, disputed/unknown outcomes and newcomer access under the approved data policy. Acceptance: calibrated outcome audits, separated research permissions, documented subsidy and no self-validating reputation labels.
 
-**AAE-010 — Credentials/evaluators.** Signed endorsements, contextual Bayesian estimates and multiple independent evaluator services. Acceptance: substrate blindness, uncertainty at cold start, reproducible explanations/calibration.
+**AA-009 — Safe comparison design and registration.** Select a precise fixed-versus-history-sensitive policy contrast. Preserve a common protection floor and isolate unrelated factors. Choose assignment/exposure mapping, independent units, follow-up, primary outcomes, missingness and cluster-aware power/precision. Acceptance: independent review and prospective registration; if inadequate, remain descriptive rather than manufacturing certainty.
 
-**AAE-011 — C–E, resets and collateral.** Subject-disclosed credentials, private authenticated records, public log, pseudonym resets and escrow. Acceptance: resets forfeit displayed reputation without creating money; omission and newcomer effects measurable.
+## M4 — Field comparison
 
-**AAE-012 — Pilot analysis.** P1–P3 and secondary metrics, paired seeds, bootstrap intervals and pilot power inputs. Acceptance: hand-computable analytic fixtures pass and transactions are not treated as independent replicas.
+**AA-010 — Versioned policy execution.** Implement only the approved prospective assignment and policy variants. Freeze terms at contract acceptance, log deviations and ensure safety stops do not depend on statistical success. Acceptance: no unprotected arm, undisclosed experimental term or retrospective change; repeat participants and spillovers recorded as specified.
 
-## Stage S3 — adversarial tests and freeze
+**AA-011 — Independent analysis and publication.** Analyze all specified outcomes at the defensible unit; report selection, intention-to-treat where appropriate, costs, uncertainty, harm, null/adverse results and protocol deviations. Acceptance: independently reproducible safe extracts and analysis, findings at their actual evidence level, no payment authority in the analyst pipeline.
 
-**AAE-013 — Attack suite.** AT01–AT16 reproducible fixtures with separate coding-defect and economic-attack outcomes. Acceptance: every attack has evidence, trace and measured result.
+## M5 — Replication and later mechanisms
 
-**AAE-014 — Preregister.** Freeze confirmatory design/sample size, code, holdout digest and amendment policy. Acceptance: independent reviewer can verify freeze preceded holdout results.
-
-**AAE-015 — Independent evaluator replay.** Rebuild beliefs from permitted signed evidence, without oracle access. Acceptance: reproducible predictions, omissions and false claims reported honestly.
-
-## Stage S4 — 4tress / archon-keymaster (explicit approval)
-
-**AAE-016 — Preferred client adapter.** Wrap the local Python archon-keymaster SDK pinned to source `0a6ecf574a6a35175471a3342e30936336f37df6`, subdirectory `python/keymaster` (source version 0.7.0, Python >=3.12). Use https://4tress.org as the selected remote node. Validate configs/archon-4tress.json, reject unsafe inherited configuration, isolate wallets, enforce capabilities/request budgets and expose structured ports rather than arbitrary wallet commands. No full local stack or MCP installation is required to begin.
-
-Start with mocked SDK boundary tests, then approved bounded read-only readiness/registry checks, then separately approved two-identity synthetic smoke tests for create/resolve/rotate/revoke and credential issue/verify. Acceptance: local signing, no secrets/oracle fields sent remotely, no auto-pay on 402, no unsafe retry on ambiguous writes, no silent host/registry fallback, captured client/server provenance. Missing endpoint capabilities produce a documented block, not fabricated success.
-
-**AAE-017 — Independent history and signet.** Verify signatures and issuer history independently, retain CID bytes and reconstruct with the original client offline. Use an independently operated verifier. Request BTC:signet only if advertised, approved and independently provable; a Hyperswarm `confirmed` flag does not qualify. Acceptance: valid batch/chain/depth proofs, unavailable data stays unknown, reorg handling correct. Reorgs, partitions, malicious responses and load tests run only on local fixtures or owned isolated nodes, never on 4tress. Distinguish S4a connectivity from S4b/c security evidence.
-
-**AAE-018 — Fair comparator.** Equalize log storage/cadence/verification, economic workload and costs; compare Bitcoin anchoring with an independent transparency log under declared threats. Acceptance: repeatable benign/attacked outcomes and costs; record hosted versus local infrastructure as a separate factor.
-
-## Stage S5 — isolated Lightning (separate approval)
-
-**AAE-019 — LNbits/CLN payment port.** Disposable wallets, scoped budgets/fees and contract-bound receipts. Acceptance: replay-safe bounded spends, paid invoice distinguished from fulfillment. The 4tress identity profile does not authorize wallet creation or payments; check any selected payment backend separately.
-
-**AAE-020 — L402 service adapter.** Verify preimages/macaroons in the sandbox with bypass tests. Acceptance: unpaid requests rejected; funded requests accepted only within explicit scope. Never automatically satisfy a challenge received during the hosted identity preflight.
-
-## Stage S6 — broader ecology (separate approval)
-
-**AAE-021 — Bounded model agents.** Structured authorized actions, no raw Keymaster/CLI or secrets, isolated tools and token/cost limits; capture model replies for replay. Acceptance: no oracle or out-of-scope payment/execution access.
-
-**AAE-022 — Consented human study.** Written consent, withdrawal, compensation and competence-matching protocol. Acceptance: reviewed scope and no involuntary disclosure or real losses.
-
-**AAE-023 — Replication/publication.** Reproducible full report, independent replication, sensitivity/negative findings and versioned artifacts. Acceptance: external agent reconstructs reported metrics and limited proof claims from published synthetic evidence.
+**AA-012 — Replicate and test portability.** Add independent evaluators/operators and approved task contexts; verify export/recovery/provider exit; evaluate true demand and full costs with subsidy disclosed. Optional studies of pooled collateral, sponsors, insurance, settlement alternatives and Bitcoin anchoring require their own reviewed assumptions and safe comparisons. Acceptance: reproducible bounded findings and documented limits, not a predetermined claim of superiority.
 
 ## Dependencies
 
-`001 -> 002 -> 003 -> 004 -> 005 -> 006 -> 007 -> 008 -> 009 -> 010 -> 011 -> 012 -> 013 -> 014 -> 015`. Tasks 016–018 depend on 015 plus scoped approval; tasks 019–020 on 018 plus payment approval; tasks 021–023 on stable prior results and separate authorization. Parallel work is permitted only after relevant invariants are fixed.
+`AA-001 → AA-002 → AA-003 → AA-004/005 → AA-006 → approval → AA-007 → AA-008/009 → approval → AA-010 → AA-011 → AA-012`.
 
-## Issue/PR policy
+Some interface/design work can proceed in parallel after shared contracts are stable. Required safety tests cannot be deferred, but full A–F simulator runs, all optional AT scenarios, anchoring comparisons, global collateral and sponsorship are not blanket prerequisites to AA-007. Use controlled fixtures specifically needed for its safety case and maintain broader research in parallel/later.
 
-Use task issues with linked acceptance tests and `feat/aae-NNN-short-topic` branches. Never silently change treatment assignments, outcome formulas, disclosure assumptions or frozen holdouts. A stage completion includes commands, artifacts and gate evidence. Do not merge unsafe defaults or secrets. Preserve historical sources, alternative treatments and meaningful falsification criteria.
+## Delivery contract
+
+Each package needs a scoped issue/ADR with purpose, assumptions, files, tests, artifacts, permission dependencies, rollback/recovery and acceptance evidence. Preserve original sources, alternative hypotheses and negative findings. Do not change frozen outcomes or conceal subsidy to make the thesis win. The [evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) distinguishes published plans from executed code and field results.

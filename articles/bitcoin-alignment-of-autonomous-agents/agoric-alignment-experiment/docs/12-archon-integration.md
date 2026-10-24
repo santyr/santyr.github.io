@@ -1,119 +1,55 @@
-# 12 — Archon integration through 4tress and archon-keymaster
+# 12 — Local-keymaster and 4tress integration within the application
 
-**Selected interface, 2026-10-17:** use [4tress](https://4tress.org/) as the preferred remote Archon node, with the **Python `archon-keymaster` package** as the local client/signing interface. Its executable is `keymaster`, and its import package is `keymaster`. This is distinct from the similarly named optional agent skill. The experiment remains a research specification; this document does not claim a successful connection or an executed study.
+**Revised scope, October 24, 2026:** retain [4tress](https://4tress.org/) and local Python `archon-keymaster` as the selected identity-integration path. Required adapter qualification belongs in M1 of the [application-led gates](11-stage-gates.md), not after a separate large simulator study. No connection, write or live study is claimed by this document.
 
-## 1. Architecture and what changes
+## Pinned baseline and provenance
 
-The preferred integration path is `agent policy -> experiment authorization adapter -> local archon-keymaster -> HTTPS 4tress -> Archon registries/storage`. Private keys, encrypted wallets, passphrases and signing remain local. 4tress is a node endpoint, not the experiment's wallet custodian, ground-truth oracle or mandatory reputation evaluator. All human, artificial, institutional and unknown controllers use the same adapter and contract rules.
+Preserve source revision `0a6ecf574a6a35175471a3342e30936336f37df6`, subdirectory `python/keymaster`, as the documented reproducibility baseline. Its [package metadata](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/pyproject.toml) declares version 0.7.0 and Python >=3.12; the [package README](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/README.md) describes the local CLI/library. These are historical pinned properties, not claims about the latest package or the deployed server. A reviewed upgrade needs source and dependency hashes plus renewed contract tests.
 
-A full Docker Keymaster/Gatekeeper/IPFS deployment and the JavaScript MCP server are **not prerequisites** for the first real Archon integration. Keep an independent local node or second approved operator for later verification, availability and adversarial tests. Do not remove those tests: using one hosted gateway alone cannot establish censorship resistance or independence from that gateway.
+The executable is `keymaster`, import package `keymaster`. Do not confuse it with an optional agent skill or require a JavaScript MCP server merely to begin. Prefer Python 3.12+ for a new application domain; integrations remain optional for offline tests. Record source, distribution, Python, dependency lock and adapter revisions separately from independently observed remote capabilities. Unknown server revision stays unknown.
 
-S0–S3 remain offline and deterministic. This profile is disabled by default, and enabling network reads does not authorize creating public DIDs, issuing credentials, paying invoices, changing registries or sending money. Use [the configuration profile](../configs/archon-4tress.json) and [its schema](../schemas/archon-profile.schema.json).
+## Architecture and custody
 
-## 2. Verified sources and pinning
+The path is bounded agent action → application authorization adapter → local keymaster/signing → HTTPS 4tress → supported registry/storage. Local wallets, passphrases and private keys never leave their authorized host. 4tress is not the application's wallet custodian, real-world oracle or reputation authority.
 
-The [official Archon agent guide](https://archetech.com/agents.html) identifies 4tress as the public reference node and documents Python `pip install archon-keymaster` plus `keymaster create-id`. The [Python package README](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/README.md) describes the local library/CLI and configuration. The [package metadata](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/pyproject.toml) declares package version **0.7.0**, **Python >=3.12**, and the `keymaster = keymaster.cli:main` console entry point.
+Retain the disabled-by-default, read-only [profile](../configs/archon-4tress.json) and [profile schema](../schemas/archon-profile.schema.json). Enabling reads does not authorize DID creation, credential publication, fees, registry changes or payments. A full local stack is not required for first connectivity; independent verifiers/owned nodes remain important for historical reconstruction and adversarial work. Connectivity alone does not establish decentralized assurance.
 
-Pin source revision **`0a6ecf574a6a35175471a3342e30936336f37df6`**, subdirectory `python/keymaster`. The source version is not proof that an identically numbered PyPI release has been published. The reproducible installation route below pins source; a release-wheel route needs independently verified package provenance and hashes. Lock all resolved dependencies, including build dependencies, before a confirmatory run. Record Python version, distribution version, source revision, dependency lock digest and adapter revision.
+## Safe setup and scoped identity tests
 
-The local source pin does **not** pin 4tress's deployed server. Record its reported version/capabilities when available, actual observed registry list and response digests. Mark absent server revision as unknown, never substitute the local client SHA. At documentation time the public site's live status could not be independently confirmed from this environment; an actual bounded preflight is required.
+After explicit dependency/network approval, use an isolated Python environment and verified source installation, not a remote shell installer. Inspect the pinned CLI/help and SDK before invoking methods. Set both `ARCHON_NODE_URL` and `ARCHON_GATEKEEPER_URL` explicitly to `https://4tress.org`; reject conflicts. Use explicit private wallet and passphrase-file paths outside version control, with private directory/file permissions. Reject inherited personal-wallet paths, default-wallet fallback and unsafe secret environment values.
 
-## 3. Safe operator setup — not executed by this document
+Provision independent stores/processes or serialized access for concurrent identities; do not share mutable current-identity state. Test and live keys/credentials remain isolated. Local wallet creation and public DID creation have different effects; both need their respective approvals. No mnemonic export, personal-wallet recovery or payment command belongs in routine agent onboarding.
 
-Use Python 3.12+ for the integration worker; the offline simulator may retain its Python 3.11 floor if it communicates through an isolated 3.12+ worker. Prefer 3.12+ for a new unified project. Archon dependencies must remain optional for offline tests.
+## Bounded preflight
 
-After approval to install dependencies, from the experiment directory:
+The pinned [GatekeeperClient](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/src/keymaster/gatekeeper_client.py) appends `/api/v1`: pass the origin, not a doubled API path. Audit `is_ready()`, `list_registries()` and `resolve_did()` against the pin, close the client and avoid an indefinite readiness retry. A proposed smoke budget remains one concurrent request, at most 0.5 requests/second, 25 requests total and a bounded overall deadline. These are local policy limits, not provider guarantees.
 
-```sh
-python3.12 -m venv .venv
-. .venv/bin/activate
-python -m pip install 'archon-keymaster @ git+https://github.com/archetech/archon.git@0a6ecf574a6a35175471a3342e30936336f37df6#subdirectory=python/keymaster'
-keymaster --help
-```
+Inspect actual readiness, registries and permissions. Timeout, malformed JSON, TLS/DNS failure, 401/403, 402 or 429 must yield a specific blocked/unknown state. Retry safe idempotent reads at most once within the budget; do not blindly retry writes. Reconcile deterministic operation/history after ambiguous writes. Never auto-pay a challenge, switch hosts or registries, downgrade TLS or attach production credentials.
 
-Do not execute an unreviewed remote shell installer. The `keymaster` executable must come from this virtual environment, not another Python or Node installation; record its path and installed distribution metadata.
+After separate synthetic-write approval, the profile permits a small smoke scope (at most two identities and six public claim assets). Enforce counts around underlying HTTP operations. Larger or live use requires separately reviewed scope, consent and identifiers; no synthetic work may bootstrap real reputation. Do not send oracle/controller mappings or private worker evidence to the hosted node.
 
-Use explicit configuration so inherited shell variables or an existing personal wallet cannot redirect the run:
+## Adapter requirements
 
-```sh
-export ARCHON_NODE_URL='https://4tress.org'
-export ARCHON_GATEKEEPER_URL='https://4tress.org'
-export ARCHON_DEFAULT_REGISTRY='hyperswarm'
-export ARCHON_WALLET_TYPE='json'
-export ARCHON_WALLET_PATH="$PWD/runs/private/archon/smoke/agent-01/wallet.json"
-export ARCHON_PASSPHRASE_FILE="$PWD/runs/private/archon/smoke/agent-01/passphrase"
-```
+Expose narrow IdentityPort/CredentialPort-style interfaces, not raw Keymaster, arbitrary CLI or secret export. These port names are design interfaces, not a claim that application code already exists. Audit the pinned [Keymaster implementation](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/src/keymaster/core.py) before implementing supported methods.
 
-The adapter must reject conflicting node URL variables, refuse an inherited `ARCHON_PASSPHRASE` in favor of an approved local secret source, and refuse fallback to `~/.archon/wallet.json` or an unrelated `./wallet.json`. Provision the private directory with mode 0700 and its passphrase file with mode 0600, outside version control, using a local secret manager. Never print the secret or put it in a command argument. Give each concurrently controlled experimental identity its own wallet store/process or explicitly serialize access; do not share a mutable 'current ID' across workers.
+Qualify possession proofs, current/historical resolution, rotation, revocation, issuer authority, credential signatures, content integrity and retention. Preserve pending, confirmed, unavailable and unverified states. Authentic false claims remain possible; signature validity never equals fulfillment. Retain canonical signed bytes and independently reconstruct disclosed history when the originating client is offline.
 
-After **separate permission to publish synthetic records**, operator smoke commands include `keymaster create-wallet`, `keymaster create-id aae-smoke-agent-01`, and `keymaster list-ids`. Confirm their current help and effects on the pinned CLI first. Wallet creation is a local mutation; DID creation publishes data. Do not use mnemonic export, personal-wallet recovery, Lightning wallet creation or payment commands as part of onboarding.
+Payments are outside this identity profile. Cashu/Lightning settlement adapters require their own qualified scope and approvals. No node response is permission to create wallets or fund jobs. Evidence availability, completeness and privacy are separate from content integrity.
 
-## 4. Read-only preflight and capability discovery
+## Registry and anchoring limits
 
-Use the package's [GatekeeperClient](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/src/keymaster/gatekeeper_client.py), which appends `/api/v1` itself: pass the origin `https://4tress.org`, **not** an origin already containing `/api/v1`. Its read methods include `is_ready()`, `list_registries()` and `resolve_did(did, options)`. Always close the client. Do not use its unbounded `connect(wait_until_ready=True)` retry loop in unattended experiments.
+Require the requested registry to appear in actual capabilities. Hyperswarm is not Bitcoin anchoring; a generic confirmed flag does not prove a chain inclusion. For a specific anchoring study, request `BTC:signet` only when supported and approved, then independently verify chain/network, batch inclusion, depth and reorg status. Missing signet blocks that study, not necessarily a pilot that makes no anchoring claim and meets its other safety requirements.
 
-A bounded read-only probe after network approval can use:
+Do not silently substitute mainnet or relabel unanchored records as a Bitcoin treatment. Endpoint, storage replication, registry and reputation method remain distinct experimental variables. A single gateway may omit evidence or correlate clients; independent verification cannot consist only of repeatedly asking that same gateway.
 
-```python
-import asyncio
-from keymaster.gatekeeper_client import GatekeeperClient
+## Qualification groups and historical labels
 
-async def probe():
-    client = GatekeeperClient('https://4tress.org')  # no remote admin credential
-    try:
-        async with asyncio.timeout(45):
-            ready = await client.is_ready()
-            registries = await client.list_registries()
-            if not ready:
-                raise RuntimeError('4tress is not ready; do not proceed')
-            if not isinstance(registries, list) or not all(isinstance(r, str) for r in registries):
-                raise RuntimeError('Unexpected registry response; do not proceed')
-            return {'ready': ready, 'registries': registries}
-    finally:
-        await client.close()
+Earlier S4a/S4b/S4c labels now describe capabilities, not a mandatory sequential program gate: bounded interface smoke tests; independent historical reconstruction; optional anchoring/adversarial verification. A narrow M1 pilot must demonstrate the capabilities its safety claims depend on. Broader anchoring comparisons and stress tests may be later research. Do not weaken a claimed guarantee simply to move a milestone.
 
-# Invoke only from the runner after its network permission gate passes.
-```
+Run malformed responses, malicious signatures, storage loss, reorgs, partitions, floods and censorship fixtures only on owned/isolated infrastructure. Never attack or load-test 4tress. Confirm that unapproved writes/payments are denied, secret egress is absent, historical authority is checked and unavailable evidence remains unknown.
 
-The profile proposes conservative smoke limits, not documented provider guarantees: one concurrent request, at most 0.5 requests/second and 25 requests total; at most two synthetic identities and six public claim assets when writes are explicitly enabled. Coordinate with the operator before larger work. Enforce the budget around every SDK HTTP operation, not just top-level CLI calls.
+## Manifests and reproducibility
 
-On timeout, TLS/DNS failure, malformed JSON, 401/403, 402 or 429, report an unavailable/unsupported/authorization/payment/rate-limit condition as appropriate. Retry idempotent reads at most once within the total budget; do not automatically retry writes. A timed-out write may already have been accepted: reconcile its deterministic operation ID/history before considering a resubmission. Never silently switch hosts, downgrade TLS, pay an L402 challenge, attach the user's admin key, or create a replacement identity.
+Retain the existing manifest 1.1/profile examples as compatibility inputs: `adapter_mode: archon-remote`, profile digest, node URL, client distribution/version/source and observed remote-response digest. They are not a complete field-study manifest. The [data contract design](17-data-contracts.md) adds environment, consent, policy and assignment requirements through an explicitly versioned future schema migration.
 
-## 5. Client adapter contract
-
-Implement the existing IdentityPort and CredentialPort using `archon-keymaster`, not handwritten DID cryptography or calls to a hosted Keymaster wallet service. The [public import](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/src/keymaster/__init__.py) exports `Keymaster`. Its [constructor and logic](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/python/keymaster/src/keymaster/core.py) accept a Gatekeeper client, local wallet store, passphrase and registry. Audit the pinned methods and write contract tests before adapting operations.
-
-- **Identity:** create pseudonyms only after approval; resolve current/historical versions; prove possession; rotate keys and revoke under explicit capabilities. The adapter returns DID, operation IDs, provenance and pending/confirmed status separately.
-- **Credentials/evidence:** issue and verify signed, subject-bound claims, revoke, and append contesting evidence. Verify issuer authority at issuance time; a valid signature is not evidence that a claim is true.
-- **Storage:** use the client's supported asset/content interfaces and retain the canonical signed bytes locally. A content hash or remote pin is not a permanent availability guarantee.
-- **Anchoring:** submit signed operations through the client's selected registry. Do not implement a custom OP_RETURN broadcaster merely to use 4tress. Obtain and independently verify batch inclusion, Bitcoin chain/network, position, depth and reorg status. If the required proofs cannot be retrieved, the claim remains unverified.
-- **Payments:** stay disabled for this identity profile. LightningSettlementPort and L402 belong to separately approved S5 tests; do not assume 4tress exposes or authorizes payment services.
-- **Policy access:** expose only a narrow structured-action adapter to agent policies. Never give a model the raw Keymaster object, arbitrary CLI execution, passphrase file or wallet-export methods. The optional `archon-keymaster` agent skill and `@didcid/mcp-server` are not mandatory dependencies.
-
-## 6. Registries and the limits of a hosted reference node
-
-The SDK's default is Hyperswarm. Require the requested registry to appear in the actual preflight response before any write. Hyperswarm is unanchored; a connection to 4tress or `confirmed: true` does not make history Bitcoin-backed. Creation may be marked confirmed without an on-chain anchor.
-
-For a Bitcoin experiment request `BTC:signet` explicitly and only if available and approved. If unavailable, mark that integration stage blocked; do not relabel Hyperswarm as arm F, switch to mainnet, or silently choose another chain. An approved independent node can supply missing capabilities in a separately declared profile/condition. Keep endpoint choice, storage replication, registry and reputation method distinct variables in paired comparisons.
-
-A single TLS endpoint can filter, delay or omit evidence and correlate clients. Treat its responses as supplied data, validate signatures/content/chain proofs, retain response captures and use an independent verifier not wholly reliant on the same endpoint for the independence claim. Record unknown completeness and unavailable content honestly. No claims of anonymity against the gateway operator are made merely because DIDs are pseudonymous.
-
-## 7. Acceptance tests and stage split
-
-**S4a, interface:** offline SDK boundary mocks first; then approved bounded read-only preflight; then approved two-identity smoke test. Check local wallet isolation, no unexpected host or secrets in egress/logs, valid signatures, historical authority, create/resolve/rotate/revoke and false signed claims remaining distinguishable from truth. Demonstrate denial of unapproved writes/payments and proper handling of missing capabilities.
-
-**S4b, historical verification:** independently reconstruct disclosed evidence when the original client is offline; test rotation/revocation, unavailable content and stale/contradictory responses. Separate a content-integrity proof from evidence completeness and availability.
-
-**S4c, adversarial and Bitcoin:** use local fixtures or an owned isolated node for reorgs, forged responses, CID conflicts, partitions, storage loss, load and censorship. **Never fault-inject, flood or attack 4tress.** If signet is supported and approved, verify real anchor proofs and compare with an equally engineered transparency log. S4 is not complete merely because S4a can reach the hosted node.
-
-The unchanged substantive requirements include independent signature checks, historical key validation, registry migration evidence, revocation without erasure, retained IPFS bytes, correct handling of reorgs and conditional convergence, and separation of invoice payment from service delivery.
-
-## 8. Reproduction and provenance
-
-Use manifest version 1.1 with `adapter_mode: archon-remote` for the hosted-client run and an `archon_interface` object recording profile digest, node URL, client distribution/version/source SHA and the digest of an observation artifact. Record actual server version when exposed, otherwise null; do not infer it from the client. Offline manifests continue to use `offline` and a null interface. Store dependency hashes, bounded request counts, sanitized public replies, registry list and relevant signed operations. Secrets and private wallet bytes must never appear in the exported artifacts.
-
-Live responses/timestamps are not deterministic. Capture them for offline replay and distinguish replay reproducibility from repeating writes against a changing network. Keep bulk strategy tournaments and attacks offline; 4tress is the default interoperability target, not a per-tick simulator backend.
-
-## 9. Further primary references
-
-[Archon white paper](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/docs/WHITEPAPER.md), [DID scheme](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/docs/scheme.md), [Gatekeeper specification](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/docs/services/gatekeeper/README.md), [Lightning mediator](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/docs/services/mediators/lightning/README.md), [convergence proof scope](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/proofs/agent-convergence/README.md), and [historical security audit](https://github.com/archetech/archon/blob/0a6ecf574a6a35175471a3342e30936336f37df6/SECURITY_AUDIT.md). Check current code rather than assuming old audit findings remain open. The [historical bibliography](14-references.md) and original thesis remain unchanged.
+Capture sanitized public responses and request counts for offline replay. A repeated live call is not deterministic historical replay. Separate permission logs, private stores and public artifacts. The [original pinned integration specification](https://github.com/santyr/santyr.github.io/blob/2faf058ec6f2c9e992f4a3139ba2c756256b3848/articles/bitcoin-alignment-of-autonomous-agents/agoric-alignment-experiment/docs/12-archon-integration.md) remains available for setup examples; its S-stage scheduling is superseded by this revision.

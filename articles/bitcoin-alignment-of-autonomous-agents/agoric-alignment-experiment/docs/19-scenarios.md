@@ -1,44 +1,39 @@
-# 19 — Scenario catalog, seed families and fixtures
+# 19 — Genuine tasks, qualification cases and synthetic research
 
-## Scenario contract
+These scenarios serve one application-led program under [M0–M5](11-stage-gates.md). A proposed task or test is not approval to use real participants or money.
 
-Every scenario has `scenario_id`, `version`, `population_size`, `initial_supply`, `horizon_ticks`, `task_arrival_distribution`, `skills`, `fraud_schedule`, `evidence_latency`, `collateral_policy`, `disclosure_policy`, `role_labels`, `seed_family` and expected oracle-invariant assertions. Scenario changes require version bump; modifying one after holdout freeze is a protocol deviation.
+## Candidate first useful tasks
 
-## Initial four-arm pseudonymous trust pilot
+An owner-authorized measurement of nonhazardous equipment; documentation of an item's visible condition; verification of a delivered object's specified identifier; or collection of permitted environmental observations can provide a narrow end-to-end workflow. Select one with genuine sponsor demand, understandable acceptance criteria, safe access, fair compensation and limited privacy risk.
 
-`pilot-trust-v1`: 100 agents, 1,000+ contract opportunities, deterministic work plus forecasts, 60% cooperative/competent, 15% opportunistic, 10% short-horizon, 10% exploratory and 5% incumbent/incompetent (illustrative mixture, pilot-tunable before freeze). Endowments and costs are calibrated so all arms have feasible trade. Offer and opportunity streams are identical across paired seed, and fraud decisions depend on the same strategy parameters but allowed evidence differs.
+The first pilot should exercise an actual bounded agent request, a consenting provider, protected funding, private evidence, independent review and verified payment. Report human supervision and subsidy. Do not count self-paid sham jobs, manufactured reviews or synthetic identities as demand or earned reputation. Procurement and qualified installation can be later separately reviewed categories.
 
-Arms: A no reputational persistence; B local encounter memory; E discoverable signed evidence and independent reputation; E+escrow collateral. Run seed families `pilot-000001` onward; store seed derivation algorithm and no confirmation-selection from good results.
+## Required narrow-workflow qualification cases
 
-## Focused scenarios
+- Honest fulfillment with independently verified funding and final payment.
+- Decline before acceptance, legitimate safety refusal, sponsor scope change and good-faith cancellation; distinguish them from breach.
+- Missing, ambiguous or contested evidence, partial work and an appeal with a signed correction.
+- Duplicate/reordered messages, stale contract revisions, uncertain write response and retry without duplicate obligation or payment.
+- Counterparty or reviewer unavailable; applicable timeout/refund and claim-preservation paths.
+- Mint/rail or network interruption, unsupported condition, signer loss and independently reconstructible recovery under the selected design.
+- Forged authority, out-of-budget action, reuse of the same collateral reservation, accidental cross-environment data or synthetic reputation import.
 
-- `entry-newcomers-v1`: high-quality agents enter after market incumbents formed, vary risk size and collateral; verify they are not permanently excluded.
-- `reset-profitable-v1`: opportunistic agents build reputation then face high-value fraud options; vary future discount and detection likelihood.
-- `sybil-endorsement-v1`: one hidden controller produces many endorsers; compare issuer-independent vs naive endorsement count.
-- `reputation-laundering-v1`: many low-value successful trades followed by one high-value bid; test contextual reputation.
-- `endgame-v1`: impending exit erodes value of future reputation; measure terminal betrayal.
-- `false-allegation-v1`: malicious competitor signs false unfavorable claim; independently verifiable proof and appeals are recorded.
-- `collusive-witness-v1`: provider and witnesses share hidden controller; claimed independence differs from actual.
-- `partial-disclosure-v1`: omit unfavorable contract evidence from wallet disclosures; compare disclosure arms with independent discoverability.
-- `private-vs-public-v1`: replicated public log vs custodial authenticated log, equal economics and evaluator algorithm.
-- `anchor-challenge-v1`: chain reorg and data unavailability, control log equivocation and censorship in equal-frequency anchoring arms.
-- `substrate-blind-v1`: identical historical proof assigned randomized public labels human/AI/institution/unspecified; measure counterparty decisions.
-- `privacy-targeting-v1`: simulated exploiter sees public wealth/relationship graph; measure extraction attempts, early warnings and disclosure mitigations.
-- `market-concentration-v1`: single evaluator accumulates subscribers; fee changes, competing entrant and outage test.
-- `organizational-v1`: one institutional agent delegates contract authority to several worker agents under shared treasury; compare protocol neutrality.
+Only cases relevant to the selected safety case are required for M1, but no relevant financial, consent or authority failure can be deferred merely to launch sooner. Test attacks with owned isolated fixtures, not unsuspecting people or public nodes.
 
-## Attack family mapping
+## Repeated-market observations
 
-AT01=reset-profitable; AT02=sybil-endorsement; AT03=reputation-laundering; AT04=collusive-witness; AT05=false-allegation; AT06=partial-disclosure; AT07–09=anchor-challenge and key rotation; AT10=market-concentration; AT11=privacy-targeting; AT12=endgame; AT13=substrate-blind; AT14=organizational privilege; AT15=oracle access negative fixture; AT16=payment cap negative fixture.
+At M3 observe real eligible opportunities, offers, refusals, affordability, acceptance, independently assessed fulfillment, verified compensation, disputes and return participation. Include genuine newcomers and independent counterparties where feasible. Report missing and unresolved outcomes, manual support and subsidy rather than selecting only clean successful contracts.
 
-## Expected invariant assertions
+Use these exploratory observations to qualify measurement and a later prospective study, not retroactively declare a hypothesis confirmed. Do not covertly vary live contract terms during an observational pilot.
 
-Irrespective of strategy and treatment, no participant can create simulated money, spend beyond authorization, read hidden oracle fields, write to another run's ledger, authenticate a forged signature, skip required escrow, or settle same contract twice. Attacks may produce *economic fraud* and welfare losses under permitted market rules; those are valid scientific observations and should not be suppressed.
+## First field comparison
 
-## Seed families and holdout
+Subject to reviewed design, compare fixed and history-sensitive economic terms with equivalent protection, compensation and evidence rules. Choose participant-group or market-cluster assignment appropriate to persistence and shared counterparties, record exposure/spillovers and retain a defensible eligible-population denominator. Low sample size warrants descriptive reporting rather than fabricated precision.
 
-Derive RNG streams with keyed hash domain labels (world/tasks/agent_id/evaluator_id/oracle/attacker) to avoid changed draw order disturbing matched exogenous workloads. Exploration, pilot, confirmatory and adversarial-holdout seed namespaces never overlap. Freeze holdout commitment before reading outcomes. Every published result provides scenario config digest, code revision, seeds or public delayed-reveal commitment, environment and analysis script hash.
+## Supporting adversarial economies
 
-## Pairing instructions
+Retain the existing A–F comparative ideas and [AT suite](08-adversarial-suite.md) for synthetic testing: opportunistic defaults, short horizons, identity resets, wash-traded reputation, corrupt witnesses, false complaints, sponsor rings, hidden collateral reuse and outages. These models may use seeded hidden truth only inside restricted oracle storage.
 
-Compare A/B/C/D/E/F on the same base scenario where the scientific contrast is meaningful. When a treatment's allowed actions change behavior, do not force outcomes to match: only exogenous opportunities are paired. Maintain contract value, opportunity, cost and underlying competence schedules across arms. Attribute changes to permitted evidence/institutions only after confirming no accidental performance or reward confounds.
+Match exogenous tasks, competence, resources, fees and opportunities across paired runs except for the declared intervention. A synthetic reset cannot mint money. Vary private/transparent/anchored evidence separately from evaluator quality and economic constraints. Keep uncertainty about physical outcomes explicit when transitioning to field work; oracle diagnostics do not become live measurements automatically.
+
+Full tournaments, insurance schemes, broad anchoring comparisons and global pooled collateral are research extensions, not blanket prerequisites to the first useful paid task. Publish their results at the synthetic evidence level and prevent all contamination of real credentials or reputations.

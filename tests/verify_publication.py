@@ -94,7 +94,6 @@ class Audit:
             assert svg.find('{http://www.w3.org/2000/svg}title') is not None
             assert svg.find('{http://www.w3.org/2000/svg}desc') is not None
             print('VERIFIED GRAPHIC', path, flush=True)
-        # Follow every same-site resource and anchor reachable from the homepage.
         visited = set()
         edges = []
         while True:
@@ -118,6 +117,10 @@ class Audit:
         print(f'PASS: {len(visited)} HTML pages, {len(self.cache)} local resources, {len(edges)} fragment links; all reachable targets resolve.', flush=True)
         print('PASS: homepage -> consciousness collection -> essay, four SVG graphics, all 14 reference anchors, and code-first section order.', flush=True)
         print('Scope: external publisher and repository availability is not asserted by this internal-link audit.', flush=True)
+        # The existing workflow calls this verifier for both built and public pages.
+        # Import only after core checks; the extra audit reads but never recurses into run().
+        from verify_application_led import verify
+        verify(self.directory)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

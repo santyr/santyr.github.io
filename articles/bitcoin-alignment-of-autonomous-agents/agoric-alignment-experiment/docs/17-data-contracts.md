@@ -1,84 +1,46 @@
-# 17 — Normative data contracts and evidence semantics
+# 17 — Shared operational and research data contracts
 
-**Scope:** version-1 application-level research records. Schemas provided in `schemas/` are starter contracts; implementing agent should refine with tests and increment version on breaking changes. This is not an existing Archon on-chain protocol, and is not a claim that all records are cryptographically verifiable.
+These are proposed requirements for one application domain, not implemented schemas or published NIPs/NUTs. Existing JSON schemas/configurations remain simulator and integration-profile examples until a tested, explicit migration is delivered. Do not relabel manifest 1.0/1.1 or synthetic oracle records as a complete field-study protocol.
 
-## Canonical serialization / signing
+## Common envelope
 
-Specify one stable canonical JSON encoding for simulator logs. For actual signed Archon DID operations use *Archon's documented proof suite*, not a novel implementation of signatures. IDs are SHA-256 of the canonical bytes with domain prefix (`aae/event/v1:`, `aae/contract/v1:` etc); never recycle a digest across domains. Explicit version, integer logical tick, run ID, source and type required. Do not include local wall time in canonical hash; external timestamps and anchor proofs travel in envelope metadata.
+Every relevant record needs a stable object ID, schema version, environment/namespace, issuer/authority reference, timestamp semantics, canonical digest and signature-domain binding where applicable. Contracts and actions reference exact revisions and predecessor state. Separate synthetic logical time from external observation time and evidence availability. Idempotency and replay protection must survive relay duplication, process restarts and ambiguous writes.
 
-## Example Contract
+Environment labels alone are insufficient: separate keys, wallet scopes, databases, credentials and allowed adapters must enforce the boundary. Test events and synthetic signatures cannot create live commercial history. A field study uses actual consented operational events, not an oracle-filled copy of the simulator model.
 
-```json
-{
-  "schema_version": "1.0",
-  "run_id": "pilot-e-0001",
-  "contract_id": "sha256:<digest>",
-  "buyer_did": "did:test:buyer",
-  "provider_did": "did:test:seller",
-  "task_kind": "forecast",
-  "service_spec_digest": "sha256:<digest>",
-  "value_sats": 35,
-  "payment_sats": 18,
-  "collateral_sats": 0,
-  "deadline_tick": 12,
-  "state": "OFFERED"
-}
-```
+## Operational objects
 
-Numeric "sats" are **simulated, bounded integers** until stage S5. Field `state` changes through append-only events, not by editing original signed contracts. Service outcome truth and observed delivery evidence are separate.
+| Proposed object | Required meaning |
+| --- | --- |
+| EconomicMandate | Accountable principal, authorized requester, purpose/categories, budgets, expiry, delegation and revocation handling |
+| TaskContract | Parties, scope, exact revision, evidence/acceptance tests, qualifications, deadlines, compensation/expenses, settlement/dispute policy and data terms |
+| CollateralLock/Reservation | Rail/network/mint, verified funded locator, ownership/spend rules, unique per-obligation allocation, amount/duration, pending claims and recovery |
+| EvidenceRecord | Issuer, contract, content digest, collection/provenance limits, access/retention, assertion versus independently assessed fact |
+| Review/AppealDecision | Decision authority, contract rules, available evidence, uncertainty, allegation/finality state and superseding links |
+| SettlementReceipt | Actual rail-confirmed inputs/outputs/fees or payment state, contract binding, independent checks, ambiguity and remaining liabilities |
+| OutcomeAttestation | Attributed fulfillment/payment/dispute statements with issuer and finality; not automatic truth or reputation points |
+| ReputationAssessment | Contextual evaluator, policy/model version, permitted evidence, uncertainty and prospective recommendation; no spend authority |
 
-## Example EvidenceRecord
+Private bearer proofs, wallet bytes, passphrases and raw personal evidence are not public fields. A collateral credential is a claim; actual allocation must be checked. A rail receipt does not prove physical delivery. An analyst cannot create an authorized remedy by writing a score into an object.
 
-```json
-{
-  "schema_version": "1.0",
-  "run_id": "pilot-e-0001",
-  "evidence_id": "sha256:<digest>",
-  "issuer_did": "did:test:customer",
-  "subject_did": "did:test:seller",
-  "contract_id": "sha256:<digest>",
-  "claim_type": "delivery_acknowledged",
-  "claim": {"accepted": true},
-  "evidence_refs": ["sha256:<file_digest>"],
-  "issued_tick": 13,
-  "disclosure": "public",
-  "signature": {
-    "suite": "SIMULATED_TEST_ONLY",
-    "key_id": "test-key-customer-1",
-    "value": "<synthetic>"
-  },
-  "anchor": null
-}
-```
+## Research and consent objects
 
-A valid signature proves the issuer authored the claim; it is not proof the service was good, voluntary or independent. `evidence_refs` may point to unavailable bytes; verifier reports availability separately. `anchor` is null unless actual anchor is present and validated; Hyperswarm history is not inferred as Bitcoin anchored.
+Maintain separate access-controlled records for operational terms, research enrollment/consent, approved intervention policy, assignment/exposure, independent outcome audit, analysis extract and evidence report. A research ID is not consent. Record what uses are permitted, version/date, withdrawal and retention constraints, and whether policy experimentation affects terms. Do not promise deletion of already public material or erase outstanding obligations.
 
-## Evidence verification result
+For a study, store study/protocol registration and amendment references; eligible population and recruitment criteria; assignment unit/method and any randomization provenance; cluster/participant linkage under authorized access; policy and contract versions; follow-up, attrition and missingness; audit sampling probabilities and disagreements; subsidies/manual intervention; monitoring, stops and unblinding. Analysts receive minimized authorized extracts, not production keys or unrestricted identity graphs.
 
-Return fields: `signature_status` (valid/invalid/unavailable), `issuer_authority_status`, `content_integrity_status`, `content_availability_status`, `registry`, `chain_proof_status`, `confirmations`, `outcome_verification_status` (true/false/disputed/unknown), `warnings[]`, `verified_at` and `evidence_digest`. Do not compress to `valid: true` if that could imply any factual claim has been verified.
+Unenrolled ordinary users must not silently become experimental subjects. Any operational aggregation outside optional research must have a separately justified and disclosed policy. Where collecting refusal/eligibility data is necessary for valid inference, obtain the appropriate permissions rather than quietly expanding telemetry.
 
-## Event structure
+## Manifest migration
 
-`event_id`, `run_id`, `schema_version`, `logical_tick`, `sequence`, `actor_did` or `system`, `event_type`, `payload`, `previous_event_digest`, `event_digest`. Strictly monotonic (tick, sequence), append-only. Contract transitions include `offer`, `accept`, `fund`, `start`, `deliver`, `attest`, `contest`, `adjudicate`, `settle`, `expire`, `reset_identity`. State machine rejects unauthorized or duplicative events.
+A future application/study manifest should identify environment, domain/schema/software/policy/model revisions, authorized capabilities, budgets, actual adapter provenance, consent/approval references, dataset digests and analysis scope. Fields and validation rules require an explicit new version with compatibility tests; this document does not pretend existing example schemas already enforce them.
 
-## Separation of private truth and public view
+Retain existing archon-remote provenance: local source/distribution/dependencies, selected endpoint/profile, observed server version or unknown state, registry/capabilities and captured-response digest. Client pin and server revision are not interchangeable. Synthetic manifests retain seeds/oracle references privately; field manifests cannot invent ground truth or deterministic outside-world replay.
 
-`OracleTruth` adds `true_controller_ref`, `actual_strategy`, `actual_substrate`, `true_quality`, `strategic_breach`, and `actual_harm`. None may appear in serialized public files or market-agent observation structures. The simulation can attribute multiple pseudonyms to one hidden controller without letting market agents discover it unless evidence legitimately links them.
+## Invariants and verification
 
-`ObservationView` must contain only contract-visible offers, participant's own finances/obligations, permitted evidence claims and evaluator recommendations. It cannot contain treatment arm name, ground-truth labels or hidden agent objectives unless scenario explicitly stipulates consented disclosure.
+Conservation, beneficiary authority, unique reservations, immutable accepted revisions, idempotence, safe retry, privacy and environment separation apply to every adapter. Independently replay permitted evidence without granting the replayer payment authority. Refuse incompatible schema/policy/environment mixtures unless an approved analysis explicitly stratifies them.
 
-## Prediction
+Outcome states must include contested, unknown and overturned, not just success/failure. Test malformed signatures, missing data, stale keys, misleading confirmed flags, secret fields, mismatched contract digests and cross-run/research-consent leakage. Safe aggregate export and full private evidence have different audiences and retention rules.
 
-`predictor_did`, `predictor_version`, `target_did`, `service_class`, `risk_band`, `as_of_tick`, `p_fulfill` in [0,1], optional interval, `evidence_digests[]` and `model_parameters_digest`. Never evaluate predictions on data unavailable when issued. Unknown outcome records remain censored/unknown rather than set to failure.
-
-## Run manifest and results
-
-Every run has schema version, treatment, scenario, seed, rng_algorithm, software revision, upstream Archon SHA (nullable), Bitcoin network (nullable), config hash and artifact hashes. Analysis refers to manifest IDs, not filename inference. A successful independent replay must recompute checksums and confirm accounting conservation.
-
-## Cryptographic trust
-
-For signet anchor proof retain `network`, `txid`, `height`, `tx_index`, `batch_cid`, `operation_index`, `block_hash`, `confirmation_depth`, `receipt_seen_at` and `reorged`. A digest proves content binding, not that the referenced file will remain retrievable. BTC proof cannot certify all private wallet transactions of a controller.
-
-## Test requirements
-
-Malformed digest, wrong key, wrong DID version, absent CID, duplicate contract payment, replayed transition, cross-run ID, unsupported schema version, contradicted evidence and reorg must each have negative fixtures. Document whether a check is pure-simulator, signature-verifier, independent on-chain anchor, or task-outcome oracle.
+The [architecture](05-architecture.md), [field design](03-experimental-design.md), [operations](13-operations.md) and [backlog](16-implementation-backlog.md) determine when these requirements must become tested code.

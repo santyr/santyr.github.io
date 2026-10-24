@@ -1,69 +1,55 @@
-# 03 — Experimental design and causal identification
+# 03 — Real-world experimental design and causal identification
 
-## Scientific approach
+**One application-led program.** The Agoric Work Marketplace is the service and the primary evaluation environment. Simulations are supporting test infrastructure, not a separate prerequisite product. All live activity and research remain subject to [M0–M5 gates](11-stage-gates.md) and [security/consent requirements](10-security-and-ethics.md).
 
-Use **simulated markets**, not persuasion tests or AI model moral surveys. Measure economically meaningful behavior: fulfillment, fraud, participation, economic welfare, institutional concentration, and harm. Decompose reputation from identity, public evidence, and anchoring by explicit treatment variations.
+## Evidence sequence
 
-## Main environments
+M0 exercises the intended application domain on an offline end-to-end contract. M1 qualifies required interfaces, money handling, recovery, task scope and consent. M2 conducts a separately approved genuine low-risk paid task. M3 develops repeat opportunities and credible measurement. M4 compares approved safe policies. M5 tests replication, portability and sustained usefulness. Publication does not complete any gate.
 
-| Arm | Identity | Evidence availability | Reputation | Notes |
-| --- | --- | --- | --- | --- |
-| A — Ephemeral | Free pseudonyms, no durable linkage | Individual counterparty memory only | None | Negative control |
-| B — Persistent local | Stable IDs | Only direct interactions visible | Local Bayesian estimates | Isolates persistence |
-| C — Endorsement | Stable pseudonymous IDs | Shareable signed endorsements; subject chooses disclosure | Credential/witness evaluation | Finney treatment |
-| D — Private record | Stable IDs | Complete authenticated evidence through one/limited custodians | Same evaluator as E | Compares centralized disclosure |
-| E — Public log | Stable IDs | Replicated independently verifiable append-only evidence | Competing evaluators | Tests common history |
-| F — Bitcoin | Archon `did:cid` where enabled; same identities as E | Same evidence, with Bitcoin signet anchoring | Identical evaluators as E | Tests anchoring/verification, not an invented morality effect |
+Feasibility is not causal evidence: a successfully paid task shows that a workflow can operate under its stated conditions. Repeated work can reveal usability and failure patterns, but an observational correlation between reputation and success does not establish that reputation caused cooperation. Subsidy, operator assistance, participant selection and competence must be considered.
 
-Build E/F initially using matched mocks: F uses a simulated anchor with Bitcoin-like finality and costs, then live signet only at S4. Compare E and F under *controlled attack* scenarios (censorship, corrupt log operator, divergent views, outages). Bitcoin does not prove truth of off-chain attestations; on-chain history is not assumed complete.
+## First comparison: fixed versus history-sensitive terms
 
-## Orthogonal interventions
+The initial candidate comparison holds the core marketplace, task eligibility, payment rail, worker compensation protection, verification standards, dispute access and safety floor comparable. The baseline applies fixed task-specific risk terms. The candidate uses a prespecified evidence-based history policy to change collateral, exposure or a declared bundle of the two. Keep qualifications and authorization constraints in both groups.
 
-Independent variation within selected arms, with clear experiment IDs:
-- **Identity resets:** disabled for debugging; free; fixed fee; collateral-linked; history-linked via permitted evidence.
-- **Disclosure:** address/record disclosure optional, commitment-only, selective credential proof, or full relevant-transaction disclosure.
-- **Credential source:** unverified self-report, signed subject report, independent witness, multi-witness with correlated errors.
-- **Evaluation:** none, local counts, Bayesian completion estimate, evaluator marketplace, centralized ranking comparator.
-- **Collateral:** zero, fixed, fraction of notional; hold escrow independent from agent policy.
-- **Controller label:** human, AI, institution, undisclosed; labels assigned blinded and randomized conditional on capability/performance.
-- **Transparency:** local private records, public transparency log, Bitcoin-backed proofs; separate transparency from censorship resilience.
+Do not simultaneously switch identity systems, settlement rails, reputation models and arbitration rules and then attribute the entire effect to reputation. Later factorial or separately staged studies may examine distinct components if sample and safety permit. Unsupported conditional Cashu is not an acceptable experimental arm; an unqualified payment mechanism is a blocked dependency.
 
-## Prevent hidden confounders
+The first model can be simple and explainable. A sophisticated Bayesian evaluator, full evaluator marketplace, sponsorship network or pooled collateral system is not required before learning whether a useful protected job can be completed. New mechanisms should earn their additional complexity through comparative evidence.
 
-All treatment arms receive matched task streams, real capabilities, prices, initial endowments, discount rates, resource constraints, opportunities for fraud, and collateral rules unless the listed intervention explicitly modifies them. For example, do not compare free Bitcoin settlement against an expensive centralized payment processor while attributing effects to ledger publicity.
+## Assignment, persistence and market spillovers
 
-Use common-risk oracle to adjudicate task outcomes for statistical measurement only. Claims available to agents require contractually legitimate evidence and may be noisy, delayed, missing or forged. Reputational accuracy cannot be measured using ground truth that the evaluator had access to.
+Choose the assignment unit after mapping how participants share workers, requesters, reputation issuers and opportunities. Participant groups or market clusters may be more defensible than per-job randomization for durable history-sensitive policies. Record cross-cluster participation and an exposure mapping. If participants can join many apparent identities, analyze how this affects assignment validity as well as marketplace risk; do not pretend to have proved unique controllers.
 
-Include economies with no reputation service, positive-only endorsements, mandated disclosure, and independent discoverability of contested evidence. Vary data availability separately from cryptographic validity; a valid CID is not proof that its bytes can be fetched.
+Persistent reputations create carryover. A switchback design needs a justified treatment of learning and history, not a casual reset of earned standing. Clusters can still interfere, and two-sided markets can shift equilibrium outcomes. [Holtz and colleagues](https://arxiv.org/abs/2004.12489) motivate explicit attention to marketplace interference; their findings do not automatically select the correct design for this application.
 
-## Treatment assignment and leakage
+Preregister the estimand and distinguish effects of assignment, use and a market-wide policy change. Analyze at the justified independent unit with appropriate correlation/cluster handling. Do not treat every transaction as an independent replication. When the pilot has too few independent units, report descriptive feasibility rather than overconfident causal estimates.
 
-Assign treatment at **economy** level. One economy's agents cannot interact with another economy or read its evidence. A run ID must define (scenario, seed, treatment, software revision, protocol schema, strategy roster, params). Runtime must reject writes crossing run boundaries. Use SHA-256 derived independent streams for market, each agent, each evaluator and the oracle. Predeclared treatment-pair seeds ensure comparable exogenous events.
+## Participation is part of the outcome
 
-In a real human-subject study, label disclosure can be studied through consented randomized vignettes, never by impersonating a real person or concealment outside an approved protocol. Actual human/AI comparisons must match task competence and history.
+Track all eligible/assigned participants and opportunities under the declared recruitment and data policy, including offers, refusals, unaffordable collateral, inability to match, accepted work and final settlements. For a randomized study, preserve intention-to-treat analysis as specified and present participation-conditioned analyses separately. For voluntary policy selection, report selection bias and use a justified observational approach, without pretending random assignment occurred.
 
-## Baseline reference experiment: Pseudonymous Trust
+Compare affordability, entry speed, first-job access, net compensation, losses and concentration alongside fulfillment. A candidate that reduces observed fraud only by excluding newcomers may fail the program's objective. Report whether an apparent gain reflects changed behavior, changed composition or unresolved selection.
 
-100 agents, 1,000+ opportunities, heterogeneous horizons and competence, fixed endowments, 4 arms (A, B, E, E+collateral) first; do not enable actual blockchain in this pilot. Agents choose counterparties using only visible evidence, and have randomized opportunities to default. A new identity retains controller's hidden wealth/strategy in oracle but discards public reputation; budget conservation prevents money creation via resets.
+## Independent outcomes and uncertainty
 
-Primary outcome analysis across independent run replicas, not transaction count. Compare cooperative surplus, exploitation losses, newcomer participation. Follow with controlled E versus F anchoring contrast.
+Use a declared independent audit sample of positive, negative and disputed outcomes. Reviewers should have the necessary authorized evidence and be blinded to treatment where feasible; compensation must not depend on a preferred conclusion. Preserve reviewer disagreement, missing evidence, unresolved disputes, appeal reversals and audit-selection probabilities.
 
-## Simulated time and time horizons
+The field has no omniscient ground-truth oracle. Separate operational decisions from independent assessments and synthetic hidden truth. A favorable platform score cannot validate the score itself. Signed receipts establish rail facts within their trust assumptions, not fulfillment or moral acceptability.
 
-A discrete event engine ticks in steps; all stochastic events are generated reproducibly. Each contract has offer, accept, deposit, task, delivery, observation, dispute, settle/expire phases. Agents may exit or die at random to test endgame incentives. Time preference/discount factor can differ by agent but is identical across paired treatments.
+## Common participant protection
 
-## Market clearing and prices
+Every live variant retains signed informed terms, authorized budgets, protection for earned worker compensation, fair appeal, safe refusal, private evidence and bounded exposure. No policy arm deliberately removes these protections. Contract terms and model versions are fixed at acceptance; an analytical update cannot retroactively increase collateral or change a beneficiary.
 
-Use a simple bilateral posted-price market initially, with queues and bounded negotiation attempts. Agent agents choose services, bids and counterparties. Demand, supply, execution cost and buyer value are drawn from published parameter distributions. Reject bids that exceed available balance or permission scope. Fraud should generate a gain only through actual contract rules, never magically mint money.
+Research participation and operational service must be distinguished honestly. Disclose any pilot-only availability, incentives, subsidy and manual intervention. Deliberate fraud, fabricated reputations, collateral attacks and destructive failure tests remain in sandboxes or explicitly approved protected exercises. No unsuspecting participant is an attack fixture.
 
-## Competing controls that could disprove Bitcoin necessity
+## Supporting synthetic comparisons
 
-Include a **tamper-evident privately held ledger**, **federated append-only transparency log** with independently audited signatures, and **Bitcoin anchoring** at matched publication frequency and data retention. Test under adversary control of some log operators and under network partition. Outcomes include log rollback detection, reconstructibility, costs, censorship, and whether agents can still prove a commitment existed.
+Retain A–F as optional research fixtures: A ephemeral/local memory only; B persistent identity; C subject-disclosed endorsements; D authenticated private records; E independently reconstructible transparency log; F otherwise comparable evidence with qualified Bitcoin anchoring. Their purpose is to isolate mechanisms under controlled assumptions, not to define mandatory live arms or remove baseline protections.
 
-The public log arm is not a strawman; if it matches the Bitcoin arm under relevant threat assumptions, report that result.
+Match exogenous tasks, competence, initial resources, costs, horizons and permitted evidence across paired synthetic runs. Use independent seeded random streams and immutable manifests. Keep hidden controller identity and true outcomes in restricted oracle storage unavailable to policies. A reset discards visible standing without creating money. Distinguish an implementation defect from strategic behavior allowed by the model.
 
-## Quality gates
+Compare E and F under declared relevant failures and matched storage/verification costs; a benign null result and a malicious-operator stress result answer different questions. Full A–F tournaments and anchoring studies are not M2 prerequisites. Reproducibility of a simulated trace is not external validation of real incentives.
 
-Experiment assignment, seed reproducibility, arm isolation, accounting conservation, false-endorsement injection, positive reputation cold start and statistical analysis have deterministic unit/integration fixtures. Confirmatory registration is frozen before holdout datasets are used.
+## Reporting and revision
 
-See [19 — Scenarios](19-scenarios.md), [02 — Preregistration](02-preregistration.md), [09 — Metrics](09-metrics-and-analysis.md).
+Use [preregistration](02-preregistration.md), [metrics](09-metrics-and-analysis.md) and [operations](13-operations.md). Publish all specified results, adverse events, uncertainty, subsidy and dependence limits. Stop unsafe variants, preserve existing participant rights, and preregister new comparisons after outcome-informed redesign. The [evidence register]({{ '/projects/agoric-work-marketplace/evidence.html' | relative_url }}) must distinguish useful operation from bounded causal claims and generalization.
