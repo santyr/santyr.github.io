@@ -4,7 +4,7 @@ title: Agoric Alignment — The Marketplace Is the Experiment
 section: marketplace
 marketplace: true
 permalink: /projects/agoric-work-marketplace/application-led-research.html
-description: One application-led research program: build a useful human-agent marketplace and test its incentive mechanisms through real work, protected settlement, and independent evaluation.
+description: "One application-led research program: build a useful human-agent marketplace and test its incentive mechanisms through real work, protected settlement, and independent evaluation."
 ---
 
 <p class="eyebrow">AGORIC ALIGNMENT / PROGRAM CHARTER / REVISION 0.2</p>

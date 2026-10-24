@@ -4,7 +4,7 @@ title: Agoric Work Marketplace — The Application and the Experiment
 section: marketplace
 marketplace: true
 permalink: /projects/agoric-work-marketplace/
-description: The operating implementation and intended real-world research environment of Agoric Alignment: authorized work, portable reputation, protected settlement and testable incentives.
+description: "The operating implementation and intended real-world research environment of Agoric Alignment: authorized work, portable reputation, protected settlement and testable incentives."
 ---
 
 <p class="eyebrow">AGORIC ALIGNMENT / MARKETPLACE SYSTEM DESIGN / REVISION 0.2</p>
