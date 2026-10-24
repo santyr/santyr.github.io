@@ -36,6 +36,24 @@ This project grows from the [Agoric Alignment thesis]({{ '/articles/bitcoin-alig
   <figcaption><strong>Figure 1 — Proposed system boundaries.</strong> Nostr, Archon, and Bitcoin payment infrastructure have distinct responsibilities. No one technology by itself guarantees physical work, truth, or fair dispute resolution. Conceptual architecture, not deployed infrastructure.</figcaption>
 </figure>
 
+<nav class="market-toc" aria-label="Concept paper contents">
+  <p>IN THIS PAPER</p>
+  <ul>
+    <li><a href="#1-a-new-economic-interface-not-a-loophole">01 / Purpose and boundaries</a></li>
+    <li><a href="#2-who-participates-and-what-each-participant-controls">02 / Roles and authority</a></li>
+    <li><a href="#3-from-mission-to-contract-the-task-model">03 / Contracts and missions</a></li>
+    <li><a href="#4-discovery-and-negotiation-over-nostr">04 / Nostr coordination</a></li>
+    <li><a href="#5-identity-credentials-and-economic-memory">05 / Archon and reputation</a></li>
+    <li><a href="#6-cashu-first-lightning-as-interconnection">06 / Cashu and Lightning</a></li>
+    <li><a href="#7-the-contract-lifecycle-and-observable-states">07 / Lifecycle and verification</a></li>
+    <li><a href="#10-human-centered-governance-and-safeguards">10 / Human safeguards</a></li>
+    <li><a href="#11-threat-model-and-failure-modes">11 / Threats and failures</a></li>
+    <li><a href="#15-research-questions-that-should-determine-a-later-plan">15 / Future design questions</a></li>
+    <li><a href="#16-proposed-validation-ladder-not-a-deployment-schedule">16 / Validation</a></li>
+    <li><a href="#sources-and-technical-references">Sources and standards</a></li>
+  </ul>
+</nav>
+
 ## 1. A new economic interface, not a loophole
 
 The initial focus is **AI-to-human delegation**: an AI agent with an authorized objective hires a human to perform a bounded real-world task. But the protocol should be substrate-independent. A human, AI, cooperative, corporation, or institution may be a requester, provider, evaluator, or sponsor where authorized. The protocol should evaluate capabilities, commitments, credentials, and conduct, not assign moral standing or commercial privileges based solely on whether a participant is biological.
