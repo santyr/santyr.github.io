@@ -9,7 +9,7 @@ The site presents [Bitcoin and the Alignment of Autonomous Agents](articles/bitc
 - The existing Markdown files remain the single source of truth; the essay, summary, and artwork remain separate files.
 - GitHub Pages renders Markdown through Jekyll, including documents without YAML front matter.
 - The experiment is published as a research specification, not as completed research or working software.
-- Agoric Work Marketplace is a distinct conceptual project with its own page, source document, five accessible SVG figures, and no deployed contracts, wallet operations or functioning marketplace.
+- Agoric Work Marketplace is a distinct conceptual project with a core paper, two detailed research chapters on reputation-backed escrow and related marketplace failure modes, nine accessible SVG figures, and no deployed contracts, wallet operations or functioning marketplace.
 - Explorations of Consciousness publishes essays as standalone Markdown, with optional local, accessible SVG diagrams and a linked collection index.
 - Existing unrelated repository files and the legacy node page are preserved.
 
