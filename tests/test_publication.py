@@ -102,7 +102,7 @@ class PublicationTests(unittest.TestCase):
         self.assertIn('permalink: /projects/agoric-work-marketplace/marketplace-assurance-patterns.html', assurance)
         self.assertIn('reputation', escrow.lower())
         self.assertIn('independent', assurance.lower())
-        self.assertIn('reputation never directly', escrow.lower())
+        self.assertIn('reputation must never automatically', escrow.lower())
         self.assertIn('funds', assurance.lower())
         for name in (
             'reputation-feedback.svg',
